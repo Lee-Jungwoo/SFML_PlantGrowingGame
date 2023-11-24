@@ -1,24 +1,29 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <iostream>
+#include <string>
 
-int main()
-{
-    auto window = sf::RenderWindow{ { 1280u, 720u }, "CMake SFML Project" };
-    // sf::RenderWindow window;
-    
-    window.setFramerateLimit(144);
-    
+
+int main(){
+   
+    sf::Window window(sf::VideoMode(800, 600), "My window");
+
+    // run the program as long as the window is open
     while (window.isOpen())
     {
-        for (auto event = sf::Event{}; window.pollEvent(event);)
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window.pollEvent(event))
         {
+            // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
-            {
-                
                 window.close();
+            if (event.type == sf::Event::TextEntered){
+                std::cout << "=>" << static_cast<char>(event.text.unicode) << std::endl;
             }
+            
         }
-
-        window.clear();
-        window.display();
     }
+
+    return 0;
+    
 }
