@@ -1,28 +1,36 @@
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 
-
+using namespace sf;
 int main(){
    
-    sf::Window window(sf::VideoMode(800, 600), "My window");
+    RenderWindow window(VideoMode(800,600),"new"); 
+    Image image;
+    image.loadFromFile("/Users/ijeong-u/Downloads/Logo.png");
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
+    Texture t;
+    t.loadFromImage(image);
+    Sprite sprite;
+    sprite.setTexture(t);
+
+
+    while(window.isOpen()){
+        Event event;
+        while(window.pollEvent(event)){
+
+            window.draw(sprite);
+
+            if(event.type == Event::Closed)
                 window.close();
-            if (event.type == sf::Event::TextEntered){
-                std::cout << "=>" << static_cast<char>(event.text.unicode) << std::endl;
-            }
+
             
         }
+        window.clear(Color::Black);
+        window.display();
+
     }
+
 
     return 0;
     
