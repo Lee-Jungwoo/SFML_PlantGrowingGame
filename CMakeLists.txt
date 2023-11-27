@@ -10,7 +10,7 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(SIMPLE_GAME src/main.cpp)
+add_executable(SIMPLE_GAME src/main/main.cpp src/lib/Plant.cpp src/lib/Plant.h)
 target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)
 target_compile_features(SIMPLE_GAME PRIVATE cxx_std_17)
 
