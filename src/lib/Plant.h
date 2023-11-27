@@ -11,3 +11,17 @@ public:
     void water() { this->waterStatus = 100; }
     void feed() { this->soilStatus = 100; }
 };
+
+class PlantSlot
+{
+private:
+    Plant *plant;
+    bool isEmpty() {}
+
+public:
+    PlantSlot(){};
+
+    void pushPlant(Plant *p) { this->plant = p; }
+
+    void pullPlant();
+};
