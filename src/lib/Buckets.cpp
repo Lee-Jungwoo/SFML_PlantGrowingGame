@@ -9,3 +9,11 @@ bool Bucket::consume(){
     }
 }
 
+bool Bucket::isEmpty(){
+    return !static_cast<bool>(remaining);
+}
+
+sf::Color Bucket::getColor(){
+    return color;
+}
+

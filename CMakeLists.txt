@@ -18,6 +18,8 @@ add_executable(SIMPLE_GAME
 
     src/lib/Buckets.cpp
     src/lib/Plant.cpp
+
+    src/lib/Game.h
 )
 target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)
 target_compile_features(SIMPLE_GAME PRIVATE cxx_std_17)

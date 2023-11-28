@@ -16,12 +16,12 @@ class PlantSlot
 {
 private:
     Plant *plant;
-    bool isEmpty() {}
+    bool isEmpty();
 
 public:
-    PlantSlot(){};
+    PlantSlot();
 
-    void pushPlant(Plant *p) { this->plant = p; }
+    void pushPlant(Plant *p);
 
     void pullPlant();
 };
