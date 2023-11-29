@@ -27,24 +27,22 @@ int main()
         
         waterBucket.draw(window);
 
-
+        
 
         while (window->pollEvent(event))
         {
             if(event.type == Event::KeyPressed){
                 
-
             }
+                
+
+            
+
             if (event.type == Event::Closed)
                 window->close();
         }
 
-    
 
-
-
-
-        
 
 
 

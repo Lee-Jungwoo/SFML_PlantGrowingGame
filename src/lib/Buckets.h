@@ -5,6 +5,7 @@
 class Bucket
 {
 protected:
+    sf::Image bucketImage[4];
     sf::Sprite sprite;
     sf::Texture * texture;
     const int capacity = 4;
@@ -13,13 +14,16 @@ protected:
     bool isEmpty();
 
 public:
+
     Bucket();
     ~Bucket();
-    void fill() { remaining = 4; }
+    void fill();
     bool consume();
     sf::Color getColor();
     sf::Texture * getTexture();
     virtual void draw(sf::RenderTarget *);
+
+
 };
 
 class WaterBucket : public Bucket

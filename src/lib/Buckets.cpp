@@ -9,20 +9,26 @@ Bucket::~Bucket()
 {
     delete texture;
 }
-
+     
 bool Bucket::consume()
 {
+     
     if (this->isEmpty())
     {
         return false;
     }
-
     else
     {
         remaining--;
         //사진 바꾸는 코드
         return true;
     }
+
+}
+
+void Bucket::fill(){
+    remaining = 4;
+    //사진 원래대로 돌리는 코드
 }
 
 void Bucket::draw(sf::RenderTarget *window)
@@ -49,8 +55,16 @@ sf::Texture *Bucket::getTexture()
 
 WaterBucket::WaterBucket()
 {
+
+    bucketImage[0].loadFromFile("../../assets/WaterBucket.png");
+    // bucketImage[1].loadFromFile();
+    // bucketImage[2].loadFromFile();
+    // bucketImage[3].loadFromFile();
+
     texture = new sf::Texture();
-    texture->loadFromFile("../../assets/WaterBucket.png");
+    texture->loadFromImage(bucketImage[0]);
+
+    
 
     sprite.setPosition(sf::Vector2f(300.f, 10.f));
     sprite.setTexture(*texture);
