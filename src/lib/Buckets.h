@@ -2,13 +2,14 @@
 #ifndef BUCKET_H
 #define BUCKET_H
 
+#define BUCKET_CAPACITY 4
 class Bucket
 {
 protected:
-    sf::Image bucketImage[4];
+    sf::Image bucketImage[BUCKET_CAPACITY];
     sf::Sprite sprite;
     sf::Texture * texture;
-    const int capacity = 4;
+    
     int remaining;
     sf::Color color;
     bool isEmpty();

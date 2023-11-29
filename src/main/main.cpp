@@ -15,9 +15,6 @@ int main()
     WaterBucket waterBucket;
     
     Vector2f size = window->getView().getSize();
-    
-    
-
 
     while (window->isOpen())
     {
@@ -32,7 +29,7 @@ int main()
         while (window->pollEvent(event))
         {
             if(event.type == Event::KeyPressed){
-                
+                waterBucket.consume();
             }
                 
 

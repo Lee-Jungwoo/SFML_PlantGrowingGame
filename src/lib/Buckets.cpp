@@ -1,8 +1,9 @@
 #include "Buckets.h"
+#include <iostream>
 
 Bucket::Bucket()
 {
-    remaining = 4;
+    remaining = BUCKET_CAPACITY - 1;
 }
 
 Bucket::~Bucket()
@@ -20,29 +21,31 @@ bool Bucket::consume()
     else
     {
         remaining--;
-        //사진 바꾸는 코드
+        delete texture;
+        texture = new sf::Texture();
+        texture->loadFromImage(bucketImage[remaining]);
+        sprite.setTexture(*texture, true);
+        std::cout<<remaining<<std::endl;
         return true;
     }
 
 }
 
 void Bucket::fill(){
-    remaining = 4;
+    remaining = BUCKET_CAPACITY -1;
     //사진 원래대로 돌리는 코드
 }
 
 void Bucket::draw(sf::RenderTarget *window)
 {
-
-    
     window->draw(sf::Sprite(*texture));
 }
 
 bool Bucket::isEmpty()
-{
+{   
     return !static_cast<bool>(remaining);
-}
-
+}   
+   
 sf::Color Bucket::getColor()
 {
     return color;
@@ -50,30 +53,27 @@ sf::Color Bucket::getColor()
 
 sf::Texture *Bucket::getTexture()
 {
-    return new sf::Texture(*texture);
+    return texture;
 }
 
 WaterBucket::WaterBucket()
 {
 
-    bucketImage[0].loadFromFile("../../assets/WaterBucket.png");
-    // bucketImage[1].loadFromFile();
-    // bucketImage[2].loadFromFile();
-    // bucketImage[3].loadFromFile();
+    bucketImage[3].loadFromFile("../../assets/WaterBucket.png");
+    bucketImage[2].loadFromFile("../../assets/Logo.png");
+    bucketImage[1].loadFromFile("../../assets/FertBucket.png");
+    // bucketImage[0].loadFromFile();
 
     texture = new sf::Texture();
-    texture->loadFromImage(bucketImage[0]);
-
-    
+    texture->loadFromImage(bucketImage[3]);
 
     sprite.setPosition(sf::Vector2f(300.f, 10.f));
-    sprite.setTexture(*texture);
-    sprite.setScale(0.4, 0.4);
+    sprite.setTexture(*texture, true);
+    
 }
 
 void WaterBucket::draw(sf::RenderTarget *window)
 {
-
     window->draw(sprite);
 }
 
