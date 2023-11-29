@@ -16,6 +16,8 @@ add_executable(SIMPLE_GAME
     src/lib/Plant.h 
     src/lib/Game.h
     
+    src/lib/Dictionary.h
+
     src/lib/Plant.cpp
 
     src/main/main.cpp 

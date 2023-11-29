@@ -10,10 +10,10 @@ Bucket::~Bucket()
 {
     delete texture;
 }
-     
+
 bool Bucket::consume()
 {
-     
+
     if (this->isEmpty())
     {
         return false;
@@ -25,15 +25,20 @@ bool Bucket::consume()
         texture = new sf::Texture();
         texture->loadFromImage(bucketImage[remaining]);
         sprite.setTexture(*texture, true);
-        std::cout<<remaining<<std::endl;
+        std::cout << remaining << std::endl;
         return true;
     }
-
 }
 
-void Bucket::fill(){
-    remaining = BUCKET_CAPACITY -1;
-    //사진 원래대로 돌리는 코드
+void Bucket::fill()
+{
+    remaining = BUCKET_CAPACITY - 1;
+    delete texture;
+    texture = new sf::Texture();
+    texture->loadFromImage(bucketImage[remaining]);
+    sprite.setTexture(*texture, true);
+    std::cout << remaining << std::endl;
+    
 }
 
 void Bucket::draw(sf::RenderTarget *window)
@@ -42,10 +47,10 @@ void Bucket::draw(sf::RenderTarget *window)
 }
 
 bool Bucket::isEmpty()
-{   
+{
     return !static_cast<bool>(remaining);
-}   
-   
+}
+
 sf::Color Bucket::getColor()
 {
     return color;
@@ -69,7 +74,6 @@ WaterBucket::WaterBucket()
 
     sprite.setPosition(sf::Vector2f(300.f, 10.f));
     sprite.setTexture(*texture, true);
-    
 }
 
 void WaterBucket::draw(sf::RenderTarget *window)
