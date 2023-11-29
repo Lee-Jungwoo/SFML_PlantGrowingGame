@@ -1,3 +1,7 @@
+#ifndef PLANT_H
+#define PLANT_H
+
+
 class Plant
 {
 private:
@@ -10,6 +14,7 @@ public:
 
     void water() { this->waterStatus = 100; }
     void feed() { this->soilStatus = 100; }
+
 };
 
 class PlantSlot
@@ -25,3 +30,5 @@ public:
 
     void pullPlant();
 };
+
+#endif 

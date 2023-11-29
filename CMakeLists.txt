@@ -11,15 +11,14 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(SIMPLE_GAME 
-    src/main/main.cpp 
-
-    src/lib/Buckets.h  
-    src/lib/Plant.h 
-
     src/lib/Buckets.cpp
+    src/lib/Buckets.h
+    src/lib/Plant.h 
+    src/lib/Game.h
+    
     src/lib/Plant.cpp
 
-    src/lib/Game.h
+    src/main/main.cpp 
 )
 target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)
 target_compile_features(SIMPLE_GAME PRIVATE cxx_std_17)
