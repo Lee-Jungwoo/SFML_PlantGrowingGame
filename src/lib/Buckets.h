@@ -1,8 +1,14 @@
-#include <SFML/Graphics.hpp>
 #ifndef BUCKET_H
 #define BUCKET_H
 
+
+
+#include <SFML/Graphics.hpp>
+#include "Plant.h"
+
 #define BUCKET_CAPACITY 4
+
+
 class Bucket
 {
 protected:
@@ -30,9 +36,12 @@ public:
 class WaterBucket : public Bucket
 {
 private:
+    
 public:
     WaterBucket();
     void draw(sf::RenderTarget *) override;
+    
+    void waterTo(Plant & plant);
 };
 
 class FertBucket : public Bucket

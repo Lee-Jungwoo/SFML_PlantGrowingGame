@@ -1,20 +1,45 @@
 #ifndef PLANT_H
 #define PLANT_H
+#include <map>
+#include <iostream>
+#include <string>
+#include <SFML/Graphics.hpp>
 
+#define PLANT_LEVEL 4
+
+enum PlantSpecies {A , B,C};
 
 class Plant
 {
 private:
-    int totalStatus;
-    int waterStatus;
-    int soilStatus;
+    int elapsedDay;
+    int level;
+    int waterPercentage;
+    int soilPercentage;
+    PlantSpecies species;
+    int bloomingDay;
+    sf::Texture plantTexture[PLANT_LEVEL];
 
+    sf::Sprite sprite;
 public:
-    Plant() : totalStatus(0), waterStatus(100), soilStatus(100){};
+    Plant(PlantSpecies);
+    ~Plant();
 
-    void water() { this->waterStatus = 100; }
-    void feed() { this->soilStatus = 100; }
+    void fillWater();
+    void fillEnergy();
+    
+    bool isDead();
+    bool isBlooming();
+    void draw(sf::RenderTarget & target);
 
+};
+
+class PlantResourceContainer{
+private:
+    static std::map<PlantSpecies, int> bloomingDay;
+    
+public:
+    static int getBloomingDay(PlantSpecies plantSpecies);
 };
 
 class PlantSlot
@@ -27,7 +52,6 @@ public:
     PlantSlot();
 
     void pushPlant(Plant *p);
-
     void pullPlant();
 };
 

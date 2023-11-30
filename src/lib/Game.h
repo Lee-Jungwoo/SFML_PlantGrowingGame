@@ -1,8 +1,10 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include "Buckets.h"
 #include "Plant.h"
 
-#ifndef GAME_H
-#define GAME_H
+
 
 class Game{
 private:

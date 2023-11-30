@@ -1,6 +1,12 @@
 #include "Buckets.h"
+#include "Plant.h"
 #include <iostream>
 
+
+
+/**
+ *         BUCKET              
+ * */
 Bucket::Bucket()
 {
     remaining = BUCKET_CAPACITY - 1;
@@ -38,7 +44,6 @@ void Bucket::fill()
     texture->loadFromImage(bucketImage[remaining]);
     sprite.setTexture(*texture, true);
     std::cout << remaining << std::endl;
-    
 }
 
 void Bucket::draw(sf::RenderTarget *window)
@@ -61,16 +66,23 @@ sf::Texture *Bucket::getTexture()
     return texture;
 }
 
+/*----------------------------*/
+
+/**
+ *    WATERBUCKET              
+ * */
 WaterBucket::WaterBucket()
 {
-
+    /**
+     * 이거 나중에 for문 돌려놓기
+     */
     bucketImage[3].loadFromFile("../../assets/WaterBucket.png");
     bucketImage[2].loadFromFile("../../assets/Logo.png");
     bucketImage[1].loadFromFile("../../assets/FertBucket.png");
     // bucketImage[0].loadFromFile();
 
     texture = new sf::Texture();
-    texture->loadFromImage(bucketImage[3]);
+    texture->loadFromImage(bucketImage[BUCKET_CAPACITY - 1]);
 
     sprite.setPosition(sf::Vector2f(300.f, 10.f));
     sprite.setTexture(*texture, true);
@@ -81,17 +93,40 @@ void WaterBucket::draw(sf::RenderTarget *window)
     window->draw(sprite);
 }
 
-FertBucket::FertBucket()
+void WaterBucket::waterTo(Plant &plant)
 {
+}
+
+void water(Plant &plant){
+
+}
+/*----------------------------*/
+
+
+/**
+ *     FERTBUCKET              
+ */
+FertBucket::FertBucket()
+{ 
+
+    /*
+    * 이거 나중에  for문으로 돌리기
+    */
+    // bucketImage[3].loadFromFile("../../assets/WaterBucket.png");
+    // bucketImage[2].loadFromFile("../../assets/Logo.png");
+    // bucketImage[1].loadFromFile("../../assets/FertBucket.png");
+    // bucketImage[0].loadFromFile();
+
     texture = new sf::Texture();
-    texture->loadFromFile("../../assets/FertBucket.png");
+    texture->loadFromImage(bucketImage[BUCKET_CAPACITY - 1]);
+
     sprite.setPosition(sf::Vector2f(400.f, 10.f));
     sprite.setTexture(*texture);
-    sprite.setScale(0.4, 0.4);
+
 }
 
 void FertBucket::draw(sf::RenderTarget *window)
 {
-
     window->draw(sprite);
 }
+/*----------------------------*/
