@@ -95,11 +95,14 @@ void WaterBucket::draw(sf::RenderTarget *window)
 
 void WaterBucket::waterTo(Plant &plant)
 {
+    if(this->consume())
+        plant.fillWater();
+    else 
+        std::cout<<"ERROR While watering: no water in the bucket"<<std::endl;
+    
 }
 
-void water(Plant &plant){
 
-}
 /*----------------------------*/
 
 
@@ -128,5 +131,12 @@ FertBucket::FertBucket()
 void FertBucket::draw(sf::RenderTarget *window)
 {
     window->draw(sprite);
+}
+void FertBucket::feedTo(Plant &plant)
+{
+    if(this->consume()){
+        plant.fillEnergy();
+    }else 
+        std::cout<<"ERROR While feeding: no fertilizer in the bucket"<<std::endl;
 }
 /*----------------------------*/

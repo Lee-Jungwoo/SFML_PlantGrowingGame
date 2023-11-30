@@ -1,8 +1,5 @@
 #ifndef BUCKET_H
 #define BUCKET_H
-
-
-
 #include <SFML/Graphics.hpp>
 #include "Plant.h"
 
@@ -40,7 +37,7 @@ private:
 public:
     WaterBucket();
     void draw(sf::RenderTarget *) override;
-    
+
     void waterTo(Plant & plant);
 };
 
@@ -49,6 +46,8 @@ class FertBucket : public Bucket
 public:
     FertBucket();
     void draw(sf::RenderTarget *) override;
+
+    void feedTo(Plant &plant);
 };
 
 #endif

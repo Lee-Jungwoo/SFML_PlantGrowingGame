@@ -19,8 +19,8 @@ private:
     PlantSpecies species;
     int bloomingDay;
     sf::Texture plantTexture[PLANT_LEVEL];
-
     sf::Sprite sprite;
+
 public:
     Plant(PlantSpecies);
     ~Plant();
@@ -28,19 +28,15 @@ public:
     void fillWater();
     void fillEnergy();
     
+    
+
     bool isDead();
     bool isBlooming();
     void draw(sf::RenderTarget & target);
 
 };
 
-class PlantResourceContainer{
-private:
-    static std::map<PlantSpecies, int> bloomingDay;
-    
-public:
-    static int getBloomingDay(PlantSpecies plantSpecies);
-};
+
 
 class PlantSlot
 {

@@ -3,6 +3,7 @@
 
 #include "Buckets.h"
 #include "Plant.h"
+#include "PlantResourceContainer.h"
 
 
 
@@ -10,15 +11,14 @@ class Game{
 private:
     WaterBucket waterBucket;
     FertBucket fertBucket;
-
+    PlantResourceContainer container;
     PlantSlot plantSlot[4];
 
 public:
-    void drawEverything(sf::RenderTarget * window){
-        
-        waterBucket.draw(window);
-        fertBucket.draw(window);
-    }
+
+    void updateEverything();
+
+    void drawEverything(sf::RenderTarget * window);
 };
 
 #endif
