@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-enum class stage
+enum class Stage
 {
     A,
     B,

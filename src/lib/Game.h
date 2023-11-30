@@ -1,11 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
-
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "Buckets.h"
 #include "Plant.h"
 #include "PlantResource.h"
 
-
+using namespace sf;
 
 class Game{
 private:
@@ -14,7 +15,13 @@ private:
     PlantResource container;
     PlantSlot plantSlot[4];
 
+    RenderWindow * window;
+
 public:
+
+
+    void init();
+    void render();
 
     void updateEverything();
 

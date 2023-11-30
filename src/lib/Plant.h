@@ -29,7 +29,7 @@ public:
     void fillWater();
     void fillEnergy();
     
-    
+    sf::Sprite getSprite();    
 
     bool isDead();
     bool isBlooming();
@@ -44,12 +44,14 @@ class PlantSlot
 private:
     Plant *plant;
     bool isEmpty();
-
+    sf::Sprite sprite;
 public:
     PlantSlot();
 
     void pushPlant(Plant *p);
     void pullPlant();
+
+    void draw(sf::RenderTarget &target);
 };
 
 #endif 

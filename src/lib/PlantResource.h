@@ -10,9 +10,12 @@ class PlantResource{
 private:
     static std::map<PlantSpecies, int> bloomingDay;
     
-    static std::map<stage, std::vector<PlantSpecies>> stage_plant;
+    static std::map<Stage, std::vector<PlantSpecies>> plantByStage;
+
 public:
     static int getBloomingDay(PlantSpecies plantSpecies);
+
+    static std::vector<PlantSpecies> getPlantsByStage(Stage);
 
 
 };

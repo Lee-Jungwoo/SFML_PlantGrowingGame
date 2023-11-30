@@ -17,6 +17,8 @@ Plant::Plant(PlantSpecies s)
         // PlantContainer에서 사진 끌어오기
     }
 
+    plantTexture[0].loadFromFile("../../assets/WaterBucket.png");
+
     elapsedDay = 0;
     level = 0;
     waterPercentage = 0;
@@ -24,6 +26,10 @@ Plant::Plant(PlantSpecies s)
     this->species = s;
     bloomingDay = PlantResource::getBloomingDay(s);
     sprite.setTexture(plantTexture[0]);
+}
+
+Plant::~Plant(){
+
 }
 
 void Plant::fillWater()
@@ -52,7 +58,13 @@ bool Plant::isBlooming()
         return false;
 }
 
+sf::Sprite Plant::getSprite(){
+    return this->sprite;
+}
 
+void Plant::draw(sf::RenderTarget & target) {
+    target.draw(sprite);
+}
 
 //-------------------------------
 
@@ -76,10 +88,16 @@ bool PlantSlot::isEmpty()
 void PlantSlot::pushPlant(Plant *p)
 {
     this->plant = p;
+    this->sprite = p->getSprite();
 }
 
 void PlantSlot::pullPlant()
 {
     this->plant = nullptr;
 }
-//-------------------
+
+void PlantSlot::draw(sf::RenderTarget &target)
+{
+    this->plant->draw(target);
+}
+//---------------------------------

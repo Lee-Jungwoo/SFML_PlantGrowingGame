@@ -12,9 +12,15 @@ int main()
 
     RenderWindow* window = new RenderWindow(VideoMode(720, 1280), "new");
 
-    WaterBucket waterBucket;
+    Plant plant(PlantSpecies::A);
+
+    PlantSlot slot;
+    slot.pushPlant(&plant);
     
+
     Vector2f size = window->getView().getSize();
+
+
 
     while (window->isOpen())
     {
@@ -22,14 +28,14 @@ int main()
 
         window->clear(Color(220, 255, 191,255));
         
-        waterBucket.draw(window);
+        slot.draw(*window);
 
         
 
         while (window->pollEvent(event))
         {
             if(event.type == Event::KeyPressed){
-                waterBucket.consume();
+
             }
                 
 
