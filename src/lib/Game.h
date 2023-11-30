@@ -3,7 +3,7 @@
 
 #include "Buckets.h"
 #include "Plant.h"
-#include "PlantResourceContainer.h"
+#include "PlantResource.h"
 
 
 
@@ -11,7 +11,7 @@ class Game{
 private:
     WaterBucket waterBucket;
     FertBucket fertBucket;
-    PlantResourceContainer container;
+    PlantResource container;
     PlantSlot plantSlot[4];
 
 public:

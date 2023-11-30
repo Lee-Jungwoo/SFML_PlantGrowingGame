@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "PlantResource.h"
 
 #define PLANT_LEVEL 4
 
-enum PlantSpecies {A , B,C};
+
 
 class Plant
 {

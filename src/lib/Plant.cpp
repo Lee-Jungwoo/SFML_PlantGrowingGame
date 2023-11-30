@@ -1,5 +1,5 @@
 #include "Plant.h"
-#include "PlantResourceContainer.h"
+#include "PlantResource.h"
 
 /**
  *
@@ -22,7 +22,7 @@ Plant::Plant(PlantSpecies s)
     waterPercentage = 0;
     soilPercentage = 0;
     this->species = s;
-    bloomingDay = PlantResourceContainer::getBloomingDay(s);
+    bloomingDay = PlantResource::getBloomingDay(s);
     sprite.setTexture(plantTexture[0]);
 }
 
@@ -46,7 +46,7 @@ bool Plant::isDead()
 
 bool Plant::isBlooming()
 {
-    if(PlantResourceContainer::getBloomingDay(this->species) <= this->elapsedDay)
+    if(PlantResource::getBloomingDay(this->species) <= this->elapsedDay)
         return true;
     else 
         return false;
