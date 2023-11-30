@@ -21,7 +21,7 @@ public:
 
 
     void init();
-    void render();
+    void start();
 
     void updateEverything();
 

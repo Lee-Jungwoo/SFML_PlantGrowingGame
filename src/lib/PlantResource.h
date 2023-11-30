@@ -4,18 +4,18 @@
 #include <vector>
 #include <map>
 
-enum PlantSpecies {A , B,C};
+enum class Stage;
+
+enum class PlantSpecies {A , B,C};
 
 class PlantResource{
 private:
     static std::map<PlantSpecies, int> bloomingDay;
-    
-    static std::map<Stage, std::vector<PlantSpecies>> plantByStage;
+    static std::map<Stage, std::vector<PlantSpecies> *> plantByStage;
 
 public:
     static int getBloomingDay(PlantSpecies plantSpecies);
-
-    static std::vector<PlantSpecies> getPlantsByStage(Stage);
+    static std::vector<PlantSpecies> * getPlantsByStage(Stage);
 
 
 };

@@ -5,15 +5,21 @@ void Game::init()
     window = new RenderWindow(VideoMode(720, 1280), "new");
 }
 
-void Game::render()
+void Game::start()
 {
+
+    // Plant plant(PlantSpecies::A);
+    // plantSlot[0].pushPlant(&plant);
+
+    
     while (window->isOpen())
     {
         Event event;
 
         window->clear(Color(220, 255, 191, 255));
 
-        waterBucket.draw(window);
+        
+        // plantSlot[0].draw(*window);
 
         while (window->pollEvent(event))
         {
@@ -25,6 +31,10 @@ void Game::render()
             if (event.type == Event::Closed)
                 window->close();
         }
+
+        updateEverything();
+        drawEverything(window);
+        window->display();
     }
 }
 

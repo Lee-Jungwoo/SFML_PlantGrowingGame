@@ -77,15 +77,16 @@ WaterBucket::WaterBucket()
      * 이거 나중에 for문 돌려놓기
      */
     bucketImage[3].loadFromFile("../../assets/WaterBucket.png");
-    bucketImage[2].loadFromFile("../../assets/Logo.png");
-    bucketImage[1].loadFromFile("../../assets/FertBucket.png");
+    // bucketImage[2].loadFromFile("../../assets/Logo.png");
+    // bucketImage[1].loadFromFile("../../assets/FertBucket.png");
     // bucketImage[0].loadFromFile();
 
     texture = new sf::Texture();
     texture->loadFromImage(bucketImage[BUCKET_CAPACITY - 1]);
 
-    sprite.setPosition(sf::Vector2f(300.f, 10.f));
+    sprite.setPosition(sf::Vector2f(160.f, 30.f));
     sprite.setTexture(*texture, true);
+    sprite.setScale(0.08f,0.08f);
 }
 
 void WaterBucket::draw(sf::RenderTarget *window)
@@ -117,15 +118,15 @@ FertBucket::FertBucket()
     */
     // bucketImage[3].loadFromFile("../../assets/WaterBucket.png");
     // bucketImage[2].loadFromFile("../../assets/Logo.png");
-    // bucketImage[1].loadFromFile("../../assets/FertBucket.png");
+    bucketImage[3].loadFromFile("../../assets/FertBucket.png");
     // bucketImage[0].loadFromFile();
 
     texture = new sf::Texture();
     texture->loadFromImage(bucketImage[BUCKET_CAPACITY - 1]);
 
-    sprite.setPosition(sf::Vector2f(400.f, 10.f));
+    sprite.setPosition(sf::Vector2f(300.f, 30.f));
     sprite.setTexture(*texture);
-
+    sprite.setScale(0.08f,0.08f);
 }
 
 void FertBucket::draw(sf::RenderTarget *window)
