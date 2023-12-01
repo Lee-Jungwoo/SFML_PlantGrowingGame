@@ -1,5 +1,4 @@
 #include "Buckets.h"
-#include "Plant.h"
 #include <iostream>
 
 
@@ -84,9 +83,9 @@ WaterBucket::WaterBucket()
     texture = new sf::Texture();
     texture->loadFromImage(bucketImage[BUCKET_CAPACITY - 1]);
 
-    sprite.setPosition(sf::Vector2f(160.f, 30.f));
+    sprite.setPosition(sf::Vector2f(200.f, 30.f));
     sprite.setTexture(*texture, true);
-    sprite.setScale(0.08f,0.08f);
+    sprite.setScale(0.5f,0.5f);
 }
 
 void WaterBucket::draw(sf::RenderTarget *window)
@@ -126,7 +125,7 @@ FertBucket::FertBucket()
 
     sprite.setPosition(sf::Vector2f(300.f, 30.f));
     sprite.setTexture(*texture);
-    sprite.setScale(0.08f,0.08f);
+    sprite.setScale(0.5f,0.5f);
 }
 
 void FertBucket::draw(sf::RenderTarget *window)
