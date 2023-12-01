@@ -2,7 +2,9 @@
 #define DICT_H
 
 
-
+class PlantBook{
+    
+};
 
 
 

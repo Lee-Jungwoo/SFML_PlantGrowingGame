@@ -10,21 +10,14 @@ using namespace sf;
 
 class Game{
 private:
-    WaterBucket waterBucket;
-    FertBucket fertBucket;
-    PlantResource container;
-    PlantSlot plantSlot[4];
 
+    GameState gameState;
     RenderWindow * window;
 
 public:
-
-
     void init();
     void start();
-
-    void updateEverything();
-
+    void nextDay();
     void drawEverything(sf::RenderTarget * window);
 };
 

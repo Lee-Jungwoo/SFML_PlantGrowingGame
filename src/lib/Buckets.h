@@ -1,10 +1,8 @@
 #ifndef BUCKET_H
 #define BUCKET_H
 #include <SFML/Graphics.hpp>
-#include "Plant.h"
-
 #define BUCKET_CAPACITY 4
-
+#include "Plant.h"
 
 class Bucket
 {

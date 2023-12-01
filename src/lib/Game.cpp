@@ -32,19 +32,26 @@ void Game::start()
                 window->close();
         }
 
-        updateEverything();
-        drawEverything(window);
+        this->nextDay();
+        this->drawEverything(window);
+
         window->display();
     }
 }
 
-void Game::updateEverything()
+void Game::nextDay() //모든 slot의 식물에 물을 주었다는 가정.
 {
+    this->gameState.nextDay();
+    for(int i=0;i<4;i++){
+        // gameState.plantSlot[i].getPlant()->update();
+    }
 }
 
 void Game::drawEverything(sf::RenderTarget *window)
 {
 
-    waterBucket.draw(window);
-    fertBucket.draw(window);
+    // waterBucket.draw(window);
+    // fertBucket.draw(window);
+
 }
+

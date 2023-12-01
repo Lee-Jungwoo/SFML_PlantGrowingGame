@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "PlantResource.h"
+
 
 #define PLANT_LEVEL 4
 
+enum class PlantSpecies;
 
 
 class Plant
@@ -29,10 +30,11 @@ public:
     void fillWater();
     void fillEnergy();
     
-    sf::Sprite getSprite();    
+    sf::Sprite getSprite();
 
     bool isDead();
     bool isBlooming();
+    void update();
     void draw(sf::RenderTarget & target);
 
 };
@@ -51,6 +53,7 @@ public:
     void pushPlant(Plant *p);
     void pullPlant();
 
+    Plant * getPlant();
     void draw(sf::RenderTarget &target);
 };
 

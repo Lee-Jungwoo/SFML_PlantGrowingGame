@@ -62,6 +62,13 @@ bool Plant::isBlooming()
         return false;
 }
 
+void Plant::update()
+{
+    elapsedDay++;
+
+    
+}
+
 sf::Sprite Plant::getSprite(){
     return this->sprite;
 }
@@ -69,7 +76,6 @@ sf::Sprite Plant::getSprite(){
 void Plant::draw(sf::RenderTarget & target) {
     target.draw(sprite);
 }
-
 //-------------------------------
 
 /**
@@ -98,6 +104,11 @@ void PlantSlot::pushPlant(Plant *p)
 void PlantSlot::pullPlant()
 {
     this->plant = nullptr;
+}
+
+Plant *PlantSlot::getPlant()
+{
+    return this->plant;
 }
 
 void PlantSlot::draw(sf::RenderTarget &target)

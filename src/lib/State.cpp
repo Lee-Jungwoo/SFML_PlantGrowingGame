@@ -1,8 +1,9 @@
 #include "State.h"
 
-void GameState::update()
+void GameState::nextDay()
 {
     this->day++;
+    
 
     
 }
