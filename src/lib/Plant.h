@@ -15,13 +15,15 @@ class Plant
 {
 private:
     int elapsedDay;
-    int level;
+    int level; //1 ~ 4까지 있음
     int waterPercentage;
     int soilPercentage;
     PlantSpecies species;
     int bloomingDay;
     sf::Texture plantTexture[PLANT_LEVEL];
     sf::Sprite sprite;
+
+    
 
 public:
     Plant(PlantSpecies);
@@ -31,6 +33,7 @@ public:
     void fillEnergy();
     
     sf::Sprite getSprite();
+    PlantSpecies getSpecies();
 
     bool isDead();
     bool isBlooming();

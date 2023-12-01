@@ -1,11 +1,11 @@
 #ifndef STATE_H
 #define STATE_H
-#include <vector>
+#include <set>
 #include "Buckets.h"
 #include "Plant.h"
-
+#include "PlantResource.h"
 enum class PlantSpecies;
-class PlantResource;
+
 
 enum class Stage
 {
@@ -20,14 +20,16 @@ class GameState
 private:
     int day;
     Stage stage;
-    std::vector<PlantSpecies> * remainingPlants;
+    std::set<PlantSpecies> remainingPlants;
 
     WaterBucket waterBucket;
     FertBucket fertBucket;
     // PlantResource container;
     PlantSlot plantSlot[4];
-
+    void nextStage(); //if next stage is unavailable, return false,
+    bool isStageDone(); 
 public:
+    GameState();
     void nextDay();
     
 };

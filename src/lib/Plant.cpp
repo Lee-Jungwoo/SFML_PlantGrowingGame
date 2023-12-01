@@ -25,7 +25,8 @@ Plant::Plant(PlantSpecies s)
     level = 0;
     waterPercentage = 0;
     soilPercentage = 0;
-    this->species = s;
+    // this->species = s;
+
     bloomingDay = PlantResource::getBloomingDay(s);
     sprite.setTexture(plantTexture[0]);
     sprite.setPosition(300,30);
@@ -65,12 +66,21 @@ bool Plant::isBlooming()
 void Plant::update()
 {
     elapsedDay++;
-
     
+    if(elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4){ //level이 바뀔만큼 날짜가 지났을 때!
+        level++;
+    }
+
+
 }
 
 sf::Sprite Plant::getSprite(){
     return this->sprite;
+}
+
+PlantSpecies Plant::getSpecies()
+{
+    return this->species;
 }
 
 void Plant::draw(sf::RenderTarget & target) {
