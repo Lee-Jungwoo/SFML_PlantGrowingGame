@@ -63,3 +63,38 @@ std::string Resource::getName(PlantSpecies plantSpecies)
 {
     return speciesName[plantSpecies];
 }
+
+std::string Resource::getStageByPlant(PlantSpecies s)
+{
+    std::vector<PlantSpecies> *v;
+
+    v = plantByStage[Stage::Desert];
+    for (std::vector<PlantSpecies>::iterator i = v->begin(); i != v->end(); i++)
+    {
+        if (s == *i)
+        {
+            return "Desert";
+        }
+    }
+
+    v = plantByStage[Stage::Temperate];
+    for (std::vector<PlantSpecies>::iterator i = v->begin(); i != v->end(); i++)
+    {
+        if (s == *i)
+        {
+            return "Temperate";
+        }
+    }
+
+    v = plantByStage[Stage::Tropical];
+    for (std::vector<PlantSpecies>::iterator i = v->begin(); i != v->end(); i++)
+    {
+        if (s == *i)
+        {
+            return "Desert";
+        }
+    }
+
+
+    return nullptr;
+}

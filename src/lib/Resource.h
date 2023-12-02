@@ -39,6 +39,7 @@ public:
     static int getBloomingDay(PlantSpecies plantSpecies);
     static std::vector<PlantSpecies> * getPlantsByStage(Stage);
     static std::string getName(PlantSpecies plantSpecies);
+    static std::string getStageByPlant(PlantSpecies);
 
 };
 

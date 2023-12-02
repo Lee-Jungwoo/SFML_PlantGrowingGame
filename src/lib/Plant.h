@@ -20,7 +20,7 @@ private:
     int soilPercentage;
     PlantSpecies species;
     int bloomingDay;
-    sf::Texture plantTexture[PLANT_LEVEL];
+    sf::Texture plantTexture[PLANT_LEVEL + 1]; //죽은 것도 load 해야됨.
     sf::Sprite sprite;
 
     
@@ -35,7 +35,7 @@ public:
     sf::Sprite getSprite();
     PlantSpecies getSpecies();
 
-
+    
     
     bool isDead();
     bool isBlooming();

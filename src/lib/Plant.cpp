@@ -1,6 +1,7 @@
 #include "Plant.h"
 #include "Resource.h"
 
+
 /**
  *
  *
@@ -8,14 +9,22 @@
  *
  *
  * */
-
 Plant::Plant(PlantSpecies s)
 {
+    std::string filePath = "../../assets/";
+    std::string plantName = Resource::getName(s);
+    std::string stageName = Resource::getStageByPlant(s);
+    filePath = filePath + "/" + stageName + "/" + plantName + "_";
 
+    /**
+     * Load every image file to single plant 객체
+     * from 1단계 to dead.
+    */
     for (int i = 0; i < PLANT_LEVEL; i++)
     {
-        plantTexture[i]
+        plantTexture[i].loadFromFile(filePath + std::to_string(i+1));
     }
+    plantTexture[PLANT_LEVEL].loadFromFile(filePath + "Dead");
 
     elapsedDay = 0;
     level = 0;
@@ -31,6 +40,7 @@ Plant::Plant(PlantSpecies s)
 
 Plant::~Plant()
 {
+    //동적 할당 없으니 empty destructor
 }
 
 void Plant::fillWater(WaterBucket &bucket)
@@ -38,8 +48,10 @@ void Plant::fillWater(WaterBucket &bucket)
     if (bucket.consume())
     {
         this->waterPercentage = 100;
-    }else {
-        std::cout<<"NO water in the Bucket!!!"<<std::endl;
+    }
+    else
+    {
+        std::cout << "NO water in the Bucket!!!" << std::endl;
     }
 }
 
@@ -48,8 +60,10 @@ void Plant::fillEnergy(FertBucket &bucket)
     if (bucket.consume())
     {
         this->soilPercentage = 100;
-    }else {
-        std::cout<<"NO fertilizer in the Bucket!!"<<std::endl;
+    }
+    else
+    {
+        std::cout << "NO fertilizer in the Bucket!!" << std::endl;
     }
 }
 
