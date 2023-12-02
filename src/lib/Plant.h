@@ -34,7 +34,7 @@ public:
     
     sf::Sprite getSprite();
     PlantSpecies getSpecies();
-
+    
     
     
     bool isDead();

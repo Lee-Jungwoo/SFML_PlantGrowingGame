@@ -109,6 +109,8 @@ void Plant::draw(sf::RenderTarget &target)
 }
 //-------------------------------
 
+
+
 /**
  *   PlantSlot
  *
@@ -144,6 +146,8 @@ Plant *PlantSlot::getPlant()
 
 void PlantSlot::draw(sf::RenderTarget &target)
 {
+    
     this->plant->draw(target);
 }
+
 //---------------------------------
