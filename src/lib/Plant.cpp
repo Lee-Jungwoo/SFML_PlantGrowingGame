@@ -11,19 +11,17 @@
 
 Plant::Plant(PlantSpecies s)
 {
+
     for (int i = 0; i < PLANT_LEVEL; i++)
     {
-        // plantTexture[i].loadFromImage
-        // PlantContainer에서 사진 끌어오기
+        plantTexture[i]
     }
-
-    plantTexture[0].loadFromFile("../../assets/WaterBucket.png");
 
     elapsedDay = 0;
     level = 0;
     waterPercentage = 0;
     soilPercentage = 0;
-    // this->species = s;
+    this->species = s;
 
     bloomingDay = Resource::getBloomingDay(s);
     sprite.setTexture(plantTexture[0]);
