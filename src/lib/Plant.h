@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-
+#include "Buckets.h"
 
 #define PLANT_LEVEL 4
 
@@ -29,12 +29,14 @@ public:
     Plant(PlantSpecies);
     ~Plant();
 
-    void fillWater();
-    void fillEnergy();
+    void fillWater(WaterBucket &);
+    void fillEnergy(FertBucket &);
     
     sf::Sprite getSprite();
     PlantSpecies getSpecies();
 
+
+    
     bool isDead();
     bool isBlooming();
     void update();

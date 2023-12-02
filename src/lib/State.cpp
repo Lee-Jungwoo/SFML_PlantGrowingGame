@@ -1,30 +1,30 @@
 #include "State.h"
 
-
 GameState::GameState()
 {
     day = 0;
-    stage = Stage::A;
-    remainingPlants = std::set<PlantSpecies>{PlantSpecies::A, PlantSpecies::B, PlantSpecies::C};
+    stage = Stage::Desert;
+    remainingPlants = std::set<PlantSpecies>{
+        PlantSpecies::Carrot,
+        PlantSpecies::Millet,
+        PlantSpecies::Oat,
+        PlantSpecies::Yacon};
 }
 
 void GameState::nextStage()
 {
     switch (stage)
     {
-    case Stage::A:
-        stage = Stage::B;
+    case Stage::Desert:
+        stage = Stage::Temperate;
 
         break;
-    case Stage::B:
-        stage = Stage::C;
+    case Stage::Temperate:
+        stage = Stage::Tropical;
 
         break;
-    case Stage::C:
-        stage = Stage::D;
 
-        break;
-    case Stage::D:
+    case Stage::Tropical:
         std::cout << "ERROR: current stage is the last stage." << std::endl;
 
         break;
@@ -56,12 +56,12 @@ void GameState::nextDay()
         plant = plantSlot[i].getPlant();
         if (plant->isDead())
         {
-            std::cout << "Plant dead => " << PlantResource::getName(plant->getSpecies()) << std::endl;
+            std::cout << "Plant dead => " << Resource::getName(plant->getSpecies()) << std::endl;
             plantSlot[i].pullPlant();
         }
         else if (plant->isBlooming())
         {
-            std::cout << "Blooming!!! =>" << PlantResource::getName(plant->getSpecies()) << std::endl;
+            std::cout << "Blooming!!! =>" << Resource::getName(plant->getSpecies()) << std::endl;
 
             /**
              * Remove the plant in the remaining plants list.
@@ -78,12 +78,15 @@ void GameState::nextDay()
         }
     }
 
-
-
     // 다음 스테이지로 넘어갈지 말지.
 
-    if(this->isStageDone()){
-        this->nextStage(); //이때 백그라운드랑 스텟바 바꿔주면 되겠구만용
-
+    if (this->isStageDone())
+    {
+        this->nextStage(); // 이때 백그라운드랑 스텟바 바꿔주면 되겠구만용
     }
+}
+
+PlantSlot *GameState::getPlantSlot(int i)
+{
+    return (this->plantSlot) + i;
 }

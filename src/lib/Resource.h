@@ -1,15 +1,34 @@
-#ifndef PLANTRESOURCE_H
-#define PLANTRESOURCE_H
-#include "State.h"
+#ifndef RESOURCE_H
+#define RESOURCE_H
 #include <vector>
 #include <map>
 #include <string>
 
-enum class Stage;
+enum class Stage{
+    Desert,
+    Temperate,
+    Tropical
+};
+enum class PlantSpecies
+{
+    Carrot,
+    Millet,
+    Oat,
+    Yacon,
+    Lettuce,
+    Strawberry,
+    Tomato,
+    Corn,
+    Pepper,
+    Potato,
+    Tropical_Flower
+};
 
-enum class PlantSpecies {A = 0, B,C};
 
-class PlantResource{
+
+
+
+class Resource{
 private:
     static std::map<PlantSpecies, int> bloomingDay;
     static std::map<PlantSpecies, std::string> speciesName;

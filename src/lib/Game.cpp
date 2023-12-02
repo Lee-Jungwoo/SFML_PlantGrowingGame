@@ -2,7 +2,7 @@
 
 void Game::init()
 {
-    window = new RenderWindow(VideoMode(720, 1280), "new");
+    window = new RenderWindow(VideoMode(540 ,900), "new");
 }
 
 void Game::start()
@@ -48,6 +48,7 @@ void Game::nextDay() //모든 slot의 식물에 물을 주었다는 가정.
 void Game::drawEverything(sf::RenderTarget *window)
 {
 
+    
     // waterBucket.draw(window);
     // fertBucket.draw(window);
 

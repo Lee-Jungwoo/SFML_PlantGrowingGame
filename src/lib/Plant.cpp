@@ -1,5 +1,5 @@
 #include "Plant.h"
-#include "PlantResource.h"
+#include "Resource.h"
 
 /**
  *
@@ -17,9 +17,7 @@ Plant::Plant(PlantSpecies s)
         // PlantContainer에서 사진 끌어오기
     }
 
-
     plantTexture[0].loadFromFile("../../assets/WaterBucket.png");
-    
 
     elapsedDay = 0;
     level = 0;
@@ -27,24 +25,34 @@ Plant::Plant(PlantSpecies s)
     soilPercentage = 0;
     // this->species = s;
 
-    bloomingDay = PlantResource::getBloomingDay(s);
+    bloomingDay = Resource::getBloomingDay(s);
     sprite.setTexture(plantTexture[0]);
-    sprite.setPosition(300,30);
-    sprite.setScale(0.08f,0.08f);
+    sprite.setPosition(300, 30);
+    sprite.setScale(0.08f, 0.08f);
 }
 
-Plant::~Plant(){
-
-}
-
-void Plant::fillWater()
+Plant::~Plant()
 {
-    this->waterPercentage = 100;
 }
 
-void Plant::fillEnergy()
+void Plant::fillWater(WaterBucket &bucket)
 {
-    this->soilPercentage = 100;
+    if (bucket.consume())
+    {
+        this->waterPercentage = 100;
+    }else {
+        std::cout<<"NO water in the Bucket!!!"<<std::endl;
+    }
+}
+
+void Plant::fillEnergy(FertBucket &bucket)
+{
+    if (bucket.consume())
+    {
+        this->soilPercentage = 100;
+    }else {
+        std::cout<<"NO fertilizer in the Bucket!!"<<std::endl;
+    }
 }
 
 bool Plant::isDead()
@@ -57,24 +65,24 @@ bool Plant::isDead()
 
 bool Plant::isBlooming()
 {
-    if(PlantResource::getBloomingDay(this->species) <= this->elapsedDay)
+    if (Resource::getBloomingDay(this->species) <= this->elapsedDay)
         return true;
-    else 
+    else
         return false;
 }
 
 void Plant::update()
 {
     elapsedDay++;
-    
-    if(elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4){ //level이 바뀔만큼 날짜가 지났을 때!
+
+    if (elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4)
+    { // level이 바뀔만큼 날짜가 지났을 때!
         level++;
     }
-
-
 }
 
-sf::Sprite Plant::getSprite(){
+sf::Sprite Plant::getSprite()
+{
     return this->sprite;
 }
 
@@ -83,7 +91,8 @@ PlantSpecies Plant::getSpecies()
     return this->species;
 }
 
-void Plant::draw(sf::RenderTarget & target) {
+void Plant::draw(sf::RenderTarget &target)
+{
     target.draw(sprite);
 }
 //-------------------------------

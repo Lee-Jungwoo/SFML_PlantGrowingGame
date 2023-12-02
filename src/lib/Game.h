@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "Buckets.h"
 #include "Plant.h"
-#include "PlantResource.h"
+#include "Resource.h"
+#include "State.h"
 
 using namespace sf;
 
