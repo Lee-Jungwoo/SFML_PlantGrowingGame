@@ -1,6 +1,6 @@
 #include "Plant.h"
 #include "Resource.h"
-
+#include <cassert>
 
 /**
  *
@@ -11,6 +11,7 @@
  * */
 Plant::Plant(PlantSpecies s)
 {
+    handled = false;
     std::string filePath = "../../assets/";
     std::string plantName = Resource::getName(s);
     std::string stageName = Resource::getStageByPlant(s);
@@ -19,15 +20,16 @@ Plant::Plant(PlantSpecies s)
     /**
      * Load every image file to single plant 객체
      * from 1단계 to dead.
-    */
-    for (int i = 0; i < PLANT_LEVEL; i++)
+     */
+    for (int i = 1; i <= PLANT_LEVEL; i++)
     {
-        plantTexture[i].loadFromFile(filePath + std::to_string(i+1));
+        plantTexture[i].loadFromFile(filePath + std::to_string(i + 1));
     }
-    plantTexture[PLANT_LEVEL].loadFromFile(filePath + "Dead");
+
+    plantTexture[0].loadFromFile(filePath + "Dead");
 
     elapsedDay = 0;
-    level = 0;
+    level = 1;
     waterPercentage = 0;
     soilPercentage = 0;
     this->species = s;
@@ -40,7 +42,7 @@ Plant::Plant(PlantSpecies s)
 
 Plant::~Plant()
 {
-    //동적 할당 없으니 empty destructor
+    // 동적 할당 없으니 empty destructor
 }
 
 void Plant::fillWater(WaterBucket &bucket)
@@ -53,6 +55,8 @@ void Plant::fillWater(WaterBucket &bucket)
     {
         std::cout << "NO water in the Bucket!!!" << std::endl;
     }
+
+    handled = true;
 }
 
 void Plant::fillEnergy(FertBucket &bucket)
@@ -65,6 +69,12 @@ void Plant::fillEnergy(FertBucket &bucket)
     {
         std::cout << "NO fertilizer in the Bucket!!" << std::endl;
     }
+    handled = true;
+}
+
+void Plant::skipThisTime()
+{
+    handled = true;
 }
 
 bool Plant::isDead()
@@ -85,12 +95,18 @@ bool Plant::isBlooming()
 
 void Plant::update()
 {
+    handled = false;
+
     elapsedDay++;
 
+    // level이 바뀔만큼 날짜가 지났을 때!
     if (elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4)
-    { // level이 바뀔만큼 날짜가 지났을 때!
+    {
         level++;
+        sprite.setTexture(plantTexture[level], true);
     }
+
+    assert(level <= 4 && level >= 1);
 }
 
 sf::Sprite Plant::getSprite()
@@ -108,8 +124,6 @@ void Plant::draw(sf::RenderTarget &target)
     target.draw(sprite);
 }
 //-------------------------------
-
-
 
 /**
  *   PlantSlot

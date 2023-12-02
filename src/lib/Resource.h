@@ -1,5 +1,6 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <map>
 #include <string>
@@ -31,9 +32,9 @@ enum class PlantSpecies
 class Resource{
 private:
     static std::map<PlantSpecies, int> bloomingDay;
+    static std::map<PlantSpecies, int> price;
     static std::map<PlantSpecies, std::string> speciesName;
     static std::map<Stage, std::vector<PlantSpecies> *> plantByStage;
-    
 
 public:
     static int getBloomingDay(PlantSpecies plantSpecies);

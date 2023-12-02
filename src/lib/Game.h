@@ -13,13 +13,11 @@ class Game{
 private:
 
     GameState gameState;
-    RenderWindow * window;
+
 
 public:
-    void init();
-    void start();
     void nextDay();
-    void drawEverything(sf::RenderTarget * window);
+
 };
 
 #endif

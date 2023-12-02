@@ -14,7 +14,7 @@ add_executable(SIMPLE_GAME
     src/lib/Buckets.cpp
     src/lib/Buckets.h
     
-    src/lib/PlantBook.h
+    src/lib/Encyclopedia.h
 
     src/lib/Plant.h 
     src/lib/Plant.cpp
@@ -29,6 +29,8 @@ add_executable(SIMPLE_GAME
     src/lib/State.cpp
 
     src/main/main.cpp 
+
+    src/lib/_Shop.h
 )
 target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)
 target_compile_features(SIMPLE_GAME PRIVATE cxx_std_17)

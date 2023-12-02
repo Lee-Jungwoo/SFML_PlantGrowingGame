@@ -21,20 +21,36 @@ std::map<Stage, std::vector<PlantSpecies> *> Resource::plantByStage = {
          PlantSpecies::Corn,
          PlantSpecies::Pepper,
          PlantSpecies::Potato,
-         PlantSpecies::Tropical_Flower}}};
+         PlantSpecies::Tropical_Flower}}
+};
 
 std::map<PlantSpecies, int> Resource::bloomingDay = {
-    {PlantSpecies::Carrot, 1},
-    {PlantSpecies::Millet, 1},
-    {PlantSpecies::Oat, 1},
-    {PlantSpecies::Yacon, 1},
-    {PlantSpecies::Lettuce, 1},
-    {PlantSpecies::Strawberry, 1},
-    {PlantSpecies::Tomato, 1},
-    {PlantSpecies::Corn, 1},
-    {PlantSpecies::Pepper, 1},
-    {PlantSpecies::Potato, 1},
-    {PlantSpecies::Tropical_Flower, 1}};
+    {PlantSpecies::Carrot, 10},
+    {PlantSpecies::Millet, 10},
+    {PlantSpecies::Oat, 10},
+    {PlantSpecies::Yacon, 10},
+    {PlantSpecies::Lettuce, 10},
+    {PlantSpecies::Strawberry, 10},
+    {PlantSpecies::Tomato, 10},
+    {PlantSpecies::Corn, 10},
+    {PlantSpecies::Pepper, 10},
+    {PlantSpecies::Potato, 10},
+    {PlantSpecies::Tropical_Flower, 10}
+};
+
+std::map<PlantSpecies, int> price = {
+    {PlantSpecies::Carrot, 1000},
+    {PlantSpecies::Millet, 1000},
+    {PlantSpecies::Oat, 1000},
+    {PlantSpecies::Yacon, 1000},
+    {PlantSpecies::Lettuce, 1000},
+    {PlantSpecies::Strawberry, 1000},
+    {PlantSpecies::Tomato, 1000},
+    {PlantSpecies::Corn, 1000},
+    {PlantSpecies::Pepper, 1000},
+    {PlantSpecies::Potato, 1000},
+    {PlantSpecies::Tropical_Flower, 1000}
+};
 
 std::map<PlantSpecies, std::string> Resource::speciesName = {
     {PlantSpecies::Carrot, "Carrot"},
@@ -47,7 +63,11 @@ std::map<PlantSpecies, std::string> Resource::speciesName = {
     {PlantSpecies::Corn, "Corn"},
     {PlantSpecies::Pepper, "Pepper"},
     {PlantSpecies::Potato, "Potato"},
-    {PlantSpecies::Tropical_Flower, "Tropical Flower"}};
+    {PlantSpecies::Tropical_Flower, "Tropical Flower"}
+};
+
+
+
 
 int Resource::getBloomingDay(PlantSpecies plantSpecies)
 {

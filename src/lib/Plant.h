@@ -14,6 +14,7 @@ enum class PlantSpecies;
 class Plant
 {
 private:
+    bool handled;
     int elapsedDay;
     int level; //1 ~ 4까지 있음
     int waterPercentage;
@@ -23,15 +24,15 @@ private:
     sf::Texture plantTexture[PLANT_LEVEL + 1]; //죽은 것도 load 해야됨.
     sf::Sprite sprite;
 
-    
-
 public:
+
     Plant(PlantSpecies);
     ~Plant();
 
     void fillWater(WaterBucket &);
     void fillEnergy(FertBucket &);
-    
+    void skipThisTime();
+
     sf::Sprite getSprite();
     PlantSpecies getSpecies();
     
@@ -51,6 +52,7 @@ class PlantSlot
 private:
     Plant *plant;
     bool isEmpty();
+    sf::Texture slotTexture;
     sf::Sprite sprite;
 public:
     PlantSlot();
@@ -58,7 +60,7 @@ public:
     void pushPlant(Plant *p);
     void pullPlant();
 
-    Plant * getPlant();
+    Plant * getPlant(); //메인 화면에서 쓸거
     void draw(sf::RenderTarget &target);
 };
 

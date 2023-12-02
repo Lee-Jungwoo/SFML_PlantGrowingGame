@@ -2,37 +2,45 @@
 
 GameState::GameState()
 {
-    day = 0;
+    day = 1;
+    gold = 0;
     stage = Stage::Desert;
-    remainingPlants = std::set<PlantSpecies>{
+    remainingPlants = std::vector<PlantSpecies>{
         PlantSpecies::Carrot,
         PlantSpecies::Millet,
         PlantSpecies::Oat,
         PlantSpecies::Yacon};
 }
 
+
+
 void GameState::nextStage()
 {
+    if(!isStageDone()){
+        std::cout<<"Warning: current stage is unfinished."<<std::endl;
+        return;
+    }
+
     switch (stage)
     {
     case Stage::Desert:
         stage = Stage::Temperate;
-
         break;
+
     case Stage::Temperate:
         stage = Stage::Tropical;
-
         break;
 
     case Stage::Tropical:
         std::cout << "ERROR: current stage is the last stage." << std::endl;
-
         break;
 
     default:
         std::cout << "ERROR: current stage is unrecognizable." << std::endl;
         break;
     }
+
+    remainingPlants = *Resource::getPlantsByStage(stage);
 }
 
 bool GameState::isStageDone()
@@ -43,6 +51,22 @@ bool GameState::isStageDone()
     }
     else
         return false;
+}
+
+int GameState::getCurrentDay(){
+    
+    return this->day;
+
+}
+
+Stage GameState::getCurrentStage()
+{
+    return this->stage;
+}
+
+int GameState::getGold()
+{
+    return this->gold;
 }
 
 void GameState::nextDay()
@@ -66,7 +90,7 @@ void GameState::nextDay()
             /**
              * Remove the plant in the remaining plants list.
              **/
-            for (std::set<PlantSpecies>::iterator iter = remainingPlants.begin(); iter != remainingPlants.end(); iter++)
+            for (std::vector<PlantSpecies>::iterator iter = remainingPlants.begin(); iter != remainingPlants.end(); iter++)
             {
                 if (plant->getSpecies() == (*iter))
                 {
@@ -79,10 +103,10 @@ void GameState::nextDay()
     }
 
     // 다음 스테이지로 넘어갈지 말지.
-
     if (this->isStageDone())
     {
-        this->nextStage(); // 이때 백그라운드랑 스텟바 바꿔주면 되겠구만용
+        this->nextStage();
+        this->day = 1;
     }
 }
 
