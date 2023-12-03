@@ -41,7 +41,8 @@ public:
     static std::vector<PlantSpecies> * getPlantsByStage(Stage);
     static std::string getName(PlantSpecies plantSpecies);
     static std::string getStageByPlant(PlantSpecies);
-
+    static int getPrice(PlantSpecies);
+    static sf::Texture getTexture(PlantSpecies, int);
 };
 
 

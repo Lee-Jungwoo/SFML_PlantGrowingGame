@@ -6,7 +6,7 @@
 
 // class _Shop{
 // private:
-//     std::set<PlantSpecies> remainingPlants; //현재 스테이지 남은 식물 목록
+//     std::set<PlantSpecies> remainingPlants; //현재 상점에 남은 식물 목록
 // public:
 
 // };

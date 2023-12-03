@@ -10,14 +10,15 @@ GameState::GameState()
         PlantSpecies::Millet,
         PlantSpecies::Oat,
         PlantSpecies::Yacon};
+    slotNum = 0;
+    remainingPlants_Shop = remainingPlants;
 }
-
-
 
 void GameState::nextStage()
 {
-    if(!isStageDone()){
-        std::cout<<"Warning: current stage is unfinished."<<std::endl;
+    if (!isStageDone())
+    {
+        std::cout << "Warning: current stage is unfinished." << std::endl;
         return;
     }
 
@@ -41,6 +42,7 @@ void GameState::nextStage()
     }
 
     remainingPlants = *Resource::getPlantsByStage(stage);
+    remainingPlants_Shop = remainingPlants;
 }
 
 bool GameState::isStageDone()
@@ -53,10 +55,10 @@ bool GameState::isStageDone()
         return false;
 }
 
-int GameState::getCurrentDay(){
-    
-    return this->day;
+int GameState::getCurrentDay()
+{
 
+    return this->day;
 }
 
 Stage GameState::getCurrentStage()
@@ -69,19 +71,38 @@ int GameState::getGold()
     return this->gold;
 }
 
+std::vector<PlantSpecies> *GameState::getRemainingPlantsInShop()
+{
+    return &(this->remainingPlants_Shop);
+}
+
 void GameState::nextDay()
 {
-    this->day++;
-    Plant *plant;
 
+    Plant *plant;
+    // 모든 식물들 한번씩 안건드리면 못넘어가게 컨트롤하는 부분
+    for (int i = 0; i < 4; i++)
+    {
+        plant = plantSlot[i].getPlant();
+        if (plant == nullptr || plant->isHandled())
+        {
+            return;
+        }
+    }
+
+    this->day++;
     // 슬롯의 식물들이 죽었는지 개화했는지, 그대로 갈지 판단함
     for (int i = 0; i < 4; i++)
     {
         plant = plantSlot[i].getPlant();
+        if (plant == nullptr)
+            continue;
+
         if (plant->isDead())
         {
             std::cout << "Plant dead => " << Resource::getName(plant->getSpecies()) << std::endl;
             plantSlot[i].pullPlant();
+            slotNum--;
         }
         else if (plant->isBlooming())
         {
@@ -99,6 +120,8 @@ void GameState::nextDay()
                 }
             }
             plantSlot[i].pullPlant();
+            slotNum--;
+            this->gold = this->gold + 1000;
         }
     }
 
@@ -113,4 +136,22 @@ void GameState::nextDay()
 PlantSlot *GameState::getPlantSlot(int i)
 {
     return (this->plantSlot) + i;
+}
+
+void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
+{
+    std::vector<PlantSpecies>::iterator i = remainingPlants_Shop.begin();
+
+    i = i + (num - 1);
+    remainingPlants_Shop.erase(i);
+
+    PlantSpecies s = *i;
+
+    if (Resource::getPrice(s) > gold)
+    {
+        std::cout << "ERROR: not enough money" << std::endl;
+    }
+
+    plantSlot[slotNum] = PlantSlot();
+    plantSlot->pushPlant(new Plant(s));
 }

@@ -12,37 +12,32 @@
 Plant::Plant(PlantSpecies s)
 {
     handled = false;
-    std::string filePath = "../../assets/";
-    std::string plantName = Resource::getName(s);
-    std::string stageName = Resource::getStageByPlant(s);
-    filePath = filePath + "/" + stageName + "/" + plantName + "_";
-
+    
     /**
      * Load every image file to single plant 객체
-     * from 1단계 to dead.
+     * from 1단계 to Dead.
      */
-    for (int i = 1; i <= PLANT_LEVEL; i++)
-    {
-        plantTexture[i].loadFromFile(filePath + std::to_string(i + 1));
+    for(int i=0;i<=PLANT_LEVEL;i++){
+        plantTexture[i] = Resource::getTexture(s, i);
     }
-
-    plantTexture[0].loadFromFile(filePath + "Dead");
 
     elapsedDay = 0;
     level = 1;
     waterPercentage = 0;
     soilPercentage = 0;
+
     this->species = s;
 
+    price = Resource::getPrice(species);
     bloomingDay = Resource::getBloomingDay(s);
-    sprite.setTexture(plantTexture[0]);
-    sprite.setPosition(300, 30);
-    sprite.setScale(0.08f, 0.08f);
+    sprite->setTexture(plantTexture[0]);
+    sprite->setPosition(300, 30);
+    sprite->setScale(0.08f, 0.08f);
 }
 
 Plant::~Plant()
 {
-    // 동적 할당 없으니 empty destructor
+    delete sprite;
 }
 
 void Plant::fillWater(WaterBucket &bucket)
@@ -103,13 +98,13 @@ void Plant::update()
     if (elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4)
     {
         level++;
-        sprite.setTexture(plantTexture[level], true);
+        sprite->setTexture(plantTexture[level], true);
     }
 
     assert(level <= 4 && level >= 1);
 }
 
-sf::Sprite Plant::getSprite()
+sf::Sprite * Plant::getSprite()
 {
     return this->sprite;
 }
@@ -119,11 +114,18 @@ PlantSpecies Plant::getSpecies()
     return this->species;
 }
 
+int Plant::getPrice()
+{
+    return price;
+}
+
 void Plant::draw(sf::RenderTarget &target)
 {
-    target.draw(sprite);
+    target.draw(*sprite);
 }
 //-------------------------------
+
+
 
 /**
  *   PlantSlot
@@ -131,6 +133,9 @@ void Plant::draw(sf::RenderTarget &target)
  */
 PlantSlot::PlantSlot() : plant(nullptr)
 {
+    this->slotTexture = sf::Texture();
+    this->slotTexture.loadFromFile("../../assets/PlantSlot.png");
+    this->sprite = new sf::Sprite(this->slotTexture);
 }
 
 bool PlantSlot::isEmpty()
@@ -158,9 +163,14 @@ Plant *PlantSlot::getPlant()
     return this->plant;
 }
 
+sf::Sprite * PlantSlot::getSprite()
+{
+    return this->sprite;
+}
+
 void PlantSlot::draw(sf::RenderTarget &target)
 {
-    
+
     this->plant->draw(target);
 }
 
