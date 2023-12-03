@@ -76,6 +76,15 @@ std::vector<PlantSpecies> *GameState::getRemainingPlantsInShop()
     return &(this->remainingPlants_Shop);
 }
 
+int GameState::getWater(){
+    return this->waterBucket.getRemaining();
+}
+
+int GameState::getFert()
+{
+    return this->fertBucket.getRemaining();
+}
+
 void GameState::nextDay()
 {
 
@@ -102,6 +111,7 @@ void GameState::nextDay()
         {
             std::cout << "Plant dead => " << Resource::getName(plant->getSpecies()) << std::endl;
             plantSlot[i].pullPlant();
+            remainingPlants_Shop.push_back(plant->getSpecies());
             slotNum--;
         }
         else if (plant->isBlooming())
@@ -120,6 +130,7 @@ void GameState::nextDay()
                 }
             }
             plantSlot[i].pullPlant();
+            plantBook.push_back(plant->getSpecies());
             slotNum--;
             this->gold = this->gold + 1000;
         }
@@ -133,9 +144,19 @@ void GameState::nextDay()
     }
 }
 
-PlantSlot *GameState::getPlantSlot(int i)
+PlantSlot *GameState::getPlantSlot(int i) //인덱스 0~3
 {
     return (this->plantSlot) + i;
+}
+
+sf::Sprite *GameState::getWaterBucketSprite()
+{
+    return this->waterBucket.getSprite();
+}
+
+sf::Sprite *GameState::getFertBucketSprite()
+{
+    return this->fertBucket.getSprite();
 }
 
 void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
@@ -154,4 +175,14 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
 
     plantSlot[slotNum] = PlantSlot();
     plantSlot->pushPlant(new Plant(s));
+}
+
+bool GameState::isAllHandled()
+{
+    for(int i=0;i<4;i++){
+        if(plantSlot[i].getPlant() == nullptr) return true; //Return when nullptr. (end of the plants)
+        if(!plantSlot[i].getPlant()->isHandled())
+            return false;
+    }
+    return true;
 }

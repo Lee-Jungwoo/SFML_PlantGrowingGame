@@ -36,7 +36,7 @@ std::map<PlantSpecies, int> Resource::bloomingDay = {
     {PlantSpecies::Potato, 10},
     {PlantSpecies::Tropical_Flower, 10}};
 
-std::map<PlantSpecies, int> price = {
+std::map<PlantSpecies, int> Resource::price = {
     {PlantSpecies::Carrot, 1000},
     {PlantSpecies::Millet, 1000},
     {PlantSpecies::Oat, 1000},
@@ -60,7 +60,22 @@ std::map<PlantSpecies, std::string> Resource::speciesName = {
     {PlantSpecies::Corn, "Corn"},
     {PlantSpecies::Pepper, "Pepper"},
     {PlantSpecies::Potato, "Potato"},
-    {PlantSpecies::Tropical_Flower, "Tropical Flower"}};
+    {PlantSpecies::Tropical_Flower, "Tropical Flower"}
+};
+
+std::map<PlantSpecies, std::string> Resource::speciesInfo = {
+    {PlantSpecies::Carrot, "Carrot"},
+    {PlantSpecies::Millet, "Millet"},
+    {PlantSpecies::Oat, "Oat"},
+    {PlantSpecies::Yacon, "Yacon"},
+    {PlantSpecies::Lettuce, "Lettuce"},
+    {PlantSpecies::Strawberry, "Strawberry"},
+    {PlantSpecies::Tomato, "Tomato"},
+    {PlantSpecies::Corn, "Corn"},
+    {PlantSpecies::Pepper, "Pepper"},
+    {PlantSpecies::Potato, "Potato"},
+    {PlantSpecies::Tropical_Flower, "Tropical Flower"}
+};
 
 int Resource::getBloomingDay(PlantSpecies plantSpecies)
 {
@@ -113,10 +128,10 @@ std::string Resource::getStageByPlant(PlantSpecies s)
 
 int Resource::getPrice(PlantSpecies s)
 {
-    return price[s];
+    return Resource::price[s];
 }
 
-sf::Texture Resource::getTexture(PlantSpecies s, int level)
+sf::Texture * Resource::getTexture(PlantSpecies s, int level)
 {
     std::string filePath = "../../assets/";
     std::string plantName = Resource::getName(s);
@@ -124,15 +139,19 @@ sf::Texture Resource::getTexture(PlantSpecies s, int level)
 
     if (level > 0)
     {
-        filePath = filePath + "/" + stageName + "/" + plantName + "_" + std::to_string(level);
-    }else if(level == 0){
-        filePath = filePath + "/" + stageName + "/" + plantName + "_Dead";
-    }else {
-        std::cout<<"ERROR: undefined argument value of 'level' in Resource::getTexture()"<<std::endl;
+        filePath = filePath + stageName + "/" + plantName + "/" + plantName + "_" + std::to_string(level);
     }
-    
-    sf::Texture t;
-    if (!t.loadFromFile(filePath))
+    else if (level == 0)
+    {
+        filePath = filePath + stageName + "/" + plantName + "/" + plantName + "_Dead";
+    }
+    else
+    {
+        std::cout << "ERROR: undefined argument value of 'level' in Resource::getTexture()" << std::endl;
+    }
+    filePath += ".png";
+    sf::Texture * t = new sf::Texture();
+    if (!t->loadFromFile(filePath))
     {
         std::cout << "ERROR While fetching images." << std::endl;
     }

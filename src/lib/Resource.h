@@ -34,7 +34,11 @@ private:
     static std::map<PlantSpecies, int> bloomingDay;
     static std::map<PlantSpecies, int> price;
     static std::map<PlantSpecies, std::string> speciesName;
+    static std::map<PlantSpecies, std::string> speciesInfo;
+    
+
     static std::map<Stage, std::vector<PlantSpecies> *> plantByStage;
+    
 
 public:
     static int getBloomingDay(PlantSpecies plantSpecies);
@@ -42,7 +46,7 @@ public:
     static std::string getName(PlantSpecies plantSpecies);
     static std::string getStageByPlant(PlantSpecies);
     static int getPrice(PlantSpecies);
-    static sf::Texture getTexture(PlantSpecies, int);
+    static sf::Texture *getTexture(PlantSpecies, int);
 };
 
 

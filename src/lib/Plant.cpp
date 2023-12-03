@@ -19,6 +19,7 @@ Plant::Plant(PlantSpecies s)
      */
     for(int i=0;i<=PLANT_LEVEL;i++){
         plantTexture[i] = Resource::getTexture(s, i);
+        std::cout<<"Texture loaded?"<<std::endl;
     }
 
     elapsedDay = 0;
@@ -30,9 +31,11 @@ Plant::Plant(PlantSpecies s)
 
     price = Resource::getPrice(species);
     bloomingDay = Resource::getBloomingDay(s);
-    sprite->setTexture(plantTexture[0]);
+
+    sprite = new sf::Sprite();
+    sprite->setTexture(*plantTexture[1]);
     sprite->setPosition(300, 30);
-    sprite->setScale(0.08f, 0.08f);
+    sprite->setScale(0.8f, 0.8f);
 }
 
 Plant::~Plant()
@@ -96,12 +99,15 @@ void Plant::update()
 
     // level이 바뀔만큼 날짜가 지났을 때!
     if (elapsedDay >= (level + 1) * (bloomingDay / 4) && level < 4)
-    {
+    {   
+            
         level++;
-        sprite->setTexture(plantTexture[level], true);
+        sprite->setTexture(*plantTexture[level], true);
     }
 
     assert(level <= 4 && level >= 1);
+
+    std::cout<<"Plant:" +Resource::getName(species)+" successfully going to next day."<<std::endl;
 }
 
 sf::Sprite * Plant::getSprite()

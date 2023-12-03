@@ -1,17 +1,17 @@
 #ifndef BUCKET_H
 #define BUCKET_H
 #include <SFML/Graphics.hpp>
-#define BUCKET_CAPACITY 4
+#define BUCKET_CAPACITY 100
 
 class Bucket
 {
 protected:
-    sf::Image bucketImage[BUCKET_CAPACITY];
-    sf::Sprite sprite;
+   
+    sf::Sprite *sprite;
     sf::Texture * texture;
     
     int remaining;
-    sf::Color color;
+    
     bool isEmpty();
 
 public:
@@ -20,10 +20,12 @@ public:
     ~Bucket();
     void fill();
     bool consume();
-    sf::Color getColor();
+
     sf::Texture * getTexture();
     virtual void draw(sf::RenderTarget *);
-
+    sf::Sprite *getSprite();
+    int getRemaining();
+    
 
 };
 
