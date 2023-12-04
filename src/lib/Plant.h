@@ -49,6 +49,11 @@ public:
     void update();
     void draw(sf::RenderTarget & target);
 
+    /*
+    DEBUG-------------
+    */
+    void kill();
+    void bloom();
 };
 
 
@@ -71,6 +76,12 @@ public:
     sf::Sprite * getSprite();
 
     void draw(sf::RenderTarget &target);
+
+
+    /*
+    *DEBUGGING---------------------
+    */
+    
 };
 
 #endif 

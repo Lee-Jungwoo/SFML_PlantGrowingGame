@@ -51,6 +51,27 @@ public:
     bool isAllHandled();
 
     void buyNewPlant(int num);
+
+
+    /*****************************
+     * DEBUGGING
+    *****************************/
+    void make_next_available();
+    std::vector<PlantSpecies> getA(){ 
+        std::cout<<"not yet bloom:"<<std::endl;
+        
+        return remainingPlants;};
+    std::vector<PlantSpecies> getB(){
+        std::cout<<"On the Shop:"<<std::endl;
+        return remainingPlants_Shop;};
+    std::vector<PlantSpecies> getC(){ 
+        std::cout<<"On the book:"<<std::endl;
+        return plantBook;};
+
+    void fillMoney(){
+        this->gold = 99999999;
+    }
+
 };
 
 #endif

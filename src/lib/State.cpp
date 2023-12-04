@@ -76,7 +76,8 @@ std::vector<PlantSpecies> *GameState::getRemainingPlantsInShop()
     return &(this->remainingPlants_Shop);
 }
 
-int GameState::getWater(){
+int GameState::getWater()
+{
     return this->waterBucket.getRemaining();
 }
 
@@ -93,13 +94,27 @@ void GameState::nextDay()
     for (int i = 0; i < 4; i++)
     {
         plant = plantSlot[i].getPlant();
-        if (plant == nullptr || plant->isHandled())
+        if (plant == nullptr)
         {
-            return;
+            break;
         }
+        else if (!plant->isHandled())
+            return;
     }
 
     this->day++;
+
+    // 슬롯 식물들 하나씩 update 해줌
+    for (int i = 0; i < 4; i++)
+    {
+        plant = plantSlot[i].getPlant();
+        if (plant == nullptr)
+        {
+            continue;
+        }
+        plant->update();
+    }
+
     // 슬롯의 식물들이 죽었는지 개화했는지, 그대로 갈지 판단함
     for (int i = 0; i < 4; i++)
     {
@@ -144,7 +159,7 @@ void GameState::nextDay()
     }
 }
 
-PlantSlot *GameState::getPlantSlot(int i) //인덱스 0~3
+PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
 {
     return (this->plantSlot) + i;
 }
@@ -163,26 +178,42 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
 {
     std::vector<PlantSpecies>::iterator i = remainingPlants_Shop.begin();
 
-    i = i + (num - 1);
+    PlantSpecies s = *i;
+    // i = i + (num - 1);
     remainingPlants_Shop.erase(i);
 
-    PlantSpecies s = *i;
+    
 
     if (Resource::getPrice(s) > gold)
     {
         std::cout << "ERROR: not enough money" << std::endl;
+        return;
     }
 
     plantSlot[slotNum] = PlantSlot();
-    plantSlot->pushPlant(new Plant(s));
+    plantSlot[slotNum++].pushPlant(new Plant(s));
 }
 
 bool GameState::isAllHandled()
 {
-    for(int i=0;i<4;i++){
-        if(plantSlot[i].getPlant() == nullptr) return true; //Return when nullptr. (end of the plants)
-        if(!plantSlot[i].getPlant()->isHandled())
+    for (int i = 0; i < 4; i++)
+    {
+        if (plantSlot[i].getPlant() == nullptr)
+            return true; // Return when nullptr. (end of the plants)
+        if (!plantSlot[i].getPlant()->isHandled())
             return false;
     }
     return true;
 }
+
+
+
+/*
+DEBUGGING---------------------------------------------------------
+*/
+void GameState::make_next_available()
+{
+    this->remainingPlants = std::vector<PlantSpecies>();
+}
+
+

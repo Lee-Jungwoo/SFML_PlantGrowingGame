@@ -24,8 +24,8 @@ Plant::Plant(PlantSpecies s)
 
     elapsedDay = 0;
     level = 1;
-    waterPercentage = 0;
-    soilPercentage = 0;
+    waterPercentage = 100;
+    soilPercentage = 100;
 
     this->species = s;
 
@@ -105,6 +105,8 @@ void Plant::update()
         sprite->setTexture(*plantTexture[level], true);
     }
 
+    this->soilPercentage -= 10;
+    this->waterPercentage -= 10;
     assert(level <= 4 && level >= 1);
 
     std::cout<<"Plant:" +Resource::getName(species)+" successfully going to next day."<<std::endl;
@@ -125,13 +127,27 @@ int Plant::getPrice()
     return price;
 }
 
+
 void Plant::draw(sf::RenderTarget &target)
 {
     target.draw(*sprite);
 }
+
+/**
+ * DEBUGGING--------------------------------------------
+*/
+void Plant::kill()
+{
+    this->waterPercentage = 0;
+    this->handled = true;
+}
+
+void Plant::bloom()
+{
+    this->elapsedDay = bloomingDay;
+    this->handled = true;
+}
 //-------------------------------
-
-
 
 /**
  *   PlantSlot

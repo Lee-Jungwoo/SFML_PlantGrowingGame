@@ -16,7 +16,7 @@ enum class PlantSpecies
     Millet,
     Oat,
     Yacon,
-    Lettuce,
+    Cabbage,
     Strawberry,
     Tomato,
     Corn,
@@ -35,7 +35,7 @@ private:
     static std::map<PlantSpecies, int> price;
     static std::map<PlantSpecies, std::string> speciesName;
     static std::map<PlantSpecies, std::string> speciesInfo;
-    
+
 
     static std::map<Stage, std::vector<PlantSpecies> *> plantByStage;
     

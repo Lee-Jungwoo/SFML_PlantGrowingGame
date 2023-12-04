@@ -13,17 +13,12 @@ FetchContent_MakeAvailable(SFML)
 add_executable(SIMPLE_GAME 
     src/lib/Buckets.cpp
     src/lib/Buckets.h
-    
-
 
     src/lib/Plant.h 
     src/lib/Plant.cpp
 
     src/lib/Resource.cpp
     src/lib/Resource.h
-
-    src/lib/Game.h
-    src/lib/Game.cpp
 
     src/lib/State.h
     src/lib/State.cpp
