@@ -23,7 +23,32 @@ add_executable(SIMPLE_GAME
     src/lib/State.h
     src/lib/State.cpp
 
+    src/lib/BackGround.cpp
+    src/lib/BackGround.h
+
+    src/lib/Encyclopedia.cpp
+    src/lib/Encyclopedia.h
+
+    src/lib/MainSlot.cpp
+    src/lib/MainSlot.h
+
+    src/lib/Minigame.cpp
+    src/lib/Minigame.h
+
+    src/lib/Setting.h
+    src/lib/Setting.cpp
+
+    src/lib/Shop.h
+    src/lib/Shop.cpp
+
+    src/lib/Slot.cpp
+    src/lib/Slot.h
+
+        
+
     src/main/main.cpp 
+
+    
 
 )
 target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)

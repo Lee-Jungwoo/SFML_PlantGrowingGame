@@ -19,6 +19,7 @@ enum class PlantSpecies
     Cabbage,
     Strawberry,
     Tomato,
+    Watermelon,
     Corn,
     Pepper,
     Potato,

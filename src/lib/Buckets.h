@@ -11,7 +11,6 @@ protected:
     sf::Texture * texture;
     
     int remaining;
-    
     bool isEmpty();
 
 public:

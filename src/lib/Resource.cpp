@@ -14,7 +14,8 @@ std::map<Stage, std::vector<PlantSpecies> *> Resource::plantByStage = {
      new std::vector<PlantSpecies>{
          PlantSpecies::Cabbage,
          PlantSpecies::Strawberry,
-         PlantSpecies::Tomato}},
+         PlantSpecies::Tomato,
+         PlantSpecies::Watermelon}},
 
     {Stage::Tropical,
      new std::vector<PlantSpecies>{
@@ -31,6 +32,7 @@ std::map<PlantSpecies, int> Resource::bloomingDay = {
     {PlantSpecies::Cabbage, 10},
     {PlantSpecies::Strawberry, 10},
     {PlantSpecies::Tomato, 10},
+    {PlantSpecies::Watermelon,10},
     {PlantSpecies::Corn, 10},
     {PlantSpecies::Pepper, 10},
     {PlantSpecies::Potato, 10},
@@ -44,6 +46,7 @@ std::map<PlantSpecies, int> Resource::price = {
     {PlantSpecies::Cabbage, 1000},
     {PlantSpecies::Strawberry, 1000},
     {PlantSpecies::Tomato, 1000},
+    {PlantSpecies::Watermelon,1000},
     {PlantSpecies::Corn, 1000},
     {PlantSpecies::Pepper, 1000},
     {PlantSpecies::Potato, 1000},
@@ -57,10 +60,11 @@ std::map<PlantSpecies, std::string> Resource::speciesName = {
     {PlantSpecies::Cabbage, "Cabbage"},
     {PlantSpecies::Strawberry, "Strawberry"},
     {PlantSpecies::Tomato, "Tomato"},
+    {PlantSpecies::Watermelon,"Watermelon"},
     {PlantSpecies::Corn, "Corn"},
     {PlantSpecies::Pepper, "Pepper"},
     {PlantSpecies::Potato, "Potato"},
-    {PlantSpecies::Tropical_Flower, "Tropical Flower"}
+    {PlantSpecies::Tropical_Flower, "Tropical_Flower"}
 };
 
 std::map<PlantSpecies, std::string> Resource::speciesInfo = {
@@ -71,6 +75,7 @@ std::map<PlantSpecies, std::string> Resource::speciesInfo = {
     {PlantSpecies::Cabbage, "Cabbage"},
     {PlantSpecies::Strawberry, "Strawberry"},
     {PlantSpecies::Tomato, "Tomato"},
+    {PlantSpecies::Watermelon,"Watermelon"},
     {PlantSpecies::Corn, "Corn"},
     {PlantSpecies::Pepper, "Pepper"},
     {PlantSpecies::Potato, "Potato"},
@@ -119,7 +124,7 @@ std::string Resource::getStageByPlant(PlantSpecies s)
     {
         if (s == *i)
         {
-            return "Desert";
+            return "Tropical";
         }
     }
 

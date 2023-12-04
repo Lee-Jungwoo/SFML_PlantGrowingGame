@@ -157,6 +157,9 @@ void GameState::nextDay()
         this->nextStage();
         this->day = 1;
     }
+
+
+    std::cout<<"GAMESTATE: succesfully going to next day."<<std::endl;
 }
 
 PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
