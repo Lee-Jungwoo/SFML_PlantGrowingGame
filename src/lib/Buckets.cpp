@@ -2,10 +2,9 @@
 #include <iostream>
 
 
-
-/**
- *         BUCKET              
- * */
+/** 
+ *  BUCKET              
+ **/
 Bucket::Bucket()
 {   
     remaining = 100;

@@ -16,28 +16,27 @@ int main()
     Vector2f size = window->getView().getSize();
 
     BackGround B;
+    GameState state;
 
-
+    B.draw(window, state);
+    Event event;
     while (window->isOpen())
     {
-        Event event;
+        
         window->clear(Color(220, 255, 191, 255));
-
-        B.draw(window);
-
-
         while (window->pollEvent(event))
         {
             if (event.type == Event::Closed)
                 window->close();
             if (event.type == Event::MouseButtonPressed)
             {
-                switch (event.key.code)
+                switch (event.mouseButton.button)
                 {
                 case Mouse::Left:
                 {
                     sf::Vector2i pos = sf::Mouse::getPosition(*window);
-                    B.ChangeMode(pos);
+                    std::cout<<pos.x<< " "<<pos.y<<std::endl;
+                    B.ChangeMode(pos, state);
                     break;
                 }
                 default:
@@ -47,16 +46,7 @@ int main()
        
           
         }
-
-
-
-
-
-
-
-
-
-
+        B.draw(window,state);
         window->display();
     }
 

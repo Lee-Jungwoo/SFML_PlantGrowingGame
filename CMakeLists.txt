@@ -44,14 +44,17 @@ add_executable(SIMPLE_GAME
     src/lib/Slot.cpp
     src/lib/Slot.h
 
-        
+    src/lib/mini_game_JS.cpp
 
     src/main/main.cpp 
 
     
 
 )
-target_link_libraries(SIMPLE_GAME PRIVATE sfml-graphics)
+target_link_libraries(SIMPLE_GAME PRIVATE 
+sfml-graphics
+sfml-audio
+)
 target_compile_features(SIMPLE_GAME PRIVATE cxx_std_17)
 
 if(WIN32)

@@ -17,11 +17,6 @@ private:
 	Texture arrow_right_t;
 	Sprite arrow_right_s;
 
-	/// ��ư
-	/// Texture water_t
-	/// Sprite water_s
-	/// </summary>
-
 	Text text;
 	Font font;
 public:

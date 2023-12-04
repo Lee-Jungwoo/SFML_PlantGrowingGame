@@ -1,10 +1,10 @@
 #include"Minigame.h"
 
 Minigame::Minigame() {
-	this->back1_t.loadFromFile("yellow_rect.png");
-	this->back2_t.loadFromFile("yellow_rect.png");
-	this->back3_t.loadFromFile("yellow_rect.png");
-	this->back4_t.loadFromFile("yellow_rect.png");
+	this->back2_t.loadFromFile("../../yellow_rect.png");
+	this->back1_t.loadFromFile("../../yellow_rect.png");
+	this->back3_t.loadFromFile("../../yellow_rect.png");
+	this->back4_t.loadFromFile("../../yellow_rect.png");
 
 	this->back1_s = Sprite(this->back1_t);
 	this->back2_s = Sprite(this->back2_t);

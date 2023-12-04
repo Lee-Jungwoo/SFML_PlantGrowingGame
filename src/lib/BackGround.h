@@ -6,7 +6,7 @@
 #include "Minigame.h"
 #include "Shop.h"
 #include "Encyclopedia.h"
-// #include "Setting.h"
+#include "Setting.h"
 #include "MainSlot.h"
 #include "Slot.h"
 #include "Buckets.h"
@@ -51,27 +51,36 @@
 #define Shop_y4_M 584
 /////////////////////////////////
 
-// using namespace sf;
 class BackGround
 {
 private:
 	Shop shop;
-	// Setting setting;
 	Minigame minigame;
 	MainSlot mainslot;
 	Slot slot;
 	Bucket bucket;
-
-	int mode;
+	Setting setting;
+	int mode; // Current screen view.
 	sf::Texture main_t;
 	sf::Sprite main_s;
-	sf::Text text;
+	sf::Text stage;
+	sf::Text gold;
 	sf::Font font;
+
+	//Bottom bar textures & sprites.
+	sf::Texture shop_t;
+	sf::Texture minigame_t;
+	sf::Texture encyclopedia_t;
+	sf::Texture setting_t;
+	sf::Sprite shop_s;
+	sf::Sprite minigame_s;
+	sf::Sprite encyclopedia_s;
+	sf::Sprite setting_s;
 
 public:
 	BackGround();
 	~BackGround() {}
-	void ChangeMode(sf::Vector2i pos);
-	virtual int draw(sf::RenderWindow *window);
+	void ChangeMode(sf::Vector2i pos, GameState &);
+	virtual int draw(sf::RenderWindow *window, GameState &);
 };
 #endif // !BACKGROUND_H

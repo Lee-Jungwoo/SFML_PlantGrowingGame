@@ -1,62 +1,75 @@
 #include "BackGround.h"
 
-
 using namespace std;
 
-
 /////////////////////////////////
-BackGround::BackGround() {
+BackGround::BackGround()
+{
 	this->mode = 0;
-	main_t.loadFromFile("../../0.png");
+
+	main_t.loadFromFile("../../LoadingScreen.png");
 	main_s = Sprite(main_t);
+
 	this->font.loadFromFile("../../Font-Medium.ttf");
-	text.setFont(font);
-	text.setCharacterSize(45);
-	text.setFillColor(sf::Color::Black);
-	text.setString("DESSERT"); //thema �־����
-	text.setPosition(0, 0);
-	text.setStyle(sf::Text::Bold);
-	
+	stage.setFont(font);
+	stage.setCharacterSize(45);
+	stage.setFillColor(sf::Color::Black);
+	stage.setString("DESERT");
+	stage.setPosition(0, 0);
+	stage.setStyle(sf::Text::Bold);
 }
-//void BackGround::ChangeMode(sf::Vector2i pos,GameState& gamestate)
-void BackGround::ChangeMode(sf::Vector2i pos) {
-	
+void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
+{
+
 	int x = pos.x;
 	int y = pos.y;
-	printf("%d %d\n", x, y);
-	//0�� �ʱ�ε� ȭ��, 1�� �⺻ ���� ȭ��, 2,3,4,5�� ����Ȯ��ȭ��, 6�� ����, 7�� �̴ϰ���, 8�� ����, 9�� ����
+
 	switch (this->mode)
 	{
-	case 0:
-		this->mode=g_main;
+	case g_loading:
+		this->mode = g_main;
 		break;
 	case g_main:
-	{
-		if (x > Slot_x1_m && y > Slot_y1_m && x < Slot_x1_M && y < Slot_y1_M) // 1
+	{ /*
+		 if (this->mainslot.getSprite(1)->getGlobalBounds().contains(x, y)) // 1
+		 {
+			 this->mode = g_slot1;
+			 slot.mode(1);
+		 }
+		 if (x > Slot_x1_m && y > Slot_y2_m && x < Slot_x1_M && y < Slot_y2_M) // 2
+		 {
+			 this->mode = g_slot2;
+			 slot.mode(2);
+		 }
+		 if (x > Slot_x2_m && y > Slot_y1_m && x < Slot_x2_M && y < Slot_y1_M) // 3
+		 {
+			 this->mode = g_slot3;
+			 slot.mode(3);
+		 }
+		 if (x > Slot_x2_m && y > Slot_y2_m && x < Slot_x2_M && y < Slot_y2_M) // 4
+		 {
+			 this->mode = g_slot4;
+			 slot.mode(4);
+		 }
+ */
+		for (int i = 1; i <= 4; i++)
 		{
-			this->mode = g_slot1; slot.mode(1);
+			if (this->mainslot.getSprite(i)->getGlobalBounds().contains(x, y)) // 1
+			{
+				this->mode = g_slot1 + (i - 1);
+				slot.mode(i);
+			}
 		}
-		if (x > Slot_x1_m && y > Slot_y2_m && x < Slot_x1_M && y < Slot_y2_M) //2
-		{
-			this->mode = g_slot2; slot.mode(2);
-		}
-		if (x > Slot_x2_m && y > Slot_y1_m && x < Slot_x2_M && y < Slot_y1_M) // 3
-		{
-			this->mode = g_slot3; slot.mode(3);
-		}
-		if (x > Slot_x2_m && y > Slot_y2_m && x < Slot_x2_M && y < Slot_y2_M) // 4
-		{
-			this->mode = g_slot4; slot.mode(4);
-		}
-		if (x > 12 && y > 675 && x < 132 && y < 803)
+
+		if (shop_s.getGlobalBounds().contains(x,y))
 			this->mode = g_shop;
-		if (x > 144 && y > 675 && x < 264 && y < 803)
+		if (minigame_s.getGlobalBounds().contains(x,y))
 			this->mode = g_minigame;
-		if (x > 276 && y > 675 && x < 396 && y < 803)
+		if (encyclopedia_s.getGlobalBounds().contains(x,y))
 			this->mode = g_encyclopedia;
-		if (x > 408 && y > 675 && x < 528 && y < 803)
+		if (setting_s.getGlobalBounds().contains(x,y))
 			this->mode = g_setting;
-		break; 
+		break;
 	}
 	case g_slot1:
 		if (x > Arrow_l_x_m && y > Arrow_y_m && x < Arrow_l_x_M && y < Arrow_y_M)
@@ -117,19 +130,19 @@ void BackGround::ChangeMode(sf::Vector2i pos) {
 	case g_shop:
 		if (x > Shop_x_m && y > Shop_y1_m && x < Shop_x_M && y < Shop_y1_M)
 		{
-			//1������
+			// 1������
 		}
 		if (x > Shop_x_m && y > Shop_y2_m && x < Shop_x_M && y < Shop_y2_M)
 		{
-			//2������
+			// 2������
 		}
 		if (x > Shop_x_m && y > Shop_y3_m && x < Shop_x_M && y < Shop_y3_M)
 		{
-			//3������
+			// 3������
 		}
 		if (x > Shop_x_m && y > Shop_y4_m && x < Shop_x_M && y < Shop_y4_M)
 		{
-			//4������
+			// 4������
 		}
 		if (y > 675)
 		{
@@ -139,19 +152,19 @@ void BackGround::ChangeMode(sf::Vector2i pos) {
 	case g_minigame:
 		if (x > Shop_x_m && y > Shop_y1_m && x < Shop_x_M && y < Shop_y1_M)
 		{
-			//1������
+			// 1������
 		}
 		if (x > Shop_x_m && y > Shop_y2_m && x < Shop_x_M && y < Shop_y2_M)
 		{
-			//2������
+			// 2������
 		}
 		if (x > Shop_x_m && y > Shop_y3_m && x < Shop_x_M && y < Shop_y3_M)
 		{
-			//3������
+			// 3������
 		}
 		if (x > Shop_x_m && y > Shop_y4_m && x < Shop_x_M && y < Shop_y4_M)
 		{
-			//4������
+			// 4������
 		}
 		if (y > 675)
 			this->mode = g_main;
@@ -160,26 +173,51 @@ void BackGround::ChangeMode(sf::Vector2i pos) {
 		if (y > 675)
 			this->mode = g_main;
 		break;
-	// case g_setting:
-		// if (y > 675)
-		// 	this->mode = g_main;
-		// if (y< 675)
-		// {
-		// 	setting.update();
-		// }
-		
-		// break;
+	case g_setting:
+		if (y > 675)
+			this->mode = g_main;
+		if (y < 675)
+		{
+			setting.update();
+		}
+
+		break;
 	}
 }
 
-//int BackGround::draw(sf::RenderWindow *window, GameState& gamestate )
-int BackGround::draw(sf::RenderWindow *window ) {
-	
-	//0�� �ʱ�ε� ȭ��, 1�� �⺻ ���� ȭ��, 2,3,4,5�� ����Ȯ��ȭ��, 6�� ����, 7�� �̴ϰ���, 8�� ����, 9�� ����
-	switch (this->mode) {
+int BackGround::draw(sf::RenderWindow *window, GameState &state)
+{
+
+	switch (state.getCurrentStage())
+	{
+	case Stage::Desert:
+		if (!this->main_t.loadFromFile("../../assets/Desert/Desert_background.png"))
+		{
+			return EXIT_FAILURE;
+		}
+		break;
+	case Stage::Temperate:
+		if (!this->main_t.loadFromFile("../../assets/Temperate/Temperate_background.png"))
+		{
+			return EXIT_FAILURE;
+		}
+		break;
+	case Stage::Tropical:
+		if (!this->main_t.loadFromFile("../../assets/Tropical/Tropical_background.png"))
+		{
+			return EXIT_FAILURE;
+		}
+		break;
+	default:
+		std::cout << "ERROR while fetching current stage: \n in Function Backgroung::draw()" << std::endl;
+		break;
+	}
+
+	switch (this->mode)
+	{
 	case g_loading:
 	{
-		if (!this->main_t.loadFromFile("../../0.png"))
+		if (!this->main_t.loadFromFile("../../LoadingScreen.png"))
 		{
 			return EXIT_FAILURE;
 		}
@@ -191,196 +229,162 @@ int BackGround::draw(sf::RenderWindow *window ) {
 	}
 	case g_main:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			//Texture gold_t;
-			//Texture bucket_t;
-			//Texture fertilizer_t;
 
-			//Sprite gold_s;
-			//Sprite bucket_s;
-			//Sprite fertilizer_s;
+		Sprite *w; // waterBucket
+		Text wt;
 
-			// ��ܹ�
+		Sprite *f; // fertBucket
+		Text ft;
 
-			/* ���
-			gold_t.loadFromFile("gold.png");
-			gold_s = Sprite(gold_t);
-			gold_s.setPosition(500,1000); ��ġ�� �����ʿ�
-			*/
+		gold.setFont(font);
+		gold.setCharacterSize(30);
+		gold.setFillColor(sf::Color::Black);
+		gold.setString("Gold: " + to_string(state.getGold()));
 
-			// // �絿��
-			// bucket.loadFromFile("assets/Buckets/WaterBucket.png");
-			// bucket_s = Sprite(bucket_t);
-			// bucket_s.setPosition(500,1000);
-			
+		gold.setPosition(0, 50);
+		gold.setStyle(sf::Text::Bold);
 
-			/* ���
-			fertilizer_t.loadFromFile("fertilizer.png");
-			fertilizer_s = Sprite(fertilizer_t);
-			fertilizer_s.setPosition(500,1000); ��ġ�� �����ʿ�
-			*/
+		// make waterbucket
+		w = state.getWaterBucketSprite();
+		w->setPosition(300, 0);
+		w->setScale(0.4f, 0.4f);
 
-			//����
-			main_s = Sprite(main_t);
-			//�ϴܹ�
-			Texture shop_t;
-			Texture minigame_t;
-			Texture encyclopedia_t;
-			Texture setting_t;
-			Sprite shop_s;
-			Sprite minigame_s;
-			Sprite encyclopedia_s;
-			Sprite setting_s;
-			shop_t.loadFromFile("../../shop.png");
-			shop_s = Sprite(shop_t);
-			shop_s.setPosition(12, 683);
+		////waterBucket's text.
+		wt.setFont(font);
+		wt.setCharacterSize(15);
+		wt.setFillColor(sf::Color::Black);
+		wt.setString(to_string(state.getWater()));
 
-			minigame_t.loadFromFile("../../minigame.png");
-			minigame_s = Sprite(minigame_t);
-			minigame_s.setPosition(144, 683);
+		wt.setPosition(330, 80);
+		wt.setStyle(sf::Text::Bold);
 
-			encyclopedia_t.loadFromFile("../../ency.png");
-			encyclopedia_s = Sprite(encyclopedia_t);
-			encyclopedia_s.setPosition(276, 683);
+		// make fertBucket
+		f = state.getFertBucketSprite();
+		f->setPosition(400, 0);
+		f->setScale(0.4f, 0.4f);
 
-			setting_t.loadFromFile("../../setting.png");
-			setting_s = Sprite(setting_t);
-			setting_s.setPosition(408, 683);
+		////fertBucket's text.
+		ft.setFont(font);
+		ft.setCharacterSize(15);
+		ft.setFillColor(sf::Color::Black);
+		ft.setString(to_string(state.getFert()));
 
-			//Draw
-			window->draw(main_s);
-			//window -> draw(gold_s);
-			window->draw(text);
-			mainslot.draw(window);
+		ft.setPosition(425, 80);
+		ft.setStyle(sf::Text::Bold);
 
-			window->draw(shop_s);
-			window->draw(minigame_s);
-			window->draw(encyclopedia_s);
-			window->draw(setting_s);
-		}
+		// main Background
+		main_s = Sprite(main_t);
+
+		// Misc. textures and sprites
+		shop_t.loadFromFile("../../shop.png");
+		shop_s = Sprite(shop_t);
+		shop_s.setPosition(0, 765);
+
+		minigame_t.loadFromFile("../../minigame.png");
+		minigame_s = Sprite(minigame_t);
+		minigame_s.setPosition(135, 765);
+
+		encyclopedia_t.loadFromFile("../../ency.png");
+		encyclopedia_s = Sprite(encyclopedia_t);
+		encyclopedia_s.setPosition(270, 765);
+
+		setting_t.loadFromFile("../../setting.png");
+		setting_s = Sprite(setting_t);
+		setting_s.setPosition(405, 765);
+
+		// Draw "Top bar"
+		window->draw(main_s);
+		window->draw(gold);
+		window->draw(stage);
+		window->draw(*w);
+		window->draw(wt);
+		window->draw(*f);
+		window->draw(ft);
+
+		// Draw "Main screen"
+		mainslot.draw(window);
+
+		// Draw "Bottom bar"
+		window->draw(shop_s);
+		window->draw(minigame_s);
+		window->draw(encyclopedia_s);
+		window->draw(setting_s);
+
 		break;
 	}
 	case g_slot1:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			slot.draw(window);
-			window->draw(text);
-		}
+
+		window->draw(main_s);
+		slot.draw(window);
+		window->draw(stage);
+
 		break;
 	}
 	case g_slot2:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			slot.draw(window);
-			window->draw(text);
-		}
+
+		window->draw(main_s);
+		slot.draw(window);
+		window->draw(stage);
+
 		break;
 	}
 	case g_slot3:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			slot.draw(window);
-			window->draw(text);
-		}
+
+		window->draw(main_s);
+		slot.draw(window);
+		window->draw(stage);
+
 		break;
 	}
 	case g_slot4:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			slot.draw(window);
-			window->draw(text);
-		}
+
+		window->draw(main_s);
+		slot.draw(window);
+		window->draw(stage);
+
 		break;
 	}
 	case g_shop:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			window->draw(text);
-			shop.draw(window);
-		}
+
+		window->draw(main_s);
+		window->draw(stage);
+		shop.draw(window);
+
 		break;
 	}
 	case g_minigame:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			window->draw(main_s);
-			window->draw(text);
-			minigame.draw(window);
-		}
+
+		window->draw(main_s);
+		window->draw(stage);
+		minigame.draw(window);
+
 		break;
 	}
 	case g_encyclopedia:
 	{
-		if (!this->main_t.loadFromFile("../../Dessert.png"))
-		{
-			return EXIT_FAILURE;
-		}
-		else
-		{
-			Encyclopedia encyclopedia;
-			window->draw(main_s);
-			window->draw(text);
-			encyclopedia.draw(window);
-		}
+
+		Encyclopedia encyclopedia;
+		window->draw(main_s);
+		window->draw(stage);
+		encyclopedia.draw(window);
+
 		break;
 	}
-	// case g_setting:
-	
-	// {
-	// 	if (!this->main_t.loadFromFile("../../Dessert.png"))
-	// 	{
-	// 		return EXIT_FAILURE;
-	// 	}
-	// 	else
-	// 	{
-	// 		window->draw(main_s);
-	// 		window->draw(text);
-	// 		setting.draw(window);
-	// 	}
+	case g_setting:
 
-	// }
+	{
+
+		window->draw(main_s);
+		window->draw(stage);
+		setting.draw(window);
+	}
 	}
 
-	return 99; //good return
+	return 99; // good return
 }
-

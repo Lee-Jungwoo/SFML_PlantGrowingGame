@@ -2,7 +2,7 @@
 
 Slot::Slot()
 {
-	this->slot_t.loadFromFile("");
+	this->slot_t.loadFromFile("../../slot.png");
 	this->slot_s = Sprite(this->slot_t);
 	slot_s.setPosition(195, 330);
 
