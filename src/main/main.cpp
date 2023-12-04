@@ -40,6 +40,8 @@ int main()
                     B.ChangeMode(pos);
                     break;
                 }
+                default:
+                    break;
                 }
             }
        
