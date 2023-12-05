@@ -1,8 +1,9 @@
-#include"Minigame.h"
+#include "Minigame.h"
 
-Minigame::Minigame() {
-	this->back2_t.loadFromFile("../../yellow_rect.png");
+Minigame::Minigame()
+{
 	this->back1_t.loadFromFile("../../yellow_rect.png");
+	this->back2_t.loadFromFile("../../yellow_rect.png");
 	this->back3_t.loadFromFile("../../yellow_rect.png");
 	this->back4_t.loadFromFile("../../yellow_rect.png");
 
@@ -11,11 +12,11 @@ Minigame::Minigame() {
 	this->back3_s = Sprite(this->back3_t);
 	this->back4_s = Sprite(this->back4_t);
 
-	back1_s.setPosition(8, 143);
-	back2_s.setPosition(8, 275);
-	back3_s.setPosition(8, 407);
-	back4_s.setPosition(8, 539);
-
+	back1_s.setPosition(40, 230);
+	back2_s.setPosition(40, 350);
+	back3_s.setPosition(40, 470);
+	back4_s.setPosition(40, 590);
+/*
 	this->font.loadFromFile("../../Font-Medium.ttf");
 
 	text1.setFont(font);
@@ -44,10 +45,10 @@ Minigame::Minigame() {
 	text4.setFillColor(sf::Color::Black);
 	text4.setString("Game4");
 	text4.setPosition(270, 543);
-	text4.setStyle(sf::Text::Bold);
+	text4.setStyle(sf::Text::Bold);*/
 }
 
-int Minigame::draw(sf::RenderWindow* window)
+int Minigame::draw(sf::RenderWindow *window)
 {
 	window->draw(back1_s);
 	window->draw(back2_s);

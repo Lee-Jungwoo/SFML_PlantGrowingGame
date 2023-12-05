@@ -54,9 +54,9 @@
 class BackGround
 {
 private:
-	Shop shop;
+	Shop *shop;
 	Minigame minigame;
-	MainSlot mainslot;
+	MainSlot * mainslot;
 	Slot slot;
 	Bucket bucket;
 	Setting setting;

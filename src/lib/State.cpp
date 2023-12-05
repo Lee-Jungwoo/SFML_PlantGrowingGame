@@ -3,7 +3,7 @@
 GameState::GameState()
 {
     day = 1;
-    gold = 0;
+    gold = 1000;
     stage = Stage::Desert;
     remainingPlants = std::vector<PlantSpecies>{
         PlantSpecies::Carrot,
@@ -41,6 +41,8 @@ void GameState::nextStage()
         break;
     }
 
+    this->day = 1;
+    this->slotNum = 0;
     remainingPlants = *Resource::getPlantsByStage(stage);
     remainingPlants_Shop = remainingPlants;
 }
@@ -182,7 +184,7 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
     std::vector<PlantSpecies>::iterator i = remainingPlants_Shop.begin();
 
     PlantSpecies s = *i;
-    // i = i + (num - 1);
+    i = i + (num - 1);
     remainingPlants_Shop.erase(i);
 
     
@@ -194,7 +196,7 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
     }
 
     plantSlot[slotNum] = PlantSlot();
-    plantSlot[slotNum++].pushPlant(new Plant(s));
+    plantSlot[slotNum++].pushPlant(new Plant(s)); //nextslot갈때 slotnum 0 되어야함
 }
 
 bool GameState::isAllHandled()
@@ -209,7 +211,10 @@ bool GameState::isAllHandled()
     return true;
 }
 
-
+int GameState::getSlotNum()
+{
+    return slotNum;
+}
 
 /*
 DEBUGGING---------------------------------------------------------

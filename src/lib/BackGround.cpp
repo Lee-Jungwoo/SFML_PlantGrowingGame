@@ -30,119 +30,97 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		this->mode = g_main;
 		break;
 	case g_main:
-	{ /*
-		 if (this->mainslot.getSprite(1)->getGlobalBounds().contains(x, y)) // 1
-		 {
-			 this->mode = g_slot1;
-			 slot.mode(1);
-		 }
-		 if (x > Slot_x1_m && y > Slot_y2_m && x < Slot_x1_M && y < Slot_y2_M) // 2
-		 {
-			 this->mode = g_slot2;
-			 slot.mode(2);
-		 }
-		 if (x > Slot_x2_m && y > Slot_y1_m && x < Slot_x2_M && y < Slot_y1_M) // 3
-		 {
-			 this->mode = g_slot3;
-			 slot.mode(3);
-		 }
-		 if (x > Slot_x2_m && y > Slot_y2_m && x < Slot_x2_M && y < Slot_y2_M) // 4
-		 {
-			 this->mode = g_slot4;
-			 slot.mode(4);
-		 }
- */
+	{
 		for (int i = 1; i <= 4; i++)
 		{
-			if (this->mainslot.getSprite(i)->getGlobalBounds().contains(x, y)) // 1
+			if (this->mainslot->getSprite(i)->getGlobalBounds().contains(x, y)) // 1
 			{
 				this->mode = g_slot1 + (i - 1);
 				slot.mode(i);
 			}
 		}
 
-		if (shop_s.getGlobalBounds().contains(x,y))
+		if (shop_s.getGlobalBounds().contains(x, y))
 			this->mode = g_shop;
-		if (minigame_s.getGlobalBounds().contains(x,y))
+		if (minigame_s.getGlobalBounds().contains(x, y))
 			this->mode = g_minigame;
-		if (encyclopedia_s.getGlobalBounds().contains(x,y))
+		if (encyclopedia_s.getGlobalBounds().contains(x, y))
 			this->mode = g_encyclopedia;
-		if (setting_s.getGlobalBounds().contains(x,y))
+		if (setting_s.getGlobalBounds().contains(x, y))
 			this->mode = g_setting;
 		break;
 	}
 	case g_slot1:
-		if (x > Arrow_l_x_m && y > Arrow_y_m && x < Arrow_l_x_M && y < Arrow_y_M)
+	{
+		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot4;
 			slot.mode(4);
 		}
-		if (x > Arrow_r_x_m && y > Arrow_y_m && x < Arrow_r_x_M && y < Arrow_y_M)
+		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot2;
 			slot.mode(2);
 		}
-		if (y > 675)
+		else if (y > 675)
 			this->mode = g_main;
 		break;
+	}
 	case g_slot2:
-		if (x > Arrow_l_x_m && y > Arrow_y_m && x < Arrow_l_x_M && y < Arrow_y_M)
+	{
+		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot1;
 			slot.mode(1);
 		}
-		if (x > Arrow_r_x_m && y > Arrow_y_m && x < Arrow_r_x_M && y < Arrow_y_M)
+		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot3;
 			slot.mode(3);
 		}
-		if (y > 675)
+		else if (y > 675)
 			this->mode = g_main;
 		break;
+	}
 	case g_slot3:
-		if (x > Arrow_l_x_m && y > Arrow_y_m && x < Arrow_l_x_M && y < Arrow_y_M)
+	{
+		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot2;
 			slot.mode(2);
 		}
-		if (x > Arrow_r_x_m && y > Arrow_y_m && x < Arrow_r_x_M && y < Arrow_y_M)
+		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot4;
 			slot.mode(4);
 		}
-		if (y > 675)
+		else if (y > 675)
 			this->mode = g_main;
 		break;
+	}
 	case g_slot4:
-		if (x > Arrow_l_x_m && y > Arrow_y_m && x < Arrow_l_x_M && y < Arrow_y_M)
+	{
+		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot3;
 			slot.mode(3);
 		}
-		if (x > Arrow_r_x_m && y > Arrow_y_m && x < Arrow_r_x_M && y < Arrow_y_M)
+		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot1;
 			slot.mode(1);
 		}
-		if (y > 675)
+		else if (y > 675)
 			this->mode = g_main;
 		break;
+	}
 	case g_shop:
-		if (x > Shop_x_m && y > Shop_y1_m && x < Shop_x_M && y < Shop_y1_M)
-		{
-			// 1������
-		}
-		if (x > Shop_x_m && y > Shop_y2_m && x < Shop_x_M && y < Shop_y2_M)
-		{
-			// 2������
-		}
-		if (x > Shop_x_m && y > Shop_y3_m && x < Shop_x_M && y < Shop_y3_M)
-		{
-			// 3������
-		}
-		if (x > Shop_x_m && y > Shop_y4_m && x < Shop_x_M && y < Shop_y4_M)
-		{
-			// 4������
+		for(int i=1;i<=state.getRemainingPlantsInShop()->size();i++){
+			const FloatRect &f = shop->getSlotSprite(i)->getGlobalBounds();
+			
+			if(f.contains(x,y)){
+				state.buyNewPlant(i);
+			}
 		}
 		if (y > 675)
 		{
@@ -229,6 +207,8 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 	}
 	case g_main:
 	{
+		delete mainslot;
+		mainslot = new MainSlot(state);
 
 		Sprite *w; // waterBucket
 		Text wt;
@@ -302,7 +282,7 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 		window->draw(ft);
 
 		// Draw "Main screen"
-		mainslot.draw(window);
+		mainslot->draw(window,state);
 
 		// Draw "Bottom bar"
 		window->draw(shop_s);
@@ -349,11 +329,12 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 		break;
 	}
 	case g_shop:
-	{
-
+	{	
+		delete shop;
+		shop = new Shop(state);
 		window->draw(main_s);
 		window->draw(stage);
-		shop.draw(window);
+		shop->draw(window, state);
 
 		break;
 	}

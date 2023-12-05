@@ -52,6 +52,8 @@ public:
 
     void buyNewPlant(int num);
 
+    int getSlotNum(); //actual index. (0~3)
+
 
     /*****************************
      * DEBUGGING

@@ -2,8 +2,6 @@
 #define SLOT_H
 #include <SFML/Graphics.hpp>
 
-
-
 using namespace sf;
 class Slot
 {
@@ -19,10 +17,14 @@ private:
 
 	Text text;
 	Font font;
+
 public:
 	Slot();
 	~Slot() {}
-	int draw(sf::RenderWindow*);
+	int draw(sf::RenderWindow *);
 	void mode(int);
+
+	Sprite *getLeftArrowSprite();
+	Sprite *getRightArrowSprite();
 };
 #endif // !SLOT_H

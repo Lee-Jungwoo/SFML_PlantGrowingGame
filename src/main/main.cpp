@@ -11,7 +11,7 @@ int main()
 {
     //GameState gamestate;
     RenderWindow* window = new RenderWindow(VideoMode(540,900), "new");
-    
+    window->setFramerateLimit(20);
 
     Vector2f size = window->getView().getSize();
 
