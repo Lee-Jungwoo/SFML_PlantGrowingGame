@@ -25,18 +25,18 @@ std::map<Stage, std::vector<PlantSpecies> *> Resource::plantByStage = {
          PlantSpecies::Tropical_Flower}}};
 
 std::map<PlantSpecies, int> Resource::bloomingDay = {
-    {PlantSpecies::Carrot, 10},
-    {PlantSpecies::Millet, 10},
-    {PlantSpecies::Oat, 10},
-    {PlantSpecies::Yacon, 10},
-    {PlantSpecies::Cabbage, 10},
-    {PlantSpecies::Strawberry, 10},
-    {PlantSpecies::Tomato, 10},
-    {PlantSpecies::Watermelon,10},
-    {PlantSpecies::Corn, 10},
-    {PlantSpecies::Pepper, 10},
-    {PlantSpecies::Potato, 10},
-    {PlantSpecies::Tropical_Flower, 10}};
+    {PlantSpecies::Carrot, 1},
+    {PlantSpecies::Millet, 1},
+    {PlantSpecies::Oat, 1},
+    {PlantSpecies::Yacon, 1},
+    {PlantSpecies::Cabbage, 1},
+    {PlantSpecies::Strawberry, 1},
+    {PlantSpecies::Tomato, 1},
+    {PlantSpecies::Watermelon,1},
+    {PlantSpecies::Corn, 1},
+    {PlantSpecies::Pepper, 1},
+    {PlantSpecies::Potato, 1},
+    {PlantSpecies::Tropical_Flower, 1}};
 
 std::map<PlantSpecies, int> Resource::price = {
     {PlantSpecies::Carrot, 1000},
@@ -161,4 +161,9 @@ sf::Texture * Resource::getTexture(PlantSpecies s, int level)
         std::cout << "ERROR While fetching images." << std::endl;
     }
     return t;
+}
+
+std::string Resource::getInfo(PlantSpecies s)
+{
+    return speciesInfo[s];
 }

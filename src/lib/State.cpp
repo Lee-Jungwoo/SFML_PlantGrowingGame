@@ -169,6 +169,11 @@ PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
     return &(this->plantSlot[i]);
 }
 
+std::vector<PlantSpecies> *GameState::getPlantBook()
+{
+    return &plantBook;
+}
+
 sf::Sprite *GameState::getWaterBucketSprite()
 {
     return this->waterBucket.getSprite();
@@ -187,16 +192,16 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
     i = i + (num - 1);
     remainingPlants_Shop.erase(i);
 
-    
-
     if (Resource::getPrice(s) > gold)
     {
         std::cout << "ERROR: not enough money" << std::endl;
         return;
-    }
+    }else
+        gold -= Resource::getPrice(s);
 
     plantSlot[slotNum] = PlantSlot();
     plantSlot[slotNum++].pushPlant(new Plant(s)); //nextslot갈때 slotnum 0 되어야함
+    
 }
 
 bool GameState::isAllHandled()

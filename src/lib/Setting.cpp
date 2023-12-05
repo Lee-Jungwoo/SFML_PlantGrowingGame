@@ -8,10 +8,10 @@ Setting::Setting() {
 	this->music_s = Sprite(this->music_t);
 
 	this->back_s.setPosition(135,270);
-	this->music_s.setPosition(203,338);
+	this->music_s.setPosition(175,326);
 
 	this->back_s.setScale(0.5, 0.5);
-	this->music_s.setScale(0.5, 0.5);
+	// this->music_s.setScale(0.5, 0.5);
 
 	music.openFromFile("../../bgm.ogg");
 	music.setLoop(true);
@@ -34,13 +34,11 @@ void Setting::update()
 		this->music.play();
 		this->music_t.loadFromFile("../../sound_on.png");
 	}
-	this->music_s = Sprite(this->music_t);
-	this->music_s.setPosition(203, 338);
-	this->music_s.setScale(0.5, 0.5);
+
 }
 int Setting::draw(sf::RenderWindow* window)
 {
-	window->draw(back_s);
+	// window->draw(back_s);
 	window->draw(music_s);
 	return 0;
 }

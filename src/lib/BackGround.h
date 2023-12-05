@@ -10,6 +10,7 @@
 #include "MainSlot.h"
 #include "Slot.h"
 #include "Buckets.h"
+#include "Ency_Info.h"
 
 /////////background Mode//////////
 #define g_loading 0
@@ -21,7 +22,8 @@
 #define g_shop 6
 #define g_minigame 7
 #define g_encyclopedia 8
-#define g_setting 9
+#define g_encyclopedia_info 9
+#define g_setting 10
 /////////////////////////////////
 // #define Slot_x1_m 75
 // #define Slot_x1_M 225
@@ -61,6 +63,9 @@ private:
 	Slot slot;
 	Bucket bucket;
 	Setting setting;
+	Encyclopedia * encyclopedia;
+	EncyclopediaInfoView encyInfoView;
+	int dictIdx; //Current stage's dictionary index. used in EncyInfoView
 
 	int mode; // Current screen mode.
 
@@ -73,15 +78,20 @@ private:
 	sf::Text gold;
 	sf::Font font;
 
+	sf::Texture nextDay_t;
+	sf::Sprite nextDay_s;
+
 	// Bottom bar textures & sprites.
 	sf::Texture shop_t;
 	sf::Texture minigame_t;
 	sf::Texture encyclopedia_t;
 	sf::Texture setting_t;
+
 	sf::Sprite shop_s;
 	sf::Sprite minigame_s;
 	sf::Sprite encyclopedia_s;
 	sf::Sprite setting_s;
+
 
 	// Bottom bar (go back) texture & sprite;
 	sf::Texture back_t;

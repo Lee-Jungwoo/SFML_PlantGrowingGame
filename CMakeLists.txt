@@ -29,6 +29,9 @@ add_executable(SIMPLE_GAME
     src/lib/Encyclopedia.cpp
     src/lib/Encyclopedia.h
 
+    src/lib/Ency_Info.h
+    src/lib/Ency_Info.cpp
+
     src/lib/MainSlot.cpp
     src/lib/MainSlot.h
 

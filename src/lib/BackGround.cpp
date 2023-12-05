@@ -8,9 +8,16 @@ BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 	this->mode = 0;
 	this->window = window;
 
+	// Background screen
 	main_t.loadFromFile("../../LoadingScreen.png");
 	main_s = Sprite(main_t);
 
+	// Next Day Button
+	nextDay_t.loadFromFile("../../next_day.png");
+	nextDay_s = Sprite(nextDay_t);
+	nextDay_s.setPosition(443, 143);
+
+	// Current Stage init.
 	this->font.loadFromFile("../../Font-Medium.ttf");
 	stage.setFont(font);
 	stage.setCharacterSize(45);
@@ -21,10 +28,12 @@ BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 
 	mainslot = new MainSlot(state);
 	shop = new Shop(state);
+	encyclopedia = new Encyclopedia(state);
 
 	back_t.loadFromFile("../../back.png");
 	back_s.setTexture(back_t);
 	back_s.setPosition(0, 765);
+	dictIdx = 0;
 }
 void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 {
@@ -47,6 +56,10 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 				slot.mode(i, state);
 			}
 		}
+		if (state.isAllHandled() && nextDay_s.getGlobalBounds().contains(x, y))
+		{
+			state.nextDay();
+		}
 
 		if (shop_s.getGlobalBounds().contains(x, y))
 			this->mode = g_shop;
@@ -65,6 +78,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 	{
 		int plantSlotIdx = this->mode - 2;
 		int plantSlotNum = this->mode - 1;
+
 		PlantSlot *plantSlot = state.getPlantSlot(plantSlotIdx);
 
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
@@ -122,72 +136,6 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 
 		break;
 	}
-
-		/*
-		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot4;
-
-					slot.mode(4, state);
-				}
-				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot2;
-					slot.mode(2, state);
-				}
-				else if (y >= 765)
-					this->mode = g_main;
-				break;
-			}
-			case g_slot2:
-			{
-				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot1;
-					slot.mode(1, state);
-				}
-				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot3;
-					slot.mode(3, state);
-				}
-				else if (y > 675)
-					this->mode = g_main;
-				break;
-			}
-			case g_slot3:
-			{
-				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot2;
-					slot.mode(2, state);
-				}
-				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot4;
-					slot.mode(4, state);
-				}
-				else if (y > 675)
-					this->mode = g_main;
-				break;
-			}
-			case g_slot4:
-			{
-				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot3;
-					slot.mode(3, state);
-				}
-				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-				{
-					this->mode = g_slot1;
-					slot.mode(1, state);
-				}
-				else if (y > 675)
-					this->mode = g_main;
-				break;
-			}
-			*/
 	case g_shop:
 	{
 		for (int i = 1; i <= state.getRemainingPlantsInShop()->size(); i++)
@@ -206,6 +154,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		break;
 	}
 	case g_minigame:
+	{
 		for (int i = 1; i <= MINIGAME_NUM; i++)
 		{
 			if (minigame.getSlotSprite(i)->getGlobalBounds().contains(x, y))
@@ -218,13 +167,59 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			this->mode = g_main;
 		}
 		break;
+	}
 	case g_encyclopedia:
+	{
+		for (int i = 0; i < encyclopedia->getCurrentNumOfPlantsInDict(); i++)
+		{
+			if (encyclopedia->getDictSlotSprite(i)->getGlobalBounds().contains(x, y))
+			{
+				this->mode = g_encyclopedia_info;
+				encyInfoView.changeMode(encyclopedia->getPlantsInCurrentStage()[i]);
+
+			}
+		}
+
 		if (back_s.getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_main;
 		}
 		break;
+	}
+	case g_encyclopedia_info:
+	{
+		// std::cout << "PLATNS CURRENTLY IN THE ENCYCLOPEDIA  ARE:\n";
+		// for (std::vector<PlantSpecies>::iterator iter = encyclopedia->getPlantsInCurrentStage().begin(); iter != encyclopedia->getPlantsInCurrentStage().end(); iter++)
+		// {
+		// 	std::cout << Resource::getName(*iter) << std::endl;
+		// }
+		std::vector<PlantSpecies> plantInCurrentStageDict = encyclopedia->getPlantsInCurrentStage();
+		
+		if (encyInfoView.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Left arrow clicked" << std::endl;
+			if (dictIdx != 0)
+				encyInfoView.changeMode(plantInCurrentStageDict[--dictIdx]);
+			else
+				encyInfoView.changeMode(plantInCurrentStageDict[plantInCurrentStageDict.size() - 1]);
+		}
+		else if (encyInfoView.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Right Arrow clicked" << std::endl;
+			if (dictIdx != plantInCurrentStageDict.size() - 1)
+				encyInfoView.changeMode(plantInCurrentStageDict[++dictIdx]);
+			else
+				encyInfoView.changeMode(plantInCurrentStageDict[0]);
+		}
+		if (back_s.getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Going back to main" << std::endl;
+			this->mode = g_main;
+		}
+		break;
+	}
 	case g_setting:
+	{
 		if (back_s.getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_main;
@@ -235,6 +230,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		}
 
 		break;
+	}
 	}
 }
 
@@ -358,6 +354,10 @@ int BackGround::draw(GameState &state)
 
 		// Draw "Main screen"
 		mainslot->draw(window, state);
+		if (state.isAllHandled())
+		{
+			window->draw(nextDay_s);
+		}
 
 		// Draw "Bottom bar"
 		window->draw(shop_s);
@@ -373,8 +373,8 @@ int BackGround::draw(GameState &state)
 	case g_slot4:
 	{
 
-        this->drawScaffold(window);
-        slot.draw(window);
+		this->drawScaffold(window);
+		slot.draw(window);
 
 		break;
 	}
@@ -400,16 +400,25 @@ int BackGround::draw(GameState &state)
 	case g_encyclopedia:
 	{
 
-		Encyclopedia encyclopedia;
+		delete encyclopedia;
+		encyclopedia = new Encyclopedia(state);
 		this->drawScaffold(window);
-		encyclopedia.draw(window);
+		encyclopedia->draw(window);
 
 		break;
 	}
+	case g_encyclopedia_info:
+	{
+		this->drawScaffold(window);
+		encyInfoView.draw(window);
+		break;
+	}
+
 	case g_setting:
 	{
 		this->drawScaffold(window);
 		setting.draw(window);
+		break;
 	}
 	}
 
@@ -418,7 +427,7 @@ int BackGround::draw(GameState &state)
 
 void BackGround::drawScaffold(sf::RenderWindow *window)
 {
-    window->draw(main_s);
-    window->draw(stage);
-    window->draw(back_s);
+	window->draw(main_s);
+	window->draw(stage);
+	window->draw(back_s);
 }

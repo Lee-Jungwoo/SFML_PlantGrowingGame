@@ -41,6 +41,7 @@ public:
     int getFert();
 
     std::vector<PlantSpecies> *getRemainingPlantsInShop(); // 상점에서 쓸거
+    std::vector<PlantSpecies> *getPlantBook(); //도감에서 쓸거
 
     sf::Sprite *getWaterBucketSprite();
     sf::Sprite *getFertBucketSprite();
