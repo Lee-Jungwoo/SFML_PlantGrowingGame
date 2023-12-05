@@ -26,6 +26,8 @@ private:
     sf::Texture *plantTexture[PLANT_LEVEL + 1]; // 죽은 것도 load 해야됨.
     sf::Sprite *sprite;
 
+    
+
 public:
     Plant(PlantSpecies);
     ~Plant();
@@ -44,9 +46,12 @@ public:
     bool isBlooming();
     void update();
     void draw(sf::RenderTarget &target);
+    int getPercentage();
+    int getwaterPercentage();
+    int getSoilpercentage();
 
     /*
-    DEBUG-------------
+    DEBUGGING-------------
     */
     void kill();
     void bloom();

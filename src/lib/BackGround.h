@@ -23,14 +23,14 @@
 #define g_encyclopedia 8
 #define g_setting 9
 /////////////////////////////////
-#define Slot_x1_m 75
-#define Slot_x1_M 225
-#define Slot_x2_m 315
-#define Slot_x2_M 465
-#define Slot_y1_m 263
-#define Slot_y1_M 413
-#define Slot_y2_m 488
-#define Slot_y2_M 638
+// #define Slot_x1_m 75
+// #define Slot_x1_M 225
+// #define Slot_x2_m 315
+// #define Slot_x2_M 465
+// #define Slot_y1_m 263
+// #define Slot_y1_M 413
+// #define Slot_y2_m 488
+// #define Slot_y2_M 638
 /////////////////////////////////
 #define Arrow_l_x_m 23
 #define Arrow_l_x_M 135
@@ -77,8 +77,13 @@ private:
 	sf::Sprite encyclopedia_s;
 	sf::Sprite setting_s;
 
+	//Bottom bar (go back) texture & sprite;
+	sf::Texture back_t;
+	sf::Sprite back_s;
+	
+
 public:
-	BackGround();
+	BackGround(GameState &);
 	~BackGround() {}
 	void ChangeMode(sf::Vector2i pos, GameState &);
 	virtual int draw(sf::RenderWindow *window, GameState &);

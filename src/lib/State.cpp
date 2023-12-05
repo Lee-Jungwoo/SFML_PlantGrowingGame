@@ -166,7 +166,7 @@ void GameState::nextDay()
 
 PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
 {
-    return (this->plantSlot) + i;
+    return &(this->plantSlot[i]);
 }
 
 sf::Sprite *GameState::getWaterBucketSprite()

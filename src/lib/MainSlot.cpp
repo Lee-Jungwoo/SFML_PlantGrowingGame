@@ -17,13 +17,11 @@ MainSlot::MainSlot(GameState &state)
 	slot_s[2].setPosition(Slot_x1_m, Slot_y2_m);
 	slot_s[3].setPosition(Slot_x2_m, Slot_y2_m);
 
-	
-
 	for (int i = 0; i < currentNumberOfPlant; i++)
 	{
 		plant_s[i] = *state.getPlantSlot(i)->getPlant()->getSprite();
 		plant_s[i].setPosition(83 + (i % 2) * 254, 277 + (i > 1) * 245);
-		plant_s[i].setScale(0.6f,0.6f);
+		plant_s[i].setScale(0.6f, 0.6f);
 	}
 }
 
@@ -38,13 +36,13 @@ int MainSlot::draw(sf::RenderWindow *window, GameState &state)
 	{
 
 		if (!state.getPlantSlot(i)->isEmpty())
-
 		{
-			std::cout << "drawing plants on the main page: "+ std::to_string(i+1) << std::endl;
+			std::cout << "drawing plants on the main page: " + std::to_string(i + 1) << std::endl;
 			window->draw(plant_s[i]);
 		}
-		else {
-			std::cout<<"EMPTY"<<std::endl;
+		else
+		{
+			std::cout << "EMPTY" << std::endl;
 		}
 	}
 

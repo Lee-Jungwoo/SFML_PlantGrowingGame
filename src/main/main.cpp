@@ -15,9 +15,10 @@ int main()
 
     Vector2f size = window->getView().getSize();
 
-    BackGround B;
+    
     GameState state;
-
+    BackGround B(state);
+    
     B.draw(window, state);
     Event event;
     while (window->isOpen())

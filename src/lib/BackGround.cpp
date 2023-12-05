@@ -3,7 +3,7 @@
 using namespace std;
 
 /////////////////////////////////
-BackGround::BackGround()
+BackGround::BackGround(GameState &state)
 {
 	this->mode = 0;
 
@@ -17,6 +17,13 @@ BackGround::BackGround()
 	stage.setString("DESERT");
 	stage.setPosition(0, 0);
 	stage.setStyle(sf::Text::Bold);
+
+	mainslot = new MainSlot(state);
+	shop = new Shop(state);
+
+	back_t.loadFromFile("../../back.png");
+	back_s.setTexture(back_t);
+	back_s.setPosition(0, 765);
 }
 void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 {
@@ -36,7 +43,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			if (this->mainslot->getSprite(i)->getGlobalBounds().contains(x, y)) // 1
 			{
 				this->mode = g_slot1 + (i - 1);
-				slot.mode(i);
+				slot.mode(i, state);
 			}
 		}
 
@@ -50,19 +57,59 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			this->mode = g_setting;
 		break;
 	}
+		// case g_slot1:
+		// {
+
 	case g_slot1:
+	case g_slot2:
+	case g_slot3:
+	case g_slot4:
 	{
+
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
+
+			if (this->mode == g_slot1)
+			{
+				this->mode = g_slot4;
+			}
+			else
+			{
+				this->mode -= 1;
+			}
+
+			slot.mode(this->mode - 1, state);
+		}
+		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+		{
+			if (this->mode == g_slot4)
+			{
+				this->mode = g_slot1;
+			}
+			else
+			{
+				this->mode += 1;
+			}
+
+			slot.mode(this->mode - 1, state);
+		}
+		else if (y >= 765)
+			this->mode = g_main;
+		break;
+	}
+
+/* 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+		{
 			this->mode = g_slot4;
-			slot.mode(4);
+
+			slot.mode(4, state);
 		}
 		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot2;
-			slot.mode(2);
+			slot.mode(2, state);
 		}
-		else if (y > 675)
+		else if (y >= 765)
 			this->mode = g_main;
 		break;
 	}
@@ -71,12 +118,12 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot1;
-			slot.mode(1);
+			slot.mode(1, state);
 		}
 		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot3;
-			slot.mode(3);
+			slot.mode(3, state);
 		}
 		else if (y > 675)
 			this->mode = g_main;
@@ -87,12 +134,12 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot2;
-			slot.mode(2);
+			slot.mode(2, state);
 		}
 		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot4;
-			slot.mode(4);
+			slot.mode(4, state);
 		}
 		else if (y > 675)
 			this->mode = g_main;
@@ -103,22 +150,24 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot3;
-			slot.mode(3);
+			slot.mode(3, state);
 		}
 		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_slot1;
-			slot.mode(1);
+			slot.mode(1, state);
 		}
 		else if (y > 675)
 			this->mode = g_main;
 		break;
-	}
+	} */
 	case g_shop:
-		for(int i=1;i<=state.getRemainingPlantsInShop()->size();i++){
+		for (int i = 1; i <= state.getRemainingPlantsInShop()->size(); i++)
+		{
 			const FloatRect &f = shop->getSlotSprite(i)->getGlobalBounds();
-			
-			if(f.contains(x,y)){
+
+			if (f.contains(x, y))
+			{
 				state.buyNewPlant(i);
 			}
 		}
@@ -282,7 +331,7 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 		window->draw(ft);
 
 		// Draw "Main screen"
-		mainslot->draw(window,state);
+		mainslot->draw(window, state);
 
 		// Draw "Bottom bar"
 		window->draw(shop_s);
@@ -293,43 +342,20 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 		break;
 	}
 	case g_slot1:
-	{
-
-		window->draw(main_s);
-		slot.draw(window);
-		window->draw(stage);
-
-		break;
-	}
 	case g_slot2:
-	{
-
-		window->draw(main_s);
-		slot.draw(window);
-		window->draw(stage);
-
-		break;
-	}
 	case g_slot3:
-	{
-
-		window->draw(main_s);
-		slot.draw(window);
-		window->draw(stage);
-
-		break;
-	}
 	case g_slot4:
 	{
 
 		window->draw(main_s);
 		slot.draw(window);
 		window->draw(stage);
+		window->draw(back_s);
 
 		break;
 	}
 	case g_shop:
-	{	
+	{
 		delete shop;
 		shop = new Shop(state);
 		window->draw(main_s);
@@ -358,9 +384,7 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 		break;
 	}
 	case g_setting:
-
 	{
-
 		window->draw(main_s);
 		window->draw(stage);
 		setting.draw(window);

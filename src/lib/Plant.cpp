@@ -41,6 +41,7 @@ Plant::Plant(PlantSpecies s)
 Plant::~Plant()
 {
     delete sprite;
+    
 }
 
 void Plant::fillWater(WaterBucket &bucket)
@@ -132,6 +133,11 @@ void Plant::draw(sf::RenderTarget &target)
 {
     target.draw(*sprite);
 }
+
+int Plant::getPercentage() {return (level - 1)*25;}
+int Plant::getwaterPercentage() {return waterPercentage;}
+int Plant::getSoilpercentage() {return soilPercentage;}
+
 
 /**
  * DEBUGGING--------------------------------------------
