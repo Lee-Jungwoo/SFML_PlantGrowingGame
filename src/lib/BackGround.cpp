@@ -93,75 +93,80 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 
 			slot.mode(this->mode - 1, state);
 		}
-		else if (y >= 765)
-			this->mode = g_main;
+		else if (back_s.getGlobalBounds().contains(x, y))
+			;
+		this->mode = g_main;
+
 		break;
 	}
 
-/* 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot4;
+		/*
+		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot4;
 
-			slot.mode(4, state);
-		}
-		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot2;
-			slot.mode(2, state);
-		}
-		else if (y >= 765)
-			this->mode = g_main;
-		break;
-	}
-	case g_slot2:
-	{
-		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot1;
-			slot.mode(1, state);
-		}
-		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot3;
-			slot.mode(3, state);
-		}
-		else if (y > 675)
-			this->mode = g_main;
-		break;
-	}
-	case g_slot3:
-	{
-		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot2;
-			slot.mode(2, state);
-		}
-		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot4;
-			slot.mode(4, state);
-		}
-		else if (y > 675)
-			this->mode = g_main;
-		break;
-	}
-	case g_slot4:
-	{
-		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot3;
-			slot.mode(3, state);
-		}
-		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
-		{
-			this->mode = g_slot1;
-			slot.mode(1, state);
-		}
-		else if (y > 675)
-			this->mode = g_main;
-		break;
-	} */
+					slot.mode(4, state);
+				}
+				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot2;
+					slot.mode(2, state);
+				}
+				else if (y >= 765)
+					this->mode = g_main;
+				break;
+			}
+			case g_slot2:
+			{
+				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot1;
+					slot.mode(1, state);
+				}
+				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot3;
+					slot.mode(3, state);
+				}
+				else if (y > 675)
+					this->mode = g_main;
+				break;
+			}
+			case g_slot3:
+			{
+				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot2;
+					slot.mode(2, state);
+				}
+				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot4;
+					slot.mode(4, state);
+				}
+				else if (y > 675)
+					this->mode = g_main;
+				break;
+			}
+			case g_slot4:
+			{
+				if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot3;
+					slot.mode(3, state);
+				}
+				else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
+				{
+					this->mode = g_slot1;
+					slot.mode(1, state);
+				}
+				else if (y > 675)
+					this->mode = g_main;
+				break;
+			}
+			*/
 	case g_shop:
+	{
 		for (int i = 1; i <= state.getRemainingPlantsInShop()->size(); i++)
 		{
 			const FloatRect &f = shop->getSlotSprite(i)->getGlobalBounds();
@@ -171,11 +176,12 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 				state.buyNewPlant(i);
 			}
 		}
-		if (y > 675)
+		if (back_s.getGlobalBounds().contains(x, y))
 		{
 			this->mode = g_main;
 		}
 		break;
+	}
 	case g_minigame:
 		if (x > Shop_x_m && y > Shop_y1_m && x < Shop_x_M && y < Shop_y1_M)
 		{
@@ -348,16 +354,19 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 	{
 
 		window->draw(main_s);
-		slot.draw(window);
 		window->draw(stage);
 		window->draw(back_s);
+
+		slot.draw(window);
 
 		break;
 	}
 	case g_shop:
 	{
+
 		delete shop;
 		shop = new Shop(state);
+		
 		window->draw(main_s);
 		window->draw(stage);
 		shop->draw(window, state);

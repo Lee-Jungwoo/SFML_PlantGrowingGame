@@ -9,20 +9,23 @@ private:
 	Texture back2_t;
 	Texture back3_t;
 	Texture back4_t;
+
+	
 	Sprite back1_s;
 	Sprite back2_s;
 	Sprite back3_s;
 	Sprite back4_s;
 
-	Text text1;
-	Text text2;
-	Text text3;
-	Text text4;
+	// Text text1;
+	// Text text2;
+	// Text text3;
+	// Text text4;
 
-	Font font;
+	// Font font;
 public:
 	Minigame();
 	~Minigame() {}
+	Sprite * getSlotSprite(int num);
 	int draw(sf::RenderWindow* window);
 };
 #endif // !MINIGAME_H

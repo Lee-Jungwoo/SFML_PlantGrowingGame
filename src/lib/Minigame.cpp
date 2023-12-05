@@ -12,10 +12,11 @@ Minigame::Minigame()
 	this->back3_s = Sprite(this->back3_t);
 	this->back4_s = Sprite(this->back4_t);
 
-	back1_s.setPosition(40, 230);
-	back2_s.setPosition(40, 350);
-	back3_s.setPosition(40, 470);
-	back4_s.setPosition(40, 590);
+	back1_s.setPosition(41, 230);
+	back2_s.setPosition(41, 350);
+	back3_s.setPosition(41, 470);
+	back4_s.setPosition(41, 590);
+
 /*
 	this->font.loadFromFile("../../Font-Medium.ttf");
 
@@ -45,19 +46,30 @@ Minigame::Minigame()
 	text4.setFillColor(sf::Color::Black);
 	text4.setString("Game4");
 	text4.setPosition(270, 543);
-	text4.setStyle(sf::Text::Bold);*/
+	text4.setStyle(sf::Text::Bold);
+*/
+
+}
+
+Sprite *Minigame::getSlotSprite(int num)
+{
+    
 }
 
 int Minigame::draw(sf::RenderWindow *window)
 {
+
 	window->draw(back1_s);
 	window->draw(back2_s);
 	window->draw(back3_s);
 	window->draw(back4_s);
-	window->draw(text1);
-	window->draw(text2);
-	window->draw(text3);
-	window->draw(text4);
 
+/*	// window->draw(text1);
+	// window->draw(text2);
+	// window->draw(text3);
+	// window->draw(text4);
+*/
+	
 	return 0;
+
 }

@@ -45,7 +45,7 @@ Shop::Shop(GameState &state)
 	for (int i = 0; i < currentNumOfPlantsInShop; i++)
 	{
 		slot_s[i].setPosition(68, 241 + (i * 120));
-		back_s[i].setPosition(41,230 + (i * 120));
+		back_s[i].setPosition(41, 230 + (i * 120));
 	}
 
 	slot1_s.setPosition(38, 241);
@@ -89,15 +89,6 @@ Shop::Shop(GameState &state)
 
 int Shop::draw(sf::RenderWindow *window, GameState &state)
 {
-	// window->draw(back1_s);
-	// window->draw(back2_s);
-	// window->draw(back3_s);
-	// window->draw(back4_s);
-
-	// window->draw(this->slot1_s);
-	// window->draw(this->slot2_s);
-	// window->draw(this->slot3_s);
-	// window->draw(this->slot4_s);
 
 	// window->draw(text1);
 	// window->draw(text2);
