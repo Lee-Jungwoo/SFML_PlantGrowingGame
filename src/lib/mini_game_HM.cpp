@@ -1,18 +1,18 @@
 #include "mini_game_HM.h"
 
-void Game::initializeVariables()
+void ClickerGame::initializeVariables()
 {
 	this->window = nullptr;
 	
 
-	//Game logics
+	//ClickerGame logics
 	this->points = 0;
 	this->enemySpawnTimerMax = 50.f;
 	this->enemySpawnTimer = this->enemySpawnTimerMax;
 	this->maxEnemies = 10;
 }
 
-void Game::initWindow(sf::RenderWindow * w)
+void ClickerGame::initWindow(sf::RenderWindow * w)
 {
 	// this->videoMode.height = 1280;
 	// this->videoMode.width = 700;
@@ -23,7 +23,7 @@ void Game::initWindow(sf::RenderWindow * w)
 	
 }
 
-void Game::initEnemies()
+void ClickerGame::initEnemies()
 {
 	this->enemy.setPosition(100.f, 100.f);
 	this->enemy.setSize(sf::Vector2f(100.f, 100.f));
@@ -35,24 +35,24 @@ void Game::initEnemies()
 
 }
 
-Game::Game(sf::RenderWindow * window)
+ClickerGame::ClickerGame(sf::RenderWindow * window)
 {
 	this->initializeVariables();
 	this->initWindow(window);
 	this->initEnemies();
 }
 
-Game::~Game()
+ClickerGame::~ClickerGame()
 {
 	delete this->window;
 }
 
-const bool Game::running()
+const bool ClickerGame::running()
 {
 	return this->window->isOpen();
 }
 
-void Game::pollEvents() 
+void ClickerGame::pollEvents() 
 {
 	while (this->window->pollEvent(this->ev)) {
 		switch (this->ev.type)
@@ -74,7 +74,7 @@ void Game::pollEvents()
 
 
 
-void Game::spawnEnemy()
+void ClickerGame::spawnEnemy()
 {
 	this->enemy.setPosition(
 		static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->enemy.getSize().x)),
@@ -86,7 +86,7 @@ void Game::spawnEnemy()
 	this->enemies.push_back(this->enemy);
 }
 
-void Game::updateEnemies() 
+void ClickerGame::updateEnemies() 
 {
 	
 	if (this->enemies.size() < this->maxEnemies) {
@@ -131,7 +131,7 @@ void Game::updateEnemies()
 	}
 }
 
-void Game::update()
+void ClickerGame::update()
 {
 	this->pollEvents();
 
@@ -142,7 +142,7 @@ void Game::update()
 
 }
 
-void Game::updateMousePosition() {
+void ClickerGame::updateMousePosition() {
 	/*
 		return void
 
@@ -154,14 +154,14 @@ void Game::updateMousePosition() {
 	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWinow);
 }
 
-void Game::renderEnemies()
+void ClickerGame::renderEnemies()
 {
 	for (auto& e : this->enemies) {
 		this->window->draw(e);
 	}
 }
 
-void Game::render()
+void ClickerGame::render()
 {
 	/*
 			-clear old frame
@@ -176,4 +176,27 @@ void Game::render()
 
 
 	this->window->display();
+}
+
+void ClickerGame::startClickerGame(sf::RenderWindow * window)
+{
+    srand(static_cast<unsigned>(time(NULL)));
+
+    ClickerGame game(window);
+
+    //ClickerGame loop
+    while (game.running()) 
+    {
+        
+
+        //Update
+        game.update();
+        //Render
+        game.render();
+
+
+
+
+    }
+    
 }

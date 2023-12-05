@@ -53,7 +53,22 @@ Minigame::Minigame()
 
 Sprite *Minigame::getSlotSprite(int num)
 {
-    
+    switch (num)
+	{
+	case 1:
+		return &back1_s;
+		
+	case 2:
+		return &back2_s;
+		
+	case 3:
+		return &back3_s;
+	case 4:
+		return &back4_s;
+	default:
+		std::cout<<"ERROR while fetchig slot sprites in minigame: invalid argument"<<std::endl;
+		return nullptr;
+	}
 }
 
 int Minigame::draw(sf::RenderWindow *window)
@@ -72,4 +87,20 @@ int Minigame::draw(sf::RenderWindow *window)
 	
 	return 0;
 
+}
+
+int Minigame::startGame(int num,sf::RenderWindow *window)
+{
+	switch (num)
+	{
+	case 1:
+		ClickerGame::startClickerGame(window);
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	default:
+		break;
+	}
 }

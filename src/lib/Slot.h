@@ -40,5 +40,8 @@ public:
 
 	Sprite *getLeftArrowSprite();
 	Sprite *getRightArrowSprite();
+	Sprite *getWaterButtonSprite();
+	Sprite *getFertButtonSprite();
+	Sprite *getSkipButtonSprite();
 };
 #endif // !SLOT_H

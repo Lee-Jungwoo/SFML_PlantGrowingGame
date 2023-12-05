@@ -216,6 +216,16 @@ int GameState::getSlotNum()
     return slotNum;
 }
 
+WaterBucket* GameState::getWaterBucket()
+{
+    return &waterBucket;
+}
+
+FertBucket* GameState::getFertBucket()
+{
+    return &fertBucket;
+}
+
 /*
 DEBUGGING---------------------------------------------------------
 */

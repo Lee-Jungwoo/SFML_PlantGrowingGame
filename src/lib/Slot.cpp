@@ -84,3 +84,18 @@ Sprite *Slot::getRightArrowSprite()
 {
 	return &arrow_right_s;
 }
+
+Sprite *Slot::getWaterButtonSprite()
+{
+    return &water_s;
+}
+
+Sprite *Slot::getFertButtonSprite()
+{
+    return &fert_s;
+}
+
+Sprite *Slot::getSkipButtonSprite()
+{
+    return &skip_s;
+}

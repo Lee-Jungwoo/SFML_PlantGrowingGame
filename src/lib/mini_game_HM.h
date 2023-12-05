@@ -7,7 +7,7 @@
 /**/
 
 
-class Game
+class ClickerGame
 {
 private:
 	sf::RenderWindow* window;
@@ -18,13 +18,13 @@ private:
 	sf::Vector2i mousePosWinow;
 	sf::Vector2f mousePosView;
 
-	//Game logic
+	//ClickerGame logic
 	int points;
 	float enemySpawnTimer;
 	float enemySpawnTimerMax;
 	int maxEnemies;
 
-	//Game objects
+	//ClickerGame objects
 	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
 
@@ -34,8 +34,8 @@ private:
 	void initEnemies();
 public:
 	//Constructors Destructors
-	Game(sf::RenderWindow *);
-	virtual ~Game();
+	ClickerGame(sf::RenderWindow *);
+	virtual ~ClickerGame();
 
 	//Accessors
 	const bool running();
@@ -48,5 +48,8 @@ public:
 	void update();
 	void renderEnemies();
 	void render();
+
+	//Runner
+	static void startClickerGame(sf::RenderWindow *);
 };
 

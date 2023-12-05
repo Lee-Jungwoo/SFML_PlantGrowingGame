@@ -46,6 +46,7 @@ Plant::~Plant()
 
 void Plant::fillWater(WaterBucket &bucket)
 {
+    if(handled) return;
     if (bucket.consume())
     {
         this->waterPercentage = 100;
@@ -60,6 +61,7 @@ void Plant::fillWater(WaterBucket &bucket)
 
 void Plant::fillEnergy(FertBucket &bucket)
 {
+    if(handled) return;
     if (bucket.consume())
     {
         this->soilPercentage = 100;

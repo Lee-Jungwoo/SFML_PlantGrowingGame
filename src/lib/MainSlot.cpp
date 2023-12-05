@@ -42,7 +42,7 @@ int MainSlot::draw(sf::RenderWindow *window, GameState &state)
 		}
 		else
 		{
-			std::cout << "EMPTY" << std::endl;
+			std::cout << "EMPTY Slot: "<< i+1 << std::endl;
 		}
 	}
 

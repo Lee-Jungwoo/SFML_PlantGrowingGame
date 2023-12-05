@@ -1,7 +1,9 @@
 #ifndef MINIGAME_H
 #define MINIGAME_H
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
+#include "mini_game_HM.h"
+#include "mini_game_JS.cpp"
 using namespace sf;
 class Minigame  {
 private:
@@ -27,5 +29,7 @@ public:
 	~Minigame() {}
 	Sprite * getSlotSprite(int num);
 	int draw(sf::RenderWindow* window);
+
+	int startGame(int num,sf::RenderWindow *window);
 };
 #endif // !MINIGAME_H

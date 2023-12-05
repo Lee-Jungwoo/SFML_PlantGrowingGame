@@ -17,9 +17,9 @@ int main()
 
     
     GameState state;
-    BackGround B(state);
+    BackGround B(state, window);
     
-    B.draw(window, state);
+    B.draw(state);
     Event event;
     while (window->isOpen())
     {
@@ -47,7 +47,7 @@ int main()
        
           
         }
-        B.draw(window,state);
+        B.draw(state);
         window->display();
     }
 

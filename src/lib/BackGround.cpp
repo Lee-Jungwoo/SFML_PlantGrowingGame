@@ -3,9 +3,10 @@
 using namespace std;
 
 /////////////////////////////////
-BackGround::BackGround(GameState &state)
+BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 {
 	this->mode = 0;
+	this->window = window;
 
 	main_t.loadFromFile("../../LoadingScreen.png");
 	main_s = Sprite(main_t);
@@ -57,18 +58,18 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			this->mode = g_setting;
 		break;
 	}
-		// case g_slot1:
-		// {
-
 	case g_slot1:
 	case g_slot2:
 	case g_slot3:
 	case g_slot4:
 	{
+		int plantSlotIdx = this->mode - 2;
+		int plantSlotNum = this->mode - 1;
+		PlantSlot *plantSlot = state.getPlantSlot(plantSlotIdx);
 
 		if (slot.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
-
+			std::cout << "Left arrow clicked" << std::endl;
 			if (this->mode == g_slot1)
 			{
 				this->mode = g_slot4;
@@ -82,6 +83,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		}
 		else if (slot.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
+			std::cout << "Right Arrow clicked" << std::endl;
 			if (this->mode == g_slot4)
 			{
 				this->mode = g_slot1;
@@ -93,9 +95,30 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 
 			slot.mode(this->mode - 1, state);
 		}
-		else if (back_s.getGlobalBounds().contains(x, y))
-			;
-		this->mode = g_main;
+		else if (!plantSlot->isEmpty())
+		{
+
+			if (slot.getWaterButtonSprite()->getGlobalBounds().contains(x, y))
+			{
+				std::cout << "Watering" << std::endl;
+				plantSlot->getPlant()->fillWater(*state.getWaterBucket());
+			}
+			else if (slot.getFertButtonSprite()->getGlobalBounds().contains(x, y))
+			{
+				std::cout << "Fertilizing" << std::endl;
+				plantSlot->getPlant()->fillEnergy(*state.getFertBucket());
+			}
+			else if (slot.getSkipButtonSprite()->getGlobalBounds().contains(x, y))
+			{
+				std::cout << "Skipping" << std::endl;
+				plantSlot->getPlant()->skipThisTime();
+			}
+		}
+		if (back_s.getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Going back to main" << std::endl;
+			this->mode = g_main;
+		}
 
 		break;
 	}
@@ -183,32 +206,29 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		break;
 	}
 	case g_minigame:
-		if (x > Shop_x_m && y > Shop_y1_m && x < Shop_x_M && y < Shop_y1_M)
+		for (int i = 1; i <= MINIGAME_NUM; i++)
 		{
-			// 1������
+			if (minigame.getSlotSprite(i)->getGlobalBounds().contains(x, y))
+			{
+				minigame.startGame(i, window);
+			}
 		}
-		if (x > Shop_x_m && y > Shop_y2_m && x < Shop_x_M && y < Shop_y2_M)
+		if (back_s.getGlobalBounds().contains(x, y))
 		{
-			// 2������
-		}
-		if (x > Shop_x_m && y > Shop_y3_m && x < Shop_x_M && y < Shop_y3_M)
-		{
-			// 3������
-		}
-		if (x > Shop_x_m && y > Shop_y4_m && x < Shop_x_M && y < Shop_y4_M)
-		{
-			// 4������
-		}
-		if (y > 675)
 			this->mode = g_main;
+		}
 		break;
 	case g_encyclopedia:
-		if (y > 675)
+		if (back_s.getGlobalBounds().contains(x, y))
+		{
 			this->mode = g_main;
+		}
 		break;
 	case g_setting:
-		if (y > 675)
+		if (back_s.getGlobalBounds().contains(x, y))
+		{
 			this->mode = g_main;
+		}
 		if (y < 675)
 		{
 			setting.update();
@@ -218,7 +238,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 	}
 }
 
-int BackGround::draw(sf::RenderWindow *window, GameState &state)
+int BackGround::draw(GameState &state)
 {
 
 	switch (state.getCurrentStage())
@@ -353,11 +373,8 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 	case g_slot4:
 	{
 
-		window->draw(main_s);
-		window->draw(stage);
-		window->draw(back_s);
-
-		slot.draw(window);
+        this->drawScaffold(window);
+        slot.draw(window);
 
 		break;
 	}
@@ -366,9 +383,8 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 
 		delete shop;
 		shop = new Shop(state);
-		
-		window->draw(main_s);
-		window->draw(stage);
+
+		this->drawScaffold(window);
 		shop->draw(window, state);
 
 		break;
@@ -376,8 +392,7 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 	case g_minigame:
 	{
 
-		window->draw(main_s);
-		window->draw(stage);
+		this->drawScaffold(window);
 		minigame.draw(window);
 
 		break;
@@ -386,19 +401,24 @@ int BackGround::draw(sf::RenderWindow *window, GameState &state)
 	{
 
 		Encyclopedia encyclopedia;
-		window->draw(main_s);
-		window->draw(stage);
+		this->drawScaffold(window);
 		encyclopedia.draw(window);
 
 		break;
 	}
 	case g_setting:
 	{
-		window->draw(main_s);
-		window->draw(stage);
+		this->drawScaffold(window);
 		setting.draw(window);
 	}
 	}
 
 	return 99; // good return
+}
+
+void BackGround::drawScaffold(sf::RenderWindow *window)
+{
+    window->draw(main_s);
+    window->draw(stage);
+    window->draw(back_s);
 }

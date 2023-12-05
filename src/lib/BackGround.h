@@ -50,24 +50,30 @@
 #define Shop_y4_m 539
 #define Shop_y4_M 584
 /////////////////////////////////
+#define MINIGAME_NUM 3
 
 class BackGround
 {
 private:
 	Shop *shop;
 	Minigame minigame;
-	MainSlot * mainslot;
+	MainSlot *mainslot;
 	Slot slot;
 	Bucket bucket;
 	Setting setting;
-	int mode; // Current screen view.
+
+	int mode; // Current screen mode.
+
+	sf::RenderWindow *window;
+
+	// background, stage, current gold.
 	sf::Texture main_t;
 	sf::Sprite main_s;
 	sf::Text stage;
 	sf::Text gold;
 	sf::Font font;
 
-	//Bottom bar textures & sprites.
+	// Bottom bar textures & sprites.
 	sf::Texture shop_t;
 	sf::Texture minigame_t;
 	sf::Texture encyclopedia_t;
@@ -77,15 +83,15 @@ private:
 	sf::Sprite encyclopedia_s;
 	sf::Sprite setting_s;
 
-	//Bottom bar (go back) texture & sprite;
+	// Bottom bar (go back) texture & sprite;
 	sf::Texture back_t;
 	sf::Sprite back_s;
-	
 
 public:
-	BackGround(GameState &);
+	BackGround(GameState &, sf::RenderWindow *);
 	~BackGround() {}
 	void ChangeMode(sf::Vector2i pos, GameState &);
-	virtual int draw(sf::RenderWindow *window, GameState &);
+	int draw(GameState &);
+	void drawScaffold(sf::RenderWindow *window);
 };
 #endif // !BACKGROUND_H
