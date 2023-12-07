@@ -4,31 +4,21 @@
 #include "Resource.h"
 using namespace sf;
 
-class Encyclopedia {
+class Encyclopedia
+{
 private:
-	// Texture back1_t;
-	// Texture back2_t;
-	// Texture back3_t;
-	// Texture back4_t;
 	Texture back_t;
 
-	// Sprite back1_s;
-	// Sprite back2_s;
-	// Sprite back3_s;
-	// Sprite back4_s;
 	Sprite back_s[4];
 
-	// Texture slot1_t;
-	// Texture slot2_t;
-	// Texture slot3_t;
-	// Texture slot4_t;
 	Texture slot_t[4];
 
+	Texture arrow_left_t;
+	Sprite arrow_left_s;
 
-	// Sprite slot1_s;
-	// Sprite slot2_s;
-	// Sprite slot3_s;
-	// Sprite slot4_s;
+	Texture arrow_right_t;
+	Sprite arrow_right_s;
+
 	Sprite slot_s[4];
 
 	Text text1;
@@ -40,15 +30,23 @@ private:
 	int currentNumOfPlantsInDict;
 	std::vector<PlantSpecies> plantsInCurrentStage;
 	Stage stage;
-	
-public:
-	Encyclopedia(GameState &state);
-	~Encyclopedia(){}
-	int draw(sf::RenderWindow* window);
-	int getCurrentNumOfPlantsInDict(){return currentNumOfPlantsInDict;}
-	std::vector<PlantSpecies> getPlantsInCurrentStage();
-	Sprite * getDictSlotSprite(int num){return &back_s[num];} //0~3
 
+public:
+	Encyclopedia(GameState &state, Stage stage);
+	~Encyclopedia() {}
+
+	int draw(sf::RenderWindow *window);
+
+	int getCurrentNumOfPlantsInDict() { return currentNumOfPlantsInDict; }
+	std::vector<PlantSpecies> getPlantsInCurrentStage();
+
+	bool nextStage();
+	bool prevStage();
+	Stage getStage() { return stage; }
+	
+
+	Sprite *getLeftArrowSprite();
+	Sprite *getRightArrowSprite();
+	Sprite *getDictSlotSprite(int num) { return &back_s[num]; } // 0~3
 };
 #endif // !ENCYCLOPEDIA_H
-

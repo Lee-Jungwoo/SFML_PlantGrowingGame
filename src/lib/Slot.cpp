@@ -50,6 +50,7 @@ int Slot::draw(sf::RenderWindow *window)
 		window->draw(water_s);
 		window->draw(fert_s);
 		window->draw(skip_s);
+		window->draw(plant_s);
 	}
 	return 0;
 }
@@ -72,7 +73,15 @@ void Slot::mode(int num, GameState &state)
 		infoString += std::string("\nEnergy: ") + std::to_string(p->getSoilpercentage());
 
 		this->text.setString(infoString);
+
+		plant_s = *state.getPlantSlot(plantSlotIdx)->getPlant()->getSprite();
+		plant_s.setPosition(210,424);
+		plant_s.setScale(0.6f,0.6f);
 	}
+
+
+
+
 }
 
 Sprite *Slot::getLeftArrowSprite()

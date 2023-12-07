@@ -76,8 +76,8 @@ int Minigame::draw(sf::RenderWindow *window)
 
 	window->draw(back1_s);
 	window->draw(back2_s);
-	window->draw(back3_s);
-	window->draw(back4_s);
+	// window->draw(back3_s);
+	// window->draw(back4_s);
 
 /*	// window->draw(text1);
 	// window->draw(text2);
@@ -89,18 +89,28 @@ int Minigame::draw(sf::RenderWindow *window)
 
 }
 
-int Minigame::startGame(int num,sf::RenderWindow *window)
+bool Minigame::startGame(int num,sf::RenderWindow *window)
 {
 	switch (num)
 	{
 	case 1:
-		ClickerGame::startClickerGame(window);
+		// ClickerGame::startClickerGame(window);
 		break;
 	case 2:
+		std::cout<<"game 2 going"<<std::endl;
+		if(AvoidPoop::startGame(window))
+			{
+				std::cout<<"kk"<<std::endl;
+				return true; //500 gold return
+			}
+		else {
+			std::cout<<"GAME FAILED"<<std::endl;
+			return false;}
 		break;
 	case 3:
 		break;
 	default:
 		break;
 	}
+	return false;
 }

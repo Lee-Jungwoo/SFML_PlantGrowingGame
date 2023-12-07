@@ -17,7 +17,7 @@ int main()
 
     
     GameState state;
-    state.fillMoney();
+    // state.fillMoney();
     BackGround B(state, window);
     
     B.draw(state);

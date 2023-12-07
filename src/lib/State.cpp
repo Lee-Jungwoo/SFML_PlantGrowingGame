@@ -45,6 +45,7 @@ void GameState::nextStage()
     this->slotNum = 0;
     remainingPlants = *Resource::getPlantsByStage(stage);
     remainingPlants_Shop = remainingPlants;
+    
 }
 
 bool GameState::isStageDone()
@@ -146,8 +147,10 @@ void GameState::nextDay()
                     break;
                 }
             }
+
             plantSlot[i].pullPlant();
             plantBook.push_back(plant->getSpecies());
+
             slotNum--;
             this->gold = this->gold + 1000;
         }
@@ -159,9 +162,9 @@ void GameState::nextDay()
         this->nextStage();
         this->day = 1;
     }
+    addGold(50);
 
-
-    std::cout<<"GAMESTATE: succesfully going to next day."<<std::endl;
+    std::cout << "GAMESTATE: succesfully going to next day." << std::endl;
 }
 
 PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
@@ -172,6 +175,11 @@ PlantSlot *GameState::getPlantSlot(int i) // 인덱스 0~3
 std::vector<PlantSpecies> *GameState::getPlantBook()
 {
     return &plantBook;
+}
+
+void GameState::setStageInDict(Stage stage)
+{
+    this->stage_dict = stage;
 }
 
 sf::Sprite *GameState::getWaterBucketSprite()
@@ -188,20 +196,20 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
 {
     std::vector<PlantSpecies>::iterator i = remainingPlants_Shop.begin();
 
-    PlantSpecies s = *i;
     i = i + (num - 1);
-    remainingPlants_Shop.erase(i);
-
+    PlantSpecies s = *i;
     if (Resource::getPrice(s) > gold)
     {
         std::cout << "ERROR: not enough money" << std::endl;
         return;
-    }else
+    }
+    else
         gold -= Resource::getPrice(s);
 
+    remainingPlants_Shop.erase(i);
+
     plantSlot[slotNum] = PlantSlot();
-    plantSlot[slotNum++].pushPlant(new Plant(s)); //nextslot갈때 slotnum 0 되어야함
-    
+    plantSlot[slotNum++].pushPlant(new Plant(s)); // nextslot갈때 slotnum 0 되어야함
 }
 
 bool GameState::isAllHandled()
@@ -221,22 +229,26 @@ int GameState::getSlotNum()
     return slotNum;
 }
 
-WaterBucket* GameState::getWaterBucket()
+WaterBucket *GameState::getWaterBucket()
 {
     return &waterBucket;
 }
 
-FertBucket* GameState::getFertBucket()
+FertBucket *GameState::getFertBucket()
 {
     return &fertBucket;
+}
+
+void GameState::addGold(int a)
+{
+    gold += a;
 }
 
 /*
 DEBUGGING---------------------------------------------------------
 */
+
 void GameState::make_next_available()
 {
     this->remainingPlants = std::vector<PlantSpecies>();
 }
-
-

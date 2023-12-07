@@ -49,6 +49,7 @@ public:
     static int getPrice(PlantSpecies);
     static sf::Texture *getTexture(PlantSpecies, int);
     static std::string getInfo(PlantSpecies);
+    static std::string getStageName(Stage);
 };
 
 

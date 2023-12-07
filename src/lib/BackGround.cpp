@@ -28,7 +28,7 @@ BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 
 	mainslot = new MainSlot(state);
 	shop = new Shop(state);
-	encyclopedia = new Encyclopedia(state);
+	encyclopedia = new Encyclopedia(state, Stage::Desert);
 
 	back_t.loadFromFile("../../back.png");
 	back_s.setTexture(back_t);
@@ -77,7 +77,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 	case g_slot4:
 	{
 		int plantSlotIdx = this->mode - 2;
-		int plantSlotNum = this->mode - 1;
+		// int plantSlotNum = this->mode - 1;
 
 		PlantSlot *plantSlot = state.getPlantSlot(plantSlotIdx);
 
@@ -116,16 +116,19 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			{
 				std::cout << "Watering" << std::endl;
 				plantSlot->getPlant()->fillWater(*state.getWaterBucket());
+				this->mode = g_main;
 			}
 			else if (slot.getFertButtonSprite()->getGlobalBounds().contains(x, y))
 			{
 				std::cout << "Fertilizing" << std::endl;
 				plantSlot->getPlant()->fillEnergy(*state.getFertBucket());
+				this->mode = g_main;
 			}
 			else if (slot.getSkipButtonSprite()->getGlobalBounds().contains(x, y))
 			{
 				std::cout << "Skipping" << std::endl;
 				plantSlot->getPlant()->skipThisTime();
+				this->mode = g_main;
 			}
 		}
 		if (back_s.getGlobalBounds().contains(x, y))
@@ -159,7 +162,12 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		{
 			if (minigame.getSlotSprite(i)->getGlobalBounds().contains(x, y))
 			{
-				minigame.startGame(i, window);
+				if (minigame.startGame(i, window))
+				{
+					state.getWaterBucket()->fill();
+					state.getFertBucket()->fill();
+				}
+				this->mode = g_main;
 			}
 		}
 		if (back_s.getGlobalBounds().contains(x, y))
@@ -176,8 +184,20 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			{
 				this->mode = g_encyclopedia_info;
 				encyInfoView.changeMode(encyclopedia->getPlantsInCurrentStage()[i]);
-
 			}
+		}
+
+		if (encyclopedia->getLeftArrowSprite()->getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Left arrow clicked." << std::endl;
+
+			encyclopedia->prevStage();
+		}
+		else if (encyclopedia->getRightArrowSprite()->getGlobalBounds().contains(x, y))
+		{
+			std::cout << "Right Arrow clicked" << std::endl;
+
+			encyclopedia->nextStage();
 		}
 
 		if (back_s.getGlobalBounds().contains(x, y))
@@ -193,8 +213,9 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		// {
 		// 	std::cout << Resource::getName(*iter) << std::endl;
 		// }
+
 		std::vector<PlantSpecies> plantInCurrentStageDict = encyclopedia->getPlantsInCurrentStage();
-		
+
 		if (encyInfoView.getLeftArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			std::cout << "Left arrow clicked" << std::endl;
@@ -236,7 +257,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 
 int BackGround::draw(GameState &state)
 {
-
+	stage.setString(Resource::getStageName(state.getCurrentStage()));
 	switch (state.getCurrentStage())
 	{
 	case Stage::Desert:
@@ -244,19 +265,23 @@ int BackGround::draw(GameState &state)
 		{
 			return EXIT_FAILURE;
 		}
+		setting.setSongByStage(state.getCurrentStage());
 		break;
 	case Stage::Temperate:
 		if (!this->main_t.loadFromFile("../../assets/Temperate/Temperate_background.png"))
 		{
 			return EXIT_FAILURE;
 		}
+		setting.setSongByStage(state.getCurrentStage());
 		break;
 	case Stage::Tropical:
 		if (!this->main_t.loadFromFile("../../assets/Tropical/Tropical_background.png"))
 		{
 			return EXIT_FAILURE;
 		}
+		setting.setSongByStage(state.getCurrentStage());
 		break;
+		
 	default:
 		std::cout << "ERROR while fetching current stage: \n in Function Backgroung::draw()" << std::endl;
 		break;
@@ -286,6 +311,13 @@ int BackGround::draw(GameState &state)
 
 		Sprite *f; // fertBucket
 		Text ft;
+
+		Text day; // day
+		day.setFont(font);
+		day.setCharacterSize(35);
+		day.setFillColor(sf::Color::Black);
+		day.setPosition(0, 80);
+		day.setString("Day: " + to_string(state.getCurrentDay()));
 
 		gold.setFont(font);
 		gold.setCharacterSize(30);
@@ -347,6 +379,7 @@ int BackGround::draw(GameState &state)
 		window->draw(main_s);
 		window->draw(gold);
 		window->draw(stage);
+		window->draw(day);
 		window->draw(*w);
 		window->draw(wt);
 		window->draw(*f);
@@ -354,7 +387,7 @@ int BackGround::draw(GameState &state)
 
 		// Draw "Main screen"
 		mainslot->draw(window, state);
-		if (state.isAllHandled())
+		if (state.isAllHandled() && state.getSlotNum() != 0)
 		{
 			window->draw(nextDay_s);
 		}
@@ -399,17 +432,30 @@ int BackGround::draw(GameState &state)
 	}
 	case g_encyclopedia:
 	{
+		Stage s = encyclopedia->getStage();
+		std::cout << "Current Stage of dict =>" << Resource::getStageName(s) << std::endl;
+		
+		Text stage_of_dict; // stage_of_dict
+		stage_of_dict.setFont(font);
+		stage_of_dict.setCharacterSize(40);
+		stage_of_dict.setFillColor(sf::Color::Black);
+		stage_of_dict.setPosition(0, 0);
+		stage_of_dict.setString(Resource::getStageName(s));
 
 		delete encyclopedia;
-		encyclopedia = new Encyclopedia(state);
-		this->drawScaffold(window);
+		encyclopedia = new Encyclopedia(state, s);
+		window->draw(main_s);
+		window->draw(stage_of_dict);
+		window->draw(back_s);
 		encyclopedia->draw(window);
 
 		break;
 	}
 	case g_encyclopedia_info:
 	{
-		this->drawScaffold(window);
+		window->draw(main_s);
+
+		window->draw(back_s);
 		encyInfoView.draw(window);
 		break;
 	}

@@ -25,6 +25,8 @@ private:
 	Texture skip_t;
 	Sprite skip_s;
 
+	Sprite plant_s;
+
 
 	Text text;
 	Font font;

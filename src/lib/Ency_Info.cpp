@@ -14,14 +14,14 @@ EncyclopediaInfoView::EncyclopediaInfoView()
     arrow_right_s = Sprite(arrow_right_t);
     arrow_right_s.setPosition(451, 415);
 
-    plant_s = Sprite(*Resource::getTexture(PlantSpecies::Cabbage,4));
+    
 
 	this->font.loadFromFile("../../Font-Medium.ttf");
 	this->infoText.setFont(font);
-	this->infoText.setCharacterSize(30);
-	this->infoText.setFillColor(sf::Color::Black);
+	this->infoText.setCharacterSize(16);
+	this->infoText.setFillColor(sf::Color::White);
 	this->infoText.setString("Blank");
-	this->infoText.setPosition(31, 154);
+	this->infoText.setPosition(31, 100);
 	this->infoText.setLineSpacing(1);
 	this->infoText.setStyle(sf::Text::Bold);
 }
@@ -42,6 +42,9 @@ void EncyclopediaInfoView::changeMode(PlantSpecies species)
 {
     delete plant_s.getTexture();
     plant_s = Sprite(*Resource::getTexture(species,4));
+    plant_s.setPosition(210,390);
+    plant_s.setScale(0.6f, 0.6f);
+
     infoText.setString(Resource::getInfo(species));
 }
 

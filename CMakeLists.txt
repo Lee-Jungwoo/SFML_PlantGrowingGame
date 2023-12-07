@@ -47,8 +47,7 @@ add_executable(SIMPLE_GAME
     src/lib/Slot.cpp
     src/lib/Slot.h
 
-    src/lib/mini_game_HM.cpp
-    src/lib/mini_game_HM.h
+
 
     src/lib/mini_game_JS.cpp
 

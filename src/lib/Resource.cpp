@@ -25,18 +25,32 @@ std::map<Stage, std::vector<PlantSpecies> *> Resource::plantByStage = {
          PlantSpecies::Tropical_Flower}}};
 
 std::map<PlantSpecies, int> Resource::bloomingDay = {
-    {PlantSpecies::Carrot, 1},
-    {PlantSpecies::Millet, 1},
-    {PlantSpecies::Oat, 1},
-    {PlantSpecies::Yacon, 1},
-    {PlantSpecies::Cabbage, 1},
-    {PlantSpecies::Strawberry, 1},
-    {PlantSpecies::Tomato, 1},
-    {PlantSpecies::Watermelon,1},
-    {PlantSpecies::Corn, 1},
-    {PlantSpecies::Pepper, 1},
-    {PlantSpecies::Potato, 1},
-    {PlantSpecies::Tropical_Flower, 1}};
+    {PlantSpecies::Carrot, 5},
+    {PlantSpecies::Millet, 4},
+    {PlantSpecies::Oat, 7},
+    {PlantSpecies::Yacon, 8},
+    {PlantSpecies::Cabbage, 9},
+    {PlantSpecies::Strawberry, 8},
+    {PlantSpecies::Tomato, 4},
+    {PlantSpecies::Watermelon, 6},
+    {PlantSpecies::Corn, 9},
+    {PlantSpecies::Pepper, 10},
+    {PlantSpecies::Potato, 7},
+    {PlantSpecies::Tropical_Flower, 6}};
+
+    // std::map<PlantSpecies, int> Resource::bloomingDay = {
+    // {PlantSpecies::Carrot, 1},
+    // {PlantSpecies::Millet, 1},
+    // {PlantSpecies::Oat, 1},
+    // {PlantSpecies::Yacon, 1},
+    // {PlantSpecies::Cabbage, 1},
+    // {PlantSpecies::Strawberry, 1},
+    // {PlantSpecies::Tomato, 1},
+    // {PlantSpecies::Watermelon,1},
+    // {PlantSpecies::Corn, 1},
+    // {PlantSpecies::Pepper, 1},
+    // {PlantSpecies::Potato, 1},
+    // {PlantSpecies::Tropical_Flower, 1}};
 
 std::map<PlantSpecies, int> Resource::price = {
     {PlantSpecies::Carrot, 1000},
@@ -68,18 +82,18 @@ std::map<PlantSpecies, std::string> Resource::speciesName = {
 };
 
 std::map<PlantSpecies, std::string> Resource::speciesInfo = {
-    {PlantSpecies::Carrot, "Cactus vegetables refer to edible parts derived from various types of cactus plants. These plants offer numerous health benefits and are known for being low in calories while providing ample hydration, making them a versatile and nutritious addition to various diets."},
-    {PlantSpecies::Millet, "Millet is a small-seeded grain that is gluten-free and a good source of essential nutrients such as fiber, vitamins, and minerals. It is widely used in various cuisines and known for its versatility, contributing to a well-rounded and nutritious diet."},
-    {PlantSpecies::Oat, "Oats are a highly nutritious grain, rich in dietary fiber and protein, making them a healthy food choice. They are versatile and commonly used in various diets, known to aid in weight management and blood sugar control."},
-    {PlantSpecies::Yacon, "Yacon is a South American root vegetable known for its sweet taste and low-calorie content. It contains a type of soluble fiber called inulin, which may have prebiotic benefits and is often used as a natural sweetener or in dietary supplements."},
-    {PlantSpecies::Cabbage, "Cabbage is a leafy green or purple vegetable with tightly packed leaves, belonging to the Brassica family. It is known for its versatility in culinary use, being used raw in salads, fermented as sauerkraut, or cooked in various dishes, and is recognized for its nutritional value, offering vitamins, minerals, and dietary fiber."},
-    {PlantSpecies::Strawberry, "Strawberry is a sweet and juicy red fruit that belongs to the rose family, characterized by its small seeds on the outer surface. It is not only a popular and delicious addition to various dishes but also a rich source of vitamin C, antioxidants, and dietary fiber, contributing to its reputation as a healthful and flavorful berry."},
-    {PlantSpecies::Tomato, "Tomato is a red or yellowish fruit with savory characteristics, commonly used as a vegetable in culinary contexts. Besides its versatile culinary applications, tomatoes are rich in vitamins, particularly vitamin C, and contain beneficial compounds like lycopene, known for their potential health benefits."},
-    {PlantSpecies::Watermelon,"Watermelon is a large, juicy fruit with sweet, red or pink flesh and black seeds, known for its high water content that makes it a refreshing summer treat. In addition to its hydrating properties, watermelon is a good source of vitamins A and C, and it contains antioxidants like lycopene, contributing to its appeal as a tasty and nutritious fruit."},
-    {PlantSpecies::Corn, "Corn, also known as maize, is a cereal grain that is widely consumed around the world. It is valued for its versatility, being used in various forms such as fresh, canned, or ground into flour, and serves as a staple food in many cultures, providing essential nutrients like carbohydrates and fiber."},
-    {PlantSpecies::Pepper, "Pepper refers to a diverse group of plants known for producing spicy fruits used to flavor food. The most common types include black pepper, derived from dried unripe berries, and bell peppers, which are mild and come in various colors, both adding distinct tastes to culinary dishes."},
-    {PlantSpecies::Potato, "Potato is a starchy tuberous vegetable that is a staple in many diets worldwide, available in various varieties such as russet, red, or sweet potatoes. It is a versatile ingredient, commonly prepared by boiling, baking, or frying, and is a good source of carbohydrates, vitamins, and minerals."},
-    {PlantSpecies::Tropical_Flower, "Tropical flowers encompass a wide variety of vibrant and exotic blooms that thrive in warm and humid climates. Known for their bold colors and unique shapes, these flowers, such as orchids, hibiscus, and plumeria, contribute to the lush and diverse floral landscapes found in tropical regions around the world."}
+    {PlantSpecies::Carrot, "Cactus vegetables refer to edible parts\n derived from various types of cactus plants.\n These plants offer numerous health benefits \nand are known for being low in calories \nwhile providing ample hydration,\n making them a versatile and nutritious\n addition to various diets.\n"},
+    {PlantSpecies::Millet, "Millet is a small-seeded\n grain that is gluten-free\n and a good source of \nessential nutrients such as \nfiber, vitamins, and minerals. \nIt is widely used in various cuisines \nand known for its versatility,\n contributing to a well-rounded\n and nutritious diet.\n"},
+    {PlantSpecies::Oat, "Oats are a highly nutritious grain,\n rich in dietary fiber and protein,\n making them a healthy food choice. \nThey are versatile and commonly \nused in various diets, known to aid\n in weight management and blood sugar control.\n"},
+    {PlantSpecies::Yacon, "Yacon is a South American root vegetable \nknown for its sweet taste and low-calorie content.\n It contains a type of soluble fiber called inulin,\n which may have prebiotic benefits \nand is often used as a natural sweetener\n or in dietary supplements.\n"},
+    {PlantSpecies::Cabbage, "Cabbage is a leafy green\n or purple vegetable \nwith tightly packed leaves,\n belonging to the Brassica family.\n It is known for its versatility \nin culinary use, being used raw in salads,\n fermented as sauerkraut, or cooked in various dishes,\n and is recognized for its nutritional value, \noffering vitamins, minerals, and dietary fiber.\n"},
+    {PlantSpecies::Strawberry, "Strawberry is a sweet and\n juicy red fruit that belongs to the\n rose family, characterized by its \n\nsmall seeds on the outer surface.\n It is not only a popular and\n delicious addition to various dishes\n but also a rich source of vitamin C, antioxidants,\n and dietary fiber, contributing to its reputation\n as a healthful and flavorful berry.\n"},
+    {PlantSpecies::Tomato, "Tomato is a red or yellowish fruit\n with savory characteristics,\n commonly used as a vegetable in culinary contexts.\n Besides its versatile culinary applications, tomatoes are rich in vitamins,\n particularly vitamin C, and contain beneficial compounds like lycopene,\n known for their potential health benefits.\n"},
+    {PlantSpecies::Watermelon,"Watermelon is a large, juicy fruit with sweet,\n red or pink flesh and black seeds, known for its high water content\n that makes it a refreshing summer treat.\n In addition to its hydrating properties, \nwatermelon is a good source of vitamins A and C,\n and it contains antioxidants like lycopene, \ncontributing to its appeal as a tasty and nutritious fruit.\n"},
+    {PlantSpecies::Corn, "Corn, also known as maize, is a cereal grain \nthat is widely consumed around the world. \nIt is valued for its versatility,\n being used in various forms \nsuch as fresh, canned, or ground into flour,\n and serves as a staple food in many cultures,\n providing essential nutrients like carbohydrates and fiber.\n"},
+    {PlantSpecies::Pepper, "Pepper refers to a diverse group of plants \nknown for producing spicy fruits used to flavor food.\n The most common types include black pepper, derived from dried unripe berries,\n and bell peppers, which are mild and come in various colors,\n both adding distinct tastes to culinary dishes.\n"},
+    {PlantSpecies::Potato, "Potato is a starchy tuberous vegetable\n that is a staple in many diets worldwide,\n available in various varieties such as \nrusset, red, or sweet potatoes.\n It is a versatile ingredient, \ncommonly prepared by boiling, baking, or frying,\n and is a good source of \ncarbohydrates, vitamins, and minerals.\n"},
+    {PlantSpecies::Tropical_Flower, "Tropical flowers encompass a wide variety\n of vibrant and exotic blooms\n that thrive in warm and humid climates.\n Known for their bold colors and unique shapes, \nthese flowers, such as orchids, hibiscus, and plumeria, \ncontribute to the lush and diverse floral landscapes \nfound in tropical regions around the world.\n"}
 };
 
 int Resource::getBloomingDay(PlantSpecies plantSpecies)
@@ -166,4 +180,23 @@ sf::Texture * Resource::getTexture(PlantSpecies s, int level)
 std::string Resource::getInfo(PlantSpecies s)
 {
     return speciesInfo[s];
+}
+
+std::string Resource::getStageName(Stage s)
+{
+    switch (s)
+    {
+    case Stage::Desert:
+        return "Desert";
+        
+    case Stage::Temperate:
+        return "Temperate";
+
+    case Stage::Tropical:
+        return "Tropical";
+
+    default:
+        std::cout<<"ERROR while fetching stage name. Invalid argument.\n Resource::getStageName(Stage s)"<<std::endl;
+        break;
+    }
 }

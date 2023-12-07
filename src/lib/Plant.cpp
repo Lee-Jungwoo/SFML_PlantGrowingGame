@@ -108,8 +108,8 @@ void Plant::update()
         sprite->setTexture(*plantTexture[level], true);
     }
 
-    this->soilPercentage -= 10;
-    this->waterPercentage -= 10;
+    this->soilPercentage -= 15;
+    this->waterPercentage -= 15;
     assert(level <= 4 && level >= 1);
 
     std::cout<<"Plant:" +Resource::getName(species)+" successfully going to next day."<<std::endl;

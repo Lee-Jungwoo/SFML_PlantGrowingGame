@@ -26,6 +26,8 @@ private:
     PlantSlot plantSlot[4];
     int slotNum;
     
+    Stage stage_dict;
+    
 
 
     void nextStage();
@@ -36,10 +38,10 @@ public:
     int getCurrentDay();
     Stage getCurrentStage();
     int getGold();
-    
     int getWater();
     int getFert();
 
+    void setStageInDict(Stage stage);
     std::vector<PlantSpecies> *getRemainingPlantsInShop(); // 상점에서 쓸거
     std::vector<PlantSpecies> *getPlantBook(); //도감에서 쓸거
 
@@ -56,6 +58,8 @@ public:
     int getSlotNum(); //actual index. (0~3)
     WaterBucket* getWaterBucket();
     FertBucket *getFertBucket();
+
+    void addGold(int);
 
     /*****************************
      * DEBUGGING
