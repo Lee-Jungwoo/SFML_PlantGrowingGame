@@ -150,7 +150,7 @@ void Game::updateEnemies()
 		}
 		else
 		{
-			this->enemySpawnTimer += 1.f;
+			this->enemySpawnTimer += 8.f;
 		}
 	}
 

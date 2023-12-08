@@ -33,7 +33,8 @@ void GameState::nextStage()
         break;
 
     case Stage::Tropical:
-        std::cout << "ERROR: current stage is the last stage." << std::endl;
+        stage = Stage::End;
+        return;
         break;
 
     default:

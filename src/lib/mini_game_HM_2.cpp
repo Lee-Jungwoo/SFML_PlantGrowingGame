@@ -55,14 +55,14 @@ void Game2::initEnemies()
 
 void Game2::initbox()
 {
-	this->box.setPosition(100.f, 800.f);
-	this->box.setSize(sf::Vector2f(600.f, 100.f));
+	this->box.setPosition(0.f, 800.f);
+	this->box.setSize(sf::Vector2f(540.f, 100.f));
 	this->box.setFillColor(sf::Color::Red);
 }
 
 void Game2::initHitbox()
 {
-	this->hitbox.setPosition(100.f, 800.f);
+	this->hitbox.setPosition(0.f, 800.f);
 	this->hitbox.setSize(sf::Vector2f(50.f, 100.f));
 	this->hitbox.setFillColor(sf::Color::Green);
 }
@@ -158,7 +158,7 @@ void Game2::updateEnemies()
 		}
 		else
 		{
-			this->enemySpawnTimer += 0.1f;
+			this->enemySpawnTimer += 0.5f;
 		}
 	}
 

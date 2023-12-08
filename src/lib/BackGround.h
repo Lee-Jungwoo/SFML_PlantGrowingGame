@@ -24,6 +24,7 @@
 #define g_encyclopedia 8
 #define g_encyclopedia_info 9
 #define g_setting 10
+#define g_clear 11
 /////////////////////////////////
 // #define Slot_x1_m 75
 // #define Slot_x1_M 225

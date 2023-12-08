@@ -8,7 +8,8 @@
 enum class Stage{
     Desert,
     Temperate,
-    Tropical
+    Tropical,
+    End
 };
 enum class PlantSpecies
 {

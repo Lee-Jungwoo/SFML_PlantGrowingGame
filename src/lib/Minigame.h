@@ -5,6 +5,7 @@
 #include "mini_game_HM_1.h"
 #include "mini_game_HM_2.h"
 #include "mini_game_JS.cpp"
+#include "State.h"
 
 using namespace sf;
 class Minigame  {
@@ -30,8 +31,9 @@ public:
 	Minigame();
 	~Minigame() {}
 	Sprite * getSlotSprite(int num);
-	int draw(sf::RenderWindow* window);
+    bool startGame(int num, sf::RenderWindow *window, GameState &state);
+    int draw(sf::RenderWindow *window);
 
-	bool startGame(int num,sf::RenderWindow *window);
+
 };
 #endif // !MINIGAME_H

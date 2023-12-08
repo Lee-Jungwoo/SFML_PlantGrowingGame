@@ -59,7 +59,9 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (state.isAllHandled() && nextDay_s.getGlobalBounds().contains(x, y))
 		{
 			state.nextDay();
+			
 		}
+
 
 		if (shop_s.getGlobalBounds().contains(x, y))
 			this->mode = g_shop;
@@ -69,6 +71,11 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			this->mode = g_encyclopedia;
 		if (setting_s.getGlobalBounds().contains(x, y))
 			this->mode = g_setting;
+
+
+		if(state.getCurrentStage() == Stage::End){
+			this->mode = g_clear;
+		}
 		break;
 	}
 	case g_slot1:
@@ -162,7 +169,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		{
 			if (minigame.getSlotSprite(i)->getGlobalBounds().contains(x, y))
 			{
-				if (minigame.startGame(i, window))
+				if (minigame.startGame(i, window, state))
 				{
 					state.getWaterBucket()->fill();
 					state.getFertBucket()->fill();
@@ -252,6 +259,11 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 
 		break;
 	}
+	case g_clear:
+	{
+		window->close();
+		return;
+	}
 	}
 }
 
@@ -281,7 +293,14 @@ int BackGround::draw(GameState &state)
 		}
 		setting.setSongByStage(state.getCurrentStage());
 		break;
-		
+
+	case Stage::End:
+		if(!this->main_t.loadFromFile("../../assets/GameClear.png"))
+			{
+			return 0;
+			}
+		setting.setSongByStage(state.getCurrentStage());
+		break;
 	default:
 		std::cout << "ERROR while fetching current stage: \n in Function Backgroung::draw()" << std::endl;
 		break;
@@ -434,7 +453,7 @@ int BackGround::draw(GameState &state)
 	{
 		Stage s = encyclopedia->getStage();
 		std::cout << "Current Stage of dict =>" << Resource::getStageName(s) << std::endl;
-		
+
 		Text stage_of_dict; // stage_of_dict
 		stage_of_dict.setFont(font);
 		stage_of_dict.setCharacterSize(40);
@@ -466,6 +485,10 @@ int BackGround::draw(GameState &state)
 		setting.draw(window);
 		break;
 	}
+
+	case g_clear:
+		window->draw(main_s);
+		break;
 	}
 
 	return 99; // good return
@@ -474,6 +497,6 @@ int BackGround::draw(GameState &state)
 void BackGround::drawScaffold(sf::RenderWindow *window)
 {
 	window->draw(main_s);
-	window->draw(stage);
+
 	window->draw(back_s);
 }

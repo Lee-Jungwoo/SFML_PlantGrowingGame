@@ -2,9 +2,9 @@
 
 Minigame::Minigame()
 {
-	this->back1_t.loadFromFile("../../yellow_rect.png");
-	this->back2_t.loadFromFile("../../yellow_rect.png");
-	this->back3_t.loadFromFile("../../yellow_rect.png");
+	this->back1_t.loadFromFile("../../assets/mini_game/minigame_1.png");
+	this->back2_t.loadFromFile("../../assets/mini_game/minigame_2.png");
+	this->back3_t.loadFromFile("../../assets/mini_game/minigame_3.png");
 	this->back4_t.loadFromFile("../../yellow_rect.png");
 
 	this->back1_s = Sprite(this->back1_t);
@@ -48,16 +48,18 @@ int Minigame::draw(sf::RenderWindow *window)
 	return 0;
 }
 
-bool Minigame::startGame(int num, sf::RenderWindow *window)
+bool Minigame::startGame(int num, sf::RenderWindow *window, GameState &state)
 {
+	int score;
 	switch (num)
 	{
 	case 1:
 		std::cout << "game 1 going" << std::endl;
-		if (Game::startGame(window))
+		if ((score = Game::startGame(window)))
 		{
 			std::cout << "kk" << std::endl;
-			return true; 
+			state.addGold(50 * score);
+			return true;
 		}
 		else
 		{
@@ -70,7 +72,7 @@ bool Minigame::startGame(int num, sf::RenderWindow *window)
 		if (AvoidPoop::startGame(window))
 		{
 			std::cout << "kk" << std::endl;
-			return true; 
+			return true;
 		}
 		else
 		{
@@ -80,10 +82,11 @@ bool Minigame::startGame(int num, sf::RenderWindow *window)
 		break;
 	case 3:
 		std::cout << "game 3 going" << std::endl;
-		if (Game2::startGame(window))
+		if ((score = Game2::startGame(window)))
 		{
 			std::cout << "kk" << std::endl;
-			return true; 
+			state.addGold(50 * score);
+			return true;
 		}
 		else
 		{

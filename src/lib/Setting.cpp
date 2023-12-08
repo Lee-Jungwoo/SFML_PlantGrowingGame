@@ -67,7 +67,7 @@ void Setting::setSongByStage(Stage stage)
 		case Stage::Tropical:
 			currentMusic = &music_Tropical;
 			break;
-
+		
 		default:
 			break;
 		}
