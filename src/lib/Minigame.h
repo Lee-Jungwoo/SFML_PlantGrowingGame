@@ -2,7 +2,8 @@
 #define MINIGAME_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
-// #include "mini_game_HM.h"
+#include "mini_game_HM_1.h"
+#include "mini_game_HM_2.h"
 #include "mini_game_JS.cpp"
 
 using namespace sf;

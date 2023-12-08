@@ -26,7 +26,7 @@ Slot::Slot()
 	fert_s.setPosition(210.f, 640.f);
 	skip_s.setPosition(378.f, 640.f);
 
-	this->font.loadFromFile("../../Font-Medium.ttf");
+	this->font.loadFromFile("../../assets/Fonts/Font-Medium.ttf");
 	this->text.setFont(font);
 	this->text.setCharacterSize(30);
 	this->text.setFillColor(sf::Color::Black);

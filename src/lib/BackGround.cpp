@@ -9,7 +9,7 @@ BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 	this->window = window;
 
 	// Background screen
-	main_t.loadFromFile("../../LoadingScreen.png");
+	main_t.loadFromFile("../../assets/LoadingScreen.png");
 	main_s = Sprite(main_t);
 
 	// Next Day Button
@@ -18,7 +18,7 @@ BackGround::BackGround(GameState &state, sf::RenderWindow *window)
 	nextDay_s.setPosition(443, 143);
 
 	// Current Stage init.
-	this->font.loadFromFile("../../Font-Medium.ttf");
+	this->font.loadFromFile("../../assets/Fonts/Font-Medium.ttf");
 	stage.setFont(font);
 	stage.setCharacterSize(45);
 	stage.setFillColor(sf::Color::Black);
@@ -291,7 +291,7 @@ int BackGround::draw(GameState &state)
 	{
 	case g_loading:
 	{
-		if (!this->main_t.loadFromFile("../../LoadingScreen.png"))
+		if (!this->main_t.loadFromFile("../../assets/LoadingScreen.png"))
 		{
 			return EXIT_FAILURE;
 		}

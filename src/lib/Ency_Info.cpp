@@ -16,7 +16,7 @@ EncyclopediaInfoView::EncyclopediaInfoView()
 
     
 
-	this->font.loadFromFile("../../Font-Medium.ttf");
+	this->font.loadFromFile("../../assets/Fonts/Font-Medium.ttf");
 	this->infoText.setFont(font);
 	this->infoText.setCharacterSize(16);
 	this->infoText.setFillColor(sf::Color::White);

@@ -51,9 +51,14 @@ add_executable(SIMPLE_GAME
 
     src/lib/mini_game_JS.cpp
 
+    src/lib/mini_game_HM_1.h
+    src/lib/mini_game_HM_1.cpp
+    src/lib/mini_game_HM_2.h
+    src/lib/mini_game_HM_2.cpp
+
     src/main/main.cpp 
 
-    
+     
 
 )
 target_link_libraries(SIMPLE_GAME PRIVATE 

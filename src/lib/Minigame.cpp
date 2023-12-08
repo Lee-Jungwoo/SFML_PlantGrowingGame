@@ -16,57 +16,24 @@ Minigame::Minigame()
 	back2_s.setPosition(41, 350);
 	back3_s.setPosition(41, 470);
 	back4_s.setPosition(41, 590);
-
-/*
-	this->font.loadFromFile("../../Font-Medium.ttf");
-
-	text1.setFont(font);
-	text1.setCharacterSize(19);
-	text1.setFillColor(sf::Color::Black);
-	text1.setString("Game1");
-	text1.setPosition(270, 147);
-	text1.setStyle(sf::Text::Bold);
-
-	text2.setFont(font);
-	text2.setCharacterSize(19);
-	text2.setFillColor(sf::Color::Black);
-	text2.setString("Game2");
-	text2.setPosition(270, 279);
-	text2.setStyle(sf::Text::Bold);
-
-	text3.setFont(font);
-	text3.setCharacterSize(19);
-	text3.setFillColor(sf::Color::Black);
-	text3.setString("Game3");
-	text3.setPosition(270, 411);
-	text3.setStyle(sf::Text::Bold);
-
-	text4.setFont(font);
-	text4.setCharacterSize(19);
-	text4.setFillColor(sf::Color::Black);
-	text4.setString("Game4");
-	text4.setPosition(270, 543);
-	text4.setStyle(sf::Text::Bold);
-*/
-
 }
 
 Sprite *Minigame::getSlotSprite(int num)
 {
-    switch (num)
+	switch (num)
 	{
 	case 1:
 		return &back1_s;
-		
+
 	case 2:
 		return &back2_s;
-		
+
 	case 3:
 		return &back3_s;
 	case 4:
 		return &back4_s;
 	default:
-		std::cout<<"ERROR while fetchig slot sprites in minigame: invalid argument"<<std::endl;
+		std::cout << "ERROR while fetchig slot sprites in minigame: invalid argument" << std::endl;
 		return nullptr;
 	}
 }
@@ -76,38 +43,53 @@ int Minigame::draw(sf::RenderWindow *window)
 
 	window->draw(back1_s);
 	window->draw(back2_s);
-	// window->draw(back3_s);
-	// window->draw(back4_s);
+	window->draw(back3_s);
 
-/*	// window->draw(text1);
-	// window->draw(text2);
-	// window->draw(text3);
-	// window->draw(text4);
-*/
-	
 	return 0;
-
 }
 
-bool Minigame::startGame(int num,sf::RenderWindow *window)
+bool Minigame::startGame(int num, sf::RenderWindow *window)
 {
 	switch (num)
 	{
 	case 1:
-		// ClickerGame::startClickerGame(window);
+		std::cout << "game 1 going" << std::endl;
+		if (Game::startGame(window))
+		{
+			std::cout << "kk" << std::endl;
+			return true; 
+		}
+		else
+		{
+			std::cout << "GAME FAILED" << std::endl;
+			return false;
+		}
 		break;
 	case 2:
-		std::cout<<"game 2 going"<<std::endl;
-		if(AvoidPoop::startGame(window))
-			{
-				std::cout<<"kk"<<std::endl;
-				return true; //500 gold return
-			}
-		else {
-			std::cout<<"GAME FAILED"<<std::endl;
-			return false;}
+		std::cout << "game 2 going" << std::endl;
+		if (AvoidPoop::startGame(window))
+		{
+			std::cout << "kk" << std::endl;
+			return true; 
+		}
+		else
+		{
+			std::cout << "GAME FAILED" << std::endl;
+			return false;
+		}
 		break;
 	case 3:
+		std::cout << "game 3 going" << std::endl;
+		if (Game2::startGame(window))
+		{
+			std::cout << "kk" << std::endl;
+			return true; 
+		}
+		else
+		{
+			std::cout << "GAME FAILED" << std::endl;
+			return false;
+		}
 		break;
 	default:
 		break;
