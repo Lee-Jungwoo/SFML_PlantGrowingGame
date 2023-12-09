@@ -19,6 +19,8 @@ MainSlot::MainSlot(GameState &state)
 
 	for (int i = 0; i < currentNumberOfPlant; i++)
 	{
+		if(state.getPlantSlot(i)->getPlant() == nullptr)
+			continue;
 		plant_s[i] = *state.getPlantSlot(i)->getPlant()->getSprite();
 		std::cout<<Resource::getName(state.getPlantSlot(i)->getPlant()->getSpecies())<<std::endl;
 		plant_s[i].setPosition(83 + (i % 2) * 254, 277 + (i > 1) * 245);

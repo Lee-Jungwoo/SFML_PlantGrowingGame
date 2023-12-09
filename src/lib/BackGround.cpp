@@ -59,9 +59,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (state.isAllHandled() && nextDay_s.getGlobalBounds().contains(x, y))
 		{
 			state.nextDay();
-			
 		}
-
 
 		if (shop_s.getGlobalBounds().contains(x, y))
 			this->mode = g_shop;
@@ -72,8 +70,8 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 		if (setting_s.getGlobalBounds().contains(x, y))
 			this->mode = g_setting;
 
-
-		if(state.getCurrentStage() == Stage::End){
+		if (state.getCurrentStage() == Stage::End)
+		{
 			this->mode = g_clear;
 		}
 		break;
@@ -191,6 +189,7 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			{
 				this->mode = g_encyclopedia_info;
 				encyInfoView.changeMode(encyclopedia->getPlantsInCurrentStage()[i]);
+				dictIdx = i;
 			}
 		}
 
@@ -199,12 +198,14 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			std::cout << "Left arrow clicked." << std::endl;
 
 			encyclopedia->prevStage();
+			state.setStageInDict(encyclopedia->getStage());
 		}
 		else if (encyclopedia->getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
 			std::cout << "Right Arrow clicked" << std::endl;
 
 			encyclopedia->nextStage();
+			state.setStageInDict(encyclopedia->getStage());
 		}
 
 		if (back_s.getGlobalBounds().contains(x, y))
@@ -229,7 +230,10 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			if (dictIdx != 0)
 				encyInfoView.changeMode(plantInCurrentStageDict[--dictIdx]);
 			else
+			{
 				encyInfoView.changeMode(plantInCurrentStageDict[plantInCurrentStageDict.size() - 1]);
+				dictIdx = plantInCurrentStageDict.size() - 1;
+			}
 		}
 		else if (encyInfoView.getRightArrowSprite()->getGlobalBounds().contains(x, y))
 		{
@@ -237,7 +241,10 @@ void BackGround::ChangeMode(sf::Vector2i pos, GameState &state)
 			if (dictIdx != plantInCurrentStageDict.size() - 1)
 				encyInfoView.changeMode(plantInCurrentStageDict[++dictIdx]);
 			else
+			{
 				encyInfoView.changeMode(plantInCurrentStageDict[0]);
+				dictIdx = 0;
+			}
 		}
 		if (back_s.getGlobalBounds().contains(x, y))
 		{
@@ -295,17 +302,16 @@ int BackGround::draw(GameState &state)
 		break;
 
 	case Stage::End:
-		if(!this->main_t.loadFromFile("../../assets/GameClear.png"))
-			{
+		if (!this->main_t.loadFromFile("../../assets/GameClear.png"))
+		{
 			return 0;
-			}
+		}
 		setting.setSongByStage(state.getCurrentStage());
 		break;
 	default:
 		std::cout << "ERROR while fetching current stage: \n in Function Backgroung::draw()" << std::endl;
 		break;
 	}
-
 	switch (this->mode)
 	{
 	case g_loading:
@@ -473,24 +479,20 @@ int BackGround::draw(GameState &state)
 	case g_encyclopedia_info:
 	{
 		window->draw(main_s);
-
 		window->draw(back_s);
 		encyInfoView.draw(window);
 		break;
 	}
-
 	case g_setting:
 	{
 		this->drawScaffold(window);
 		setting.draw(window);
 		break;
 	}
-
 	case g_clear:
 		window->draw(main_s);
 		break;
 	}
-
 	return 99; // good return
 }
 

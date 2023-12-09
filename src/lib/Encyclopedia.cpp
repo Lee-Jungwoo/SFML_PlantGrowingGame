@@ -108,6 +108,7 @@ bool Encyclopedia::nextStage()
 		stage = Stage::Desert;
 		return true;
 	}
+	
 }
 
 bool Encyclopedia::prevStage()

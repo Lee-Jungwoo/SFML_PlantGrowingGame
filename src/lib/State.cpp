@@ -193,7 +193,7 @@ sf::Sprite *GameState::getFertBucketSprite()
     return this->fertBucket.getSprite();
 }
 
-void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
+void GameState::buyNewPlant(int num) 
 {
     std::vector<PlantSpecies>::iterator i = remainingPlants_Shop.begin();
 
@@ -210,7 +210,7 @@ void GameState::buyNewPlant(int num) // 1~ 4 집어넣어주면 됨.
     remainingPlants_Shop.erase(i);
 
     plantSlot[slotNum] = PlantSlot();
-    plantSlot[slotNum++].pushPlant(new Plant(s)); // nextslot갈때 slotnum 0 되어야함
+    plantSlot[slotNum++].pushPlant(new Plant(s)); 
 }
 
 bool GameState::isAllHandled()

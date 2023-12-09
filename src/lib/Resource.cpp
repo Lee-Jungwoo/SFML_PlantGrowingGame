@@ -24,33 +24,33 @@ std::map<Stage, std::vector<PlantSpecies> *> Resource::plantByStage = {
          PlantSpecies::Potato,
          PlantSpecies::Tropical_Flower}}};
 
-// std::map<PlantSpecies, int> Resource::bloomingDay = {
-//     {PlantSpecies::Carrot, 5},
-//     {PlantSpecies::Millet, 4},
-//     {PlantSpecies::Oat, 7},
-//     {PlantSpecies::Yacon, 8},
-//     {PlantSpecies::Cabbage, 9},
-//     {PlantSpecies::Strawberry, 8},
-//     {PlantSpecies::Tomato, 4},
-//     {PlantSpecies::Watermelon, 6},
-//     {PlantSpecies::Corn, 9},
-//     {PlantSpecies::Pepper, 10},
-//     {PlantSpecies::Potato, 7},
-//     {PlantSpecies::Tropical_Flower, 6}};
+std::map<PlantSpecies, int> Resource::bloomingDay = {
+    {PlantSpecies::Carrot, 7},
+    {PlantSpecies::Millet, 3},
+    {PlantSpecies::Oat, 6},
+    {PlantSpecies::Yacon, 4},
+    {PlantSpecies::Cabbage, 8},
+    {PlantSpecies::Strawberry, 7},
+    {PlantSpecies::Tomato, 4},
+    {PlantSpecies::Watermelon, 3},
+    {PlantSpecies::Corn,8},
+    {PlantSpecies::Pepper, 3},
+    {PlantSpecies::Potato, 9},
+    {PlantSpecies::Tropical_Flower, 12}};
 
-    std::map<PlantSpecies, int> Resource::bloomingDay = {
-    {PlantSpecies::Carrot, 1},
-    {PlantSpecies::Millet, 1},
-    {PlantSpecies::Oat, 1},
-    {PlantSpecies::Yacon, 1},
-    {PlantSpecies::Cabbage, 1},
-    {PlantSpecies::Strawberry, 1},
-    {PlantSpecies::Tomato, 1},
-    {PlantSpecies::Watermelon,1},
-    {PlantSpecies::Corn, 1},
-    {PlantSpecies::Pepper, 1},
-    {PlantSpecies::Potato, 1},
-    {PlantSpecies::Tropical_Flower, 1}};
+    // std::map<PlantSpecies, int> Resource::bloomingDay = {
+    // {PlantSpecies::Carrot, 1},
+    // {PlantSpecies::Millet, 1},
+    // {PlantSpecies::Oat, 1},
+    // {PlantSpecies::Yacon, 1},
+    // {PlantSpecies::Cabbage, 1},
+    // {PlantSpecies::Strawberry, 1},
+    // {PlantSpecies::Tomato, 1},
+    // {PlantSpecies::Watermelon, 1},
+    // {PlantSpecies::Corn, 1},
+    // {PlantSpecies::Pepper, 1},
+    // {PlantSpecies::Potato, 1},
+    // {PlantSpecies::Tropical_Flower, 1}};
 
 std::map<PlantSpecies, int> Resource::price = {
     {PlantSpecies::Carrot, 1000},
